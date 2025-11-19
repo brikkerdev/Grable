@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Grable</string>
+    <string name="main_title">Привет!</string>
+    <string name="main_subtitle">Время прокачать словарный запас</string>
+    <string name="action_repeat_title">Повторение слов</string>
+    <string name="action_repeat_desc">Закрепи изученные слова быстрой тренировкой.</string>
+    <string name="action_repeat_cta">Начать повторение</string>
+    <string name="action_collection_title">Учить подборку</string>
+    <string name="action_collection_desc">Собери набор слов по теме и проходи курс.</string>
+    <string name="action_collection_cta">Выбрать подборку</string>
+    <string name="categories_title">Добавь слова по категориям</string>
+    <string name="categories_hint">Собери новую подборку из любимых тем.</string>
+    <string name="category_food">Еда</string>
+    <string name="category_medicine">Медицина</string>
+    <string name="category_b2">Словарь B2</string>
+    <string name="category_c1">Словарь C1</string>
+    <string name="add_categories_cta">Добавить в подборку</string>
 </resources>
