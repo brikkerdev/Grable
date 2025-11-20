@@ -22,4 +22,18 @@
     <string name="privacy_policy">Политика конфиденциальности</string>
     <string name="app_version">Версия 1.0.0</string>
     <string name="app_name">Grable</string>
+    <string name="native_language">Родной язык</string>
+    <string name="russian">Русский</string>
+    <string name="learning_mode">Режим изучения</string>
+    <string name="vocabulary_first">Сначала слова</string>
+    <string name="audio_settings">Настройки аудио</string>
+    <string name="auto_play_sound">Автоматическое проигрывание</string>
+    <string name="auto_play_description">Звук воспроизводится автоматически</string>
+    <string name="playback_speed">Скорость воспроизведения</string>
+    <string name="voice_type">Голос</string>
+    <string name="female_voice">Женский</string>
+    <string name="data_management">Управление данными</string>
+    <string name="export_progress">Экспортировать прогресс</string>
+    <string name="reset_progress">Сброс прогресса</string>
+    <string name="terms_of_service">Условия пользования</string>
 </resources>
