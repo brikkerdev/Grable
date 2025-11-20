@@ -11,6 +11,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Header -->
+        <include
+            android:id="@+id/header"
+            layout="@layout/layout_header" />
+
         <!-- Заголовок раздела: Основные настройки -->
         <TextView
             android:layout_width="match_parent"
@@ -674,6 +679,13 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="16dp" />
 
+        <!-- Footer -->
+        <include
+            android:id="@+id/footer"
+            layout="@layout/layout_footer" />
+
     </LinearLayout>
+
+
 
 </ScrollView>

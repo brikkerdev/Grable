@@ -48,4 +48,8 @@
     <string name="category_b2">Словарь B2</string>
     <string name="category_c1">Словарь C1</string>
     <string name="add_categories_cta">Добавить в подборку</string>
+    <string name="home">Главная</string>
+    <string name="learn">Учить</string>
+    <string name="statistics">Статистика</string>
+    <string name="settings">Настройки</string>
 </resources>

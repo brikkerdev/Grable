@@ -10,6 +10,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Header -->
+        <include
+            android:id="@+id/header"
+            layout="@layout/layout_header"
+            />
+
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -95,6 +102,11 @@
             android:padding="12dp"
             android:backgroundTint="#4C6EF5"
             android:textColor="#FFFFFF" />
+
+        <!-- Footer -->
+        <include
+            android:id="@+id/footer"
+            layout="@layout/layout_footer" />
 
     </LinearLayout>
 </ScrollView>

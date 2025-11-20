@@ -9,6 +9,8 @@
     android:fillViewport="true"
     tools:context=".MainActivity">
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,6 +18,12 @@
         android:paddingHorizontal="24dp"
         android:paddingTop="32dp"
         android:paddingBottom="40dp">
+
+        <!-- Header -->
+        <include
+            android:id="@+id/header"
+            layout="@layout/layout_header"
+            />
 
         <TextView
             android:id="@+id/title"
@@ -210,5 +218,14 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textStyle="bold" />
+
+        <!-- Footer -->
+        <include
+            android:id="@+id/footer"
+            layout="@layout/layout_footer" />
+
     </LinearLayout>
+
+
+
 </androidx.core.widget.NestedScrollView>
