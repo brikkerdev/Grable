@@ -12,103 +12,94 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Навигация -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingVertical="4dp">
 
-            <!-- Главная -->
             <LinearLayout
                 android:id="@+id/footerHome"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
                 android:gravity="center"
+                android:orientation="vertical"
                 android:paddingVertical="12dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?attr/selectableItemBackground">
+                android:background="?attr/selectableItemBackground"
+                >
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/home"
-                    android:textSize="12sp"
-                    android:textColor="@color/secondary_text_color"
-                    android:layout_marginTop="4dp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_home"
+                    app:tint="@color/black"
+                    />
 
             </LinearLayout>
 
-            <!-- Обучение -->
             <LinearLayout
                 android:id="@+id/footerLearn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
                 android:gravity="center"
+                android:orientation="vertical"
                 android:paddingVertical="12dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/learn"
-                    android:textSize="12sp"
-                    android:textColor="@color/secondary_text_color"
-                    android:layout_marginTop="4dp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_learn"
+                    app:tint="@color/black"
+                    />
 
             </LinearLayout>
 
-            <!-- Статистика -->
             <LinearLayout
                 android:id="@+id/footerStats"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
                 android:gravity="center"
+                android:orientation="vertical"
                 android:paddingVertical="12dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/statistics"
-                    android:textSize="12sp"
-                    android:textColor="@color/secondary_text_color"
-                    android:layout_marginTop="4dp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_stats"
+                    app:tint="@color/black"
+                    />
 
             </LinearLayout>
 
-            <!-- Настройки -->
             <LinearLayout
                 android:id="@+id/footerSettings"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
                 android:gravity="center"
+                android:orientation="vertical"
                 android:paddingVertical="12dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/settings"
-                    android:textSize="12sp"
-                    android:textColor="@color/primary_color"
-                    android:textStyle="bold"
-                    android:layout_marginTop="4dp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_settings"
+                    app:tint="@color/black"
+                    />
 
             </LinearLayout>
 
