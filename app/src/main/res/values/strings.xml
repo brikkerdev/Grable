@@ -3,12 +3,10 @@
     <string name="target_language">Язык изучения</string>
     <string name="english">Английский</string>
     <string name="daily_goal">Цель на день</string>
-
     <string name="notifications">Уведомления</string>
     <string name="daily_reminders">Ежедневные напоминания</string>
     <string name="progress_notifications">Уведомления о прогрессе</string>
     <string name="weekly_progress_reports">Еженедельные отчеты</string>
-
     <string name="learning">Обучение</string>
     <string name="pronunciation">Произношение</string>
     <string name="native_speaker">Носитель языка</string>
@@ -16,7 +14,6 @@
     <string name="beginner">Начинающий</string>
     <string name="word_repetition">Повторение слов</string>
     <string name="repeat_learned_words">Повторять изученные слова</string>
-
     <string name="about_app">О приложении</string>
     <string name="about">О приложении</string>
     <string name="privacy_policy">Политика конфиденциальности</string>
@@ -36,8 +33,23 @@
     <string name="export_progress">Экспортировать прогресс</string>
     <string name="reset_progress">Сброс прогресса</string>
     <string name="terms_of_service">Условия пользования</string>
+    <string name="main_title">Привет!</string>
+    <string name="main_subtitle">Время прокачать словарный запас</string>
+    <string name="action_repeat_title">Повторение слов</string>
+    <string name="action_repeat_desc">Закрепи изученные слова быстрой тренировкой.</string>
+    <string name="action_repeat_cta">Начать повторение</string>
+    <string name="action_collection_title">Учить подборку</string>
+    <string name="action_collection_desc">Собери набор слов по теме и проходи курс.</string>
+    <string name="action_collection_cta">Выбрать подборку</string>
+    <string name="categories_title">Добавь слова по категориям</string>
+    <string name="categories_hint">Собери новую подборку из любимых тем.</string>
+    <string name="category_food">Еда</string>
+    <string name="category_medicine">Медицина</string>
+    <string name="category_b2">Словарь B2</string>
+    <string name="category_c1">Словарь C1</string>
+    <string name="add_categories_cta">Добавить в подборку</string>
+    <string name="home">Главная</string>
+    <string name="learn">Учить</string>
     <string name="statistics">Статистика</string>
     <string name="settings">Настройки</string>
-    <string name="learn">Учить</string>
-    <string name="home">Главная</string>
 </resources>
