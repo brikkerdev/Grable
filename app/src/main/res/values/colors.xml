@@ -5,4 +5,13 @@
     <color name="primary_color">#2196F3</color>
     <color name="divider_color">#E0E0E0</color>
     <color name="error_color">#FF1010</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="background_surface">#FFF7F3</color>
+    <color name="card_surface">#FFFFFFFF</color>
+    <color name="card_surface_alt">#FFEFF6</color>
+    <color name="accent_primary">#5C6AC4</color>
+    <color name="accent_secondary">#F9A826</color>
+    <color name="text_primary">#1F1F1F</color>
+    <color name="text_secondary">#6F6F6F</color>
 </resources>
