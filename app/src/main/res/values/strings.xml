@@ -36,4 +36,8 @@
     <string name="export_progress">Экспортировать прогресс</string>
     <string name="reset_progress">Сброс прогресса</string>
     <string name="terms_of_service">Условия пользования</string>
+    <string name="statistics">Статистика</string>
+    <string name="settings">Настройки</string>
+    <string name="learn">Учить</string>
+    <string name="home">Главная</string>
 </resources>
