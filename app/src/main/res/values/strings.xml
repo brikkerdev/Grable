@@ -52,6 +52,6 @@
     <string name="learn">Учить</string>
     <string name="statistics">Статистика</string>
     <string name="settings">Настройки</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_word">Добавить слова</string>
+    <string name="progress">Прогресс</string>
 </resources>
