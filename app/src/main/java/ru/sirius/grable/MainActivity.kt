@@ -3,27 +3,22 @@
 package ru.sirius.grable
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var footerHome: LinearLayout
-    private lateinit var footerLearn: LinearLayout
-    private lateinit var footerStats: LinearLayout
-    private lateinit var footerSettings: LinearLayout
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // Initialize footer views
-        footerHome = findViewById(R.id.footerHome)
-        footerLearn = findViewById(R.id.footerLearn)
-        footerStats = findViewById(R.id.footerStats)
-        footerSettings = findViewById(R.id.footerSettings)
+        val footerHome = findViewById<View>(R.id.footerHome)
+        val footerLearn = findViewById<View>(R.id.footerLearn)
+        val footerStats = findViewById<View>(R.id.footerStats)
+        val footerSettings = findViewById<View>(R.id.footerSettings)
 
         // Set click listeners
         footerHome.setOnClickListener { switchFragment(HomeFragment()) }
@@ -40,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private fun switchFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
             .commit()
     }
 }
