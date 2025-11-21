@@ -52,4 +52,6 @@
     <string name="learn">Учить</string>
     <string name="statistics">Статистика</string>
     <string name="settings">Настройки</string>
+    <string name="add_word">Добавить слова</string>
+    <string name="progress">Прогресс</string>
 </resources>

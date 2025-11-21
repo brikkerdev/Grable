@@ -14,6 +14,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Header -->
+        <include
+            android:id="@+id/header"
+            layout="@layout/layout_header"
+            />
+
         <!-- Раздел Стандарт -->
         <TextView
             android:id="@+id/tvPeriodTitle"
@@ -84,6 +90,11 @@
             android:id="@+id/rvStatistics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <!-- Footer -->
+        <include
+            android:id="@+id/footer"
+            layout="@layout/layout_footer" />
 
     </LinearLayout>
 </ScrollView>
