@@ -8,19 +8,16 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <!-- Header -->
     <include
         android:id="@+id/header"
         layout="@layout/layout_header" />
 
-    <!-- Fragment Container -->
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <!-- Footer -->
     <include
         android:id="@+id/footer"
         layout="@layout/layout_footer" />
