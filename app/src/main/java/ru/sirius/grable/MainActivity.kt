@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import ru.sirius.grable.add_word.AddWordFragment
+import ru.sirius.grable.learn.LearnFragment
 import ru.sirius.grable.main.HomeFragment
 import ru.sirius.grable.progress.StatsFragment
 import ru.sirius.grable.settings.SettingsFragment
@@ -28,11 +29,13 @@ class MainActivity : AppCompatActivity() {
 
         val footerHome = findViewById<View>(R.id.footerHome)
         val footerLearn = findViewById<View>(R.id.footerLearn)
+        val footerAddWord = findViewById<View>(R.id.footerAddWord)
         val footerStats = findViewById<View>(R.id.footerStats)
         val footerSettings = findViewById<View>(R.id.footerSettings)
 
         footerHome.setOnClickListener { switchFragment(HomeFragment()) }
-        footerLearn.setOnClickListener { switchFragment(AddWordFragment()) }
+        footerLearn.setOnClickListener { switchFragment(LearnFragment()) }
+        footerAddWord.setOnClickListener { switchFragment(AddWordFragment()) }
         footerStats.setOnClickListener { switchFragment(StatsFragment()) }
         footerSettings.setOnClickListener { switchFragment(SettingsFragment()) }
 
