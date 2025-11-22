@@ -1,4 +1,46 @@
 <resources>
+    <!-- Primary colors (Material 3) -->
+    <color name="primary">#5C6AC4</color>
+    <color name="primary_variant">#4A5AB0</color>
+    <color name="on_primary">#FFFFFFFF</color>
+    <color name="primary_container">#FFEFF6</color>
+    <color name="on_primary_container">#1F1F1F</color>
+    
+    <!-- Secondary colors -->
+    <color name="secondary">#F9A826</color>
+    <color name="on_secondary">#FFFFFFFF</color>
+    <color name="secondary_container">#FFF4E0</color>
+    <color name="on_secondary_container">#1F1F1F</color>
+    
+    <!-- Surface colors -->
+    <color name="surface">#FFFFFFFF</color>
+    <color name="surface_variant">#FFEFF6</color>
+    <color name="on_surface">#1F1F1F</color>
+    <color name="on_surface_variant">#6F6F6F</color>
+    
+    <!-- Background -->
+    <color name="background">#F5F5F5</color>
+    <color name="on_background">#1F1F1F</color>
+    
+    <!-- Text colors -->
+    <color name="text_primary">#1F1F1F</color>
+    <color name="text_secondary">#6F6F6F</color>
+    <color name="text_disabled">#BDBDBD</color>
+    
+    <!-- Semantic colors -->
+    <color name="error">#FF1010</color>
+    <color name="on_error">#FFFFFFFF</color>
+    <color name="error_container">#FFEBEE</color>
+    <color name="on_error_container">#C62828</color>
+    <color name="success">#4CAF50</color>
+    <color name="warning">#FF9800</color>
+    
+    <!-- Divider and outline -->
+    <color name="divider">#E0E0E0</color>
+    <color name="outline">#BDBDBD</color>
+    <color name="outline_variant">#E0E0E0</color>
+    
+    <!-- Legacy colors (for backward compatibility) -->
     <color name="background_color">#F5F5F5</color>
     <color name="primary_text_color">#212121</color>
     <color name="secondary_text_color">#757575</color>
@@ -12,6 +54,4 @@
     <color name="card_surface_alt">#FFEFF6</color>
     <color name="accent_primary">#5C6AC4</color>
     <color name="accent_secondary">#F9A826</color>
-    <color name="text_primary">#1F1F1F</color>
-    <color name="text_secondary">#6F6F6F</color>
 </resources>

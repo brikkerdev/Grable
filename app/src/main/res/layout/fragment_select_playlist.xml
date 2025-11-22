@@ -3,14 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background">
 
     <TextView
         android:id="@+id/page_name"
-        android:textStyle="bold"
         android:layout_width="match_parent"
-        android:textSize="20sp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:text="playlists"
+        style="@style/TextAppearanceHeadline3"
+        android:padding="@dimen/spacing_base"
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center"
         tools:text="playlists" />
@@ -19,6 +21,7 @@
         android:id="@+id/playlist_items"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:padding="@dimen/spacing_base"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

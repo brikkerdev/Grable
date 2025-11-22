@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="12dp"
+    app:cardCornerRadius="@dimen/radius_md"
     app:cardElevation="4dp"
-    app:cardBackgroundColor="@color/background_color">
+    app:cardBackgroundColor="@color/surface">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="8dp"
+        android:padding="@dimen/header_padding"
         android:gravity="center_vertical">
 
         <!-- Заголовок -->
@@ -20,16 +20,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingStart="8dp">
+            android:paddingStart="@dimen/spacing_sm">
 
             <TextView
                 android:id="@+id/tvHeaderTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/primary_text_color" />
+                style="@style/TextAppearanceHeadline3" />
 
         </LinearLayout>
 

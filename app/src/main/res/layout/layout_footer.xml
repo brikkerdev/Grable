@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="12dp"
+    app:cardCornerRadius="@dimen/radius_md"
     app:cardElevation="4dp"
-    app:cardBackgroundColor="@color/background_color">
+    app:cardBackgroundColor="@color/surface">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingVertical="4dp">
+            android:paddingVertical="@dimen/footer_padding_vertical_small">
 
             <LinearLayout
                 android:id="@+id/footerHome"
@@ -25,17 +25,17 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingVertical="12dp"
+                android:paddingVertical="@dimen/footer_padding_vertical"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground"
                 >
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="@dimen/icon_md"
+                    android:layout_height="@dimen/icon_md"
                     android:src="@drawable/ic_home"
-                    app:tint="@color/black"
+                    app:tint="@color/on_background"
                     />
 
             </LinearLayout>
@@ -47,16 +47,16 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingVertical="12dp"
+                android:paddingVertical="@dimen/footer_padding_vertical"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="@dimen/icon_md"
+                    android:layout_height="@dimen/icon_md"
                     android:src="@drawable/ic_learn"
-                    app:tint="@color/black"
+                    app:tint="@color/on_background"
                     />
 
             </LinearLayout>
@@ -68,16 +68,16 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingVertical="12dp"
+                android:paddingVertical="@dimen/footer_padding_vertical"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="@dimen/icon_md"
+                    android:layout_height="@dimen/icon_md"
                     android:src="@drawable/ic_stats"
-                    app:tint="@color/black"
+                    app:tint="@color/on_background"
                     />
 
             </LinearLayout>
@@ -89,16 +89,16 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingVertical="12dp"
+                android:paddingVertical="@dimen/footer_padding_vertical"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="@dimen/icon_md"
+                    android:layout_height="@dimen/icon_md"
                     android:src="@drawable/ic_settings"
-                    app:tint="@color/black"
+                    app:tint="@color/on_background"
                     />
 
             </LinearLayout>

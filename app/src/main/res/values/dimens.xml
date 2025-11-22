@@ -1,0 +1,43 @@
+<resources>
+    <!-- Spacing (padding/margin) -->
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_sm">8dp</dimen>
+    <dimen name="spacing_md">12dp</dimen>
+    <dimen name="spacing_base">16dp</dimen>
+    <dimen name="spacing_lg">20dp</dimen>
+    <dimen name="spacing_xl">24dp</dimen>
+    <dimen name="spacing_2xl">32dp</dimen>
+    <dimen name="spacing_3xl">40dp</dimen>
+    
+    <!-- Border radius -->
+    <dimen name="radius_sm">8dp</dimen>
+    <dimen name="radius_md">12dp</dimen>
+    <dimen name="radius_lg">16dp</dimen>
+    <dimen name="radius_xl">20dp</dimen>
+    <dimen name="radius_2xl">24dp</dimen>
+    <dimen name="radius_full">999dp</dimen>
+    
+    <!-- Text sizes -->
+    <dimen name="text_xs">12sp</dimen>
+    <dimen name="text_sm">14sp</dimen>
+    <dimen name="text_base">16sp</dimen>
+    <dimen name="text_lg">18sp</dimen>
+    <dimen name="text_xl">20sp</dimen>
+    <dimen name="text_2xl">24sp</dimen>
+    <dimen name="text_3xl">32sp</dimen>
+    
+    <!-- Icon sizes -->
+    <dimen name="icon_sm">16dp</dimen>
+    <dimen name="icon_md">24dp</dimen>
+    <dimen name="icon_lg">32dp</dimen>
+    <dimen name="icon_xl">48dp</dimen>
+    
+    <!-- Common dimensions used in layouts -->
+    <dimen name="card_padding">20dp</dimen>
+    <dimen name="chip_padding_horizontal">18dp</dimen>
+    <dimen name="chip_padding_vertical">10dp</dimen>
+    <dimen name="header_padding">8dp</dimen>
+    <dimen name="footer_padding_vertical">12dp</dimen>
+    <dimen name="footer_padding_vertical_small">4dp</dimen>
+</resources>
+
