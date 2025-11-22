@@ -6,3 +6,5 @@
 - _**Ефимов Артём**_
 - **_Лузин Даниэль_**
 - _**Телегин Богдан**_
+
+![Описание](https://www.dropbox.com/scl/fi/dt0925wq8i0m9s584lxpo/.jpg?rlkey=2b0ufq3cckyltdnv88c0312jp&st=x3yfsvl3&raw=1)
