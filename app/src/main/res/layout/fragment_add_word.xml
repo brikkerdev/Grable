@@ -4,25 +4,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@color/background"
+    android:padding="@dimen/spacing_base">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="14dp"
-            app:cardElevation="4dp">
+            android:layout_marginBottom="@dimen/spacing_base"
+            app:cardCornerRadius="@dimen/radius_md"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/surface">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="@dimen/card_padding">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -38,7 +40,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="@dimen/spacing_md"
                     android:hint="Транскрипция (не обязательно)">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -50,7 +52,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="@dimen/spacing_md"
                     android:hint="Перевод">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -60,14 +62,14 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <ImageView
             android:id="@+id/imageExample"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:scaleType="centerCrop"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/spacing_base"
             android:src="@drawable/ic_launcher_foreground" />
 
         <LinearLayout
@@ -75,27 +77,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="@dimen/spacing_base" />
 
         <Button
             android:id="@+id/btnAddExample"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="+ Добавить пример использования"
-            android:layout_marginTop="12dp"
-            android:padding="12dp"
-            android:backgroundTint="#E0E7FF"
-            android:textColor="#3A4EFF" />
+            android:layout_marginTop="@dimen/spacing_md"
+            android:padding="@dimen/spacing_md"
+            android:backgroundTint="@color/primary_container"
+            android:textColor="@color/primary"
+            style="@style/TextAppearanceBody1" />
 
         <Button
             android:id="@+id/btnAdd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ДОБАВИТЬ СЛОВО"
-            android:layout_marginTop="24dp"
-            android:padding="12dp"
-            android:backgroundTint="#4C6EF5"
-            android:textColor="#FFFFFF" />
+            android:layout_marginTop="@dimen/spacing_xl"
+            android:padding="@dimen/spacing_md"
+            android:backgroundTint="@color/primary"
+            android:textColor="@color/on_primary"
+            style="@style/TextAppearanceButton" />
 
     </LinearLayout>
 </ScrollView>
