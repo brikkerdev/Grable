@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:padding="@dimen/spacing_base"
     android:id="@+id/scrollView"
     android:fillViewport="true"
-    android:paddingTop="24dp"
-    android:background="#FFFFFF"
+    android:paddingTop="@dimen/spacing_xl"
+    android:background="@color/background"
     android:clipToPadding="false">
 
     <LinearLayout
@@ -38,7 +38,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/inputWord"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_primary"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -50,7 +51,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/inputTranscription"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_primary"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -62,7 +64,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/inputTranslation"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_primary"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -78,32 +81,30 @@
             android:src="@drawable/ic_launcher_foreground" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvExamples"
+            android:id="@+id/rvExample"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="@dimen/spacing_base"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAddExample"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="+ Добавить пример использования"
             android:layout_marginTop="@dimen/spacing_md"
-            android:padding="@dimen/spacing_md"
-            android:backgroundTint="@color/primary_container"
+            app:backgroundTint="@color/primary_container"
             android:textColor="@color/primary"
-            style="@style/TextAppearanceBody1" />
+            android:textAppearance="@style/TextAppearanceBody1" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAdd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ДОБАВИТЬ СЛОВО"
             android:layout_marginTop="@dimen/spacing_xl"
-            android:padding="@dimen/spacing_md"
-            android:backgroundTint="@color/primary"
+            app:backgroundTint="@color/primary"
             android:textColor="@color/on_primary"
-            style="@style/TextAppearanceButton" />
+            android:textAppearance="@style/TextAppearanceButton" />
 
     </LinearLayout>
 </ScrollView>

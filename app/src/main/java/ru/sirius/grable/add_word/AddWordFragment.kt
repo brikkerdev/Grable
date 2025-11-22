@@ -29,7 +29,7 @@ class AddWordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rvExamples)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rvExample)
         val btnAddExample = view.findViewById<MaterialButton>(R.id.btnAddExample)
 
         adapter = ExamplesAdapter(emptyList()) { position, text ->

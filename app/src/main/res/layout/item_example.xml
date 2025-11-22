@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:text="Example text"
             android:textSize="18sp"
-            android:textColor="#000000" />
+            android:textAppearance="@style/TextAppearanceBody1" />
 
         <TextView
             android:id="@+id/tvExampleRu"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="Перевод"
             android:textSize="14sp"
-            android:textColor="#777777"
+            android:textColor="@color/primary"
             android:layout_marginTop="4dp" />
 
         <ImageView

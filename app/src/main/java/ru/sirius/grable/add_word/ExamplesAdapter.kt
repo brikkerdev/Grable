@@ -40,5 +40,6 @@ class ExamplesAdapter(
 
     fun updateData(newItems: List<String>) {
         items = newItems
+        notifyDataSetChanged()
     }
 }
