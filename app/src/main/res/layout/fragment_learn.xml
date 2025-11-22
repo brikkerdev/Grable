@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@color/background_color">
+    android:padding="@dimen/spacing_base"
+    android:background="@color/background">
 
     <!-- Прогресс изучения -->
     <LinearLayout
@@ -13,46 +13,44 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginBottom="24dp">
+        android:layout_marginBottom="@dimen/spacing_xl">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Прогресс:"
-            android:textSize="14sp"
-            android:textColor="@color/text_secondary" />
+            style="@style/TextAppearanceBody2" />
 
         <TextView
             android:id="@+id/tvProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1/10"
-            android:textSize="14sp"
-            android:textColor="@color/text_primary"
+            style="@style/TextAppearanceBody2"
             android:textStyle="bold" />
 
     </LinearLayout>
 
     <!-- Карточка слова -->
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardWord"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="@dimen/spacing_xl"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardCornerRadius="12dp"
+        app:cardCornerRadius="@dimen/radius_md"
         app:cardElevation="4dp"
-        app:cardBackgroundColor="@color/card_surface">
+        app:cardBackgroundColor="@color/surface">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="32dp"
+            android:padding="@dimen/spacing_2xl"
             android:gravity="center">
 
             <!-- Иностранное слово -->
@@ -61,10 +59,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hello"
-                android:textSize="32sp"
-                android:textColor="@color/text_primary"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp" />
+                android:textSize="@dimen/text_3xl"
+                style="@style/TextAppearanceHeadline1"
+                android:layout_marginBottom="@dimen/spacing_base" />
 
             <!-- Транскрипция -->
             <TextView
@@ -72,9 +69,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="/həˈləʊ/"
-                android:textSize="16sp"
-                android:textColor="@color/text_secondary"
-                android:layout_marginBottom="24dp" />
+                style="@style/TextAppearanceBody1"
+                android:layout_marginBottom="@dimen/spacing_xl" />
 
             <!-- Перевод (скрыт по умолчанию) -->
             <TextView
@@ -82,34 +78,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Привет"
-                android:textSize="20sp"
-                android:textColor="@color/accent_primary"
-                android:textStyle="bold"
+                android:textSize="@dimen/text_xl"
+                android:textColor="@color/primary"
+                style="@style/TextAppearanceHeadline3"
                 android:visibility="gone" />
 
             <!-- Аудио кнопка -->
             <ImageButton
                 android:id="@+id/btnAudio"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="24dp"
+                android:layout_width="@dimen/icon_xl"
+                android:layout_height="@dimen/icon_xl"
+                android:layout_marginTop="@dimen/spacing_xl"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/learn_play_sound"
-                app:tint="@color/accent_primary" />
+                app:tint="@color/primary" />
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- Подсказка -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/learn_tap_to_card"
-        android:textSize="14sp"
-        android:textColor="@color/text_secondary"
+        style="@style/TextAppearanceBody2"
         android:gravity="center"
-        android:layout_marginBottom="32dp" />
+        android:layout_marginBottom="@dimen/spacing_2xl" />
 
     <!-- Кнопки навигации -->
     <LinearLayout
@@ -122,34 +117,38 @@
         <Button
             android:id="@+id/btnPrevious"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="@dimen/spacing_sm"
             android:text="@string/learn_previous"
-            android:textColor="@color/accent_primary"
-            android:drawablePadding="8dp" />
+            android:textColor="@color/primary"
+            android:backgroundTint="@color/primary_container"
+            style="@style/TextAppearanceBody1" />
 
         <!-- Кнопка "Знаю/Не знаю" -->
         <Button
             android:id="@+id/btnKnow"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="@dimen/spacing_sm"
+            android:layout_marginEnd="@dimen/spacing_sm"
             android:text="@string/learn_know"
-            android:textColor="@color/white" />
+            android:backgroundTint="@color/primary"
+            android:textColor="@color/on_primary"
+            style="@style/TextAppearanceButton" />
 
         <!-- Кнопка "Следующее" -->
         <Button
             android:id="@+id/btnNext"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/spacing_sm"
             android:text="@string/learn_next"
-            android:textColor="@color/accent_primary"
-            android:drawablePadding="8dp" />
+            android:textColor="@color/primary"
+            android:backgroundTint="@color/primary_container"
+            style="@style/TextAppearanceBody1" />
 
     </LinearLayout>
 

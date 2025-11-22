@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="@color/background_color">
+    android:padding="@dimen/spacing_base"
+    android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,71 +16,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/general_settings"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_text_color"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp" />
+            style="@style/TextAppearanceHeadline3"
+            android:layout_marginTop="@dimen/spacing_sm"
+            android:layout_marginBottom="@dimen/spacing_base" />
 
         <!-- Карточка для основных настроек -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp">
+            android:layout_marginBottom="@dimen/spacing_xl"
+            app:cardCornerRadius="@dimen/radius_sm"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/surface">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Язык изучения -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/target_language"
-                            android:textSize="16sp"
-                            android:textColor="@color/primary_text_color" />
-
-                        <TextView
-                            android:id="@+id/tvCurrentLanguage"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/english"
-                            android:textSize="14sp"
-                            android:textColor="@color/secondary_text_color" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/divider_color" />
+                    android:background="@color/divider" />
 
                 <!-- Родной язык -->
                 <LinearLayout
+                    android:id="@+id/native_language_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="16dp"
+                    android:padding="@dimen/spacing_base"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true">
@@ -95,16 +60,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/native_language"
-                            android:textSize="16sp"
-                            android:textColor="@color/primary_text_color" />
+                            style="@style/TextAppearanceBody1" />
 
                         <TextView
                             android:id="@+id/tvNativeLanguage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/russian"
-                            android:textSize="14sp"
-                            android:textColor="@color/secondary_text_color" />
+                            style="@style/TextAppearanceBody2" />
 
                     </LinearLayout>
 
@@ -113,126 +76,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/divider_color" />
-
-                <!-- Уровень сложности -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/difficulty_level"
-                            android:textSize="16sp"
-                            android:textColor="@color/primary_text_color" />
-
-                        <TextView
-                            android:id="@+id/tvDifficultyLevel"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/beginner"
-                            android:textSize="14sp"
-                            android:textColor="@color/secondary_text_color" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/divider_color" />
-
-                <!-- Количество слов в день -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/daily_goal"
-                            android:textSize="16sp"
-                            android:textColor="@color/primary_text_color" />
-
-                        <TextView
-                            android:id="@+id/tvDailyGoal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="10 слов"
-                            android:textSize="14sp"
-                            android:textColor="@color/secondary_text_color" />
-
-                    </LinearLayout>
-
-                    <SeekBar
-                        android:id="@+id/seekBarDailyGoal"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:max="50"
-                        android:progress="10" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/divider_color" />
-
-                <!-- Тип изучения -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/learning_mode"
-                            android:textSize="16sp"
-                            android:textColor="@color/primary_text_color" />
-
-                        <TextView
-                            android:id="@+id/tvLearningMode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/vocabulary_first"
-                            android:textSize="14sp"
-                            android:textColor="@color/secondary_text_color" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
+                    android:background="@color/divider" />
 
             </LinearLayout>
 
@@ -243,112 +87,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/audio_settings"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_text_color"
-            android:layout_marginBottom="16dp" />
+            style="@style/TextAppearanceHeadline3"
+            android:layout_marginBottom="@dimen/spacing_base" />
 
         <!-- Карточка для аудио настроек -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp">
+            android:layout_marginBottom="@dimen/spacing_xl"
+            app:cardCornerRadius="@dimen/radius_sm"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/surface">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Автовоспроизведение звука -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/auto_play_sound"
-                            android:textSize="16sp"
-                            android:textColor="@color/primary_text_color" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/auto_play_description"
-                            android:textSize="14sp"
-                            android:textColor="@color/secondary_text_color" />
-
-                    </LinearLayout>
-
-                    <Switch
-                        android:id="@+id/switchAutoPlay"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/divider_color" />
-
-                <!-- Скорость воспроизведения -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/playback_speed"
-                            android:textSize="16sp"
-                            android:textColor="@color/primary_text_color" />
-
-                        <TextView
-                            android:id="@+id/tvPlaybackSpeed"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="1.0x"
-                            android:textSize="14sp"
-                            android:textColor="@color/secondary_text_color" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/divider_color" />
-
                 <!-- Озвучивание диктора -->
                 <LinearLayout
+                    android:id="@+id/voice_type_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="16dp"
+                    android:padding="@dimen/spacing_base"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true">
@@ -363,16 +125,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/voice_type"
-                            android:textSize="16sp"
-                            android:textColor="@color/primary_text_color" />
+                            style="@style/TextAppearanceBody1" />
 
                         <TextView
                             android:id="@+id/tvVoiceType"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/female_voice"
-                            android:textSize="14sp"
-                            android:textColor="@color/secondary_text_color" />
+                            style="@style/TextAppearanceBody2" />
 
                     </LinearLayout>
 
@@ -387,18 +147,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/notifications"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_text_color"
-            android:layout_marginBottom="16dp" />
+            style="@style/TextAppearanceHeadline3"
+            android:layout_marginBottom="@dimen/spacing_base" />
 
         <!-- Карточка для уведомлений -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp">
+            android:layout_marginBottom="@dimen/spacing_xl"
+            app:cardCornerRadius="@dimen/radius_sm"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/surface">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -407,10 +166,11 @@
 
                 <!-- Напоминания -->
                 <LinearLayout
+                    android:id="@+id/reminder_time_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="16dp">
+                    android:padding="@dimen/spacing_base">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -422,16 +182,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/daily_reminders"
-                            android:textSize="16sp"
-                            android:textColor="@color/primary_text_color" />
+                            style="@style/TextAppearanceBody1" />
 
                         <TextView
                             android:id="@+id/tvReminderTime"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="19:00"
-                            android:textSize="14sp"
-                            android:textColor="@color/secondary_text_color" />
+                            style="@style/TextAppearanceBody2" />
 
                     </LinearLayout>
 
@@ -446,14 +204,14 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/divider_color" />
+                    android:background="@color/divider" />
 
                 <!-- Уведомления о прогрессе -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="16dp">
+                    android:padding="@dimen/spacing_base">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -465,15 +223,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/progress_notifications"
-                            android:textSize="16sp"
-                            android:textColor="@color/primary_text_color" />
+                            style="@style/TextAppearanceBody1" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/weekly_progress_reports"
-                            android:textSize="14sp"
-                            android:textColor="@color/secondary_text_color" />
+                            style="@style/TextAppearanceBody2" />
 
                     </LinearLayout>
 
@@ -488,79 +244,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/divider_color" />
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Заголовок раздела: Управление данными -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/data_management"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_text_color"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Карточка для управления данными -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <!-- Экспорт прогресса -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/export_progress"
-                        android:textSize="16sp"
-                        android:textColor="@color/primary_text_color" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/divider_color" />
-
-                <!-- Сброс прогресса -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/reset_progress"
-                        android:textSize="16sp"
-                        android:textColor="@color/error_color" />
-
-                </LinearLayout>
+                    android:background="@color/divider" />
 
             </LinearLayout>
 
@@ -571,17 +255,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/about_app"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_text_color"
-            android:layout_marginBottom="16dp" />
+            style="@style/TextAppearanceHeadline3"
+            android:layout_marginBottom="@dimen/spacing_base" />
 
         <!-- Карточка для информации о приложении -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp">
+            app:cardCornerRadius="@dimen/radius_sm"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/surface">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -590,10 +273,11 @@
 
                 <!-- О приложении -->
                 <LinearLayout
+                    android:id="@+id/about_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="16dp"
+                    android:padding="@dimen/spacing_base"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true">
@@ -603,60 +287,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/about"
-                        android:textSize="16sp"
-                        android:textColor="@color/primary_text_color" />
+                        style="@style/TextAppearanceBody1" />
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/divider_color" />
-
-                <!-- Политика конфиденциальности -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/privacy_policy"
-                        android:textSize="16sp"
-                        android:textColor="@color/primary_text_color" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/divider_color" />
-
-                <!-- Условия использования -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/terms_of_service"
-                        android:textSize="16sp"
-                        android:textColor="@color/primary_text_color" />
-
-                </LinearLayout>
+                    android:background="@color/divider" />
 
             </LinearLayout>
 
@@ -668,11 +306,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_version"
-            android:textSize="14sp"
-            android:textColor="@color/secondary_text_color"
+            style="@style/TextAppearanceBody2"
             android:gravity="center"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginTop="@dimen/spacing_xl"
+            android:layout_marginBottom="@dimen/spacing_base" />
 
     </LinearLayout>
 

@@ -1,0 +1,58 @@
+<resources>
+    <!-- Primary colors (Material 3) - Dark theme -->
+    <color name="primary">#9FA8DA</color>
+    <color name="primary_variant">#7986CB</color>
+    <color name="on_primary">#1A237E</color>
+    <color name="primary_container">#3F51B5</color>
+    <color name="on_primary_container">#E8EAF6</color>
+    
+    <!-- Secondary colors -->
+    <color name="secondary">#FFB74D</color>
+    <color name="on_secondary">#E65100</color>
+    <color name="secondary_container">#FF6F00</color>
+    <color name="on_secondary_container">#FFF3E0</color>
+    
+    <!-- Surface colors -->
+    <color name="surface">#121212</color>
+    <color name="surface_variant">#1E1E1E</color>
+    <color name="on_surface">#FFFFFF</color>
+    <color name="on_surface_variant">#B3B3B3</color>
+    
+    <!-- Background -->
+    <color name="background">#121212</color>
+    <color name="on_background">#FFFFFF</color>
+    
+    <!-- Text colors -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B3B3B3</color>
+    <color name="text_disabled">#666666</color>
+    
+    <!-- Semantic colors -->
+    <color name="error">#CF6679</color>
+    <color name="on_error">#000000</color>
+    <color name="error_container">#B00020</color>
+    <color name="on_error_container">#FFFFFF</color>
+    <color name="success">#66BB6A</color>
+    <color name="warning">#FFA726</color>
+    
+    <!-- Divider and outline -->
+    <color name="divider">#333333</color>
+    <color name="outline">#666666</color>
+    <color name="outline_variant">#333333</color>
+    
+    <!-- Legacy colors (for backward compatibility) -->
+    <color name="background_color">#121212</color>
+    <color name="primary_text_color">#FFFFFF</color>
+    <color name="secondary_text_color">#B3B3B3</color>
+    <color name="primary_color">#9FA8DA</color>
+    <color name="divider_color">#333333</color>
+    <color name="error_color">#CF6679</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="background_surface">#1E1E1E</color>
+    <color name="card_surface">#1E1E1E</color>
+    <color name="card_surface_alt">#2C2C2C</color>
+    <color name="accent_primary">#9FA8DA</color>
+    <color name="accent_secondary">#FFB74D</color>
+</resources>
+
