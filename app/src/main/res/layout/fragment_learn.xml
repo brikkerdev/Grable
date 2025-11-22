@@ -1,7 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/background_color">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Прогресс изучения -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="24dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Прогресс:"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary" />
+
+        <TextView
+            android:id="@+id/tvProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1/10"
+            android:textSize="14sp"
+            android:textColor="@color/text_primary"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- Карточка слова -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardWord"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/card_surface">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="32dp"
+            android:gravity="center">
+
+            <!-- Иностранное слово -->
+            <TextView
+                android:id="@+id/tvForeignWord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello"
+                android:textSize="32sp"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Транскрипция -->
+            <TextView
+                android:id="@+id/tvTranscription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/həˈləʊ/"
+                android:textSize="16sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Перевод (скрыт по умолчанию) -->
+            <TextView
+                android:id="@+id/tvTranslation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Привет"
+                android:textSize="20sp"
+                android:textColor="@color/accent_primary"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <!-- Аудио кнопка -->
+            <ImageButton
+                android:id="@+id/btnAudio"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="24dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/learn_play_sound"
+                app:tint="@color/accent_primary" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Подсказка -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/learn_tap_to_card"
+        android:textSize="14sp"
+        android:textColor="@color/text_secondary"
+        android:gravity="center"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Кнопки навигации -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <!-- Кнопка "Предыдущее" -->
+        <Button
+            android:id="@+id/btnPrevious"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:text="@string/learn_previous"
+            android:textColor="@color/accent_primary"
+            android:drawablePadding="8dp" />
+
+        <!-- Кнопка "Знаю/Не знаю" -->
+        <Button
+            android:id="@+id/btnKnow"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/learn_know"
+            android:textColor="@color/white" />
+
+        <!-- Кнопка "Следующее" -->
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="@string/learn_next"
+            android:textColor="@color/accent_primary"
+            android:drawablePadding="8dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
