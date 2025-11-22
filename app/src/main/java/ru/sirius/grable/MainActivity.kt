@@ -1,13 +1,13 @@
 package ru.sirius.grable
 
+import SettingsFragment
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import ru.sirius.grable.learn.LearnFragment
+import ru.sirius.grable.add_word.AddWordFragment
 import ru.sirius.grable.main.HomeFragment
 import ru.sirius.grable.progress.StatsFragment
-import ru.sirius.grable.settings.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         val footerSettings = findViewById<View>(R.id.footerSettings)
 
         footerHome.setOnClickListener { switchFragment(HomeFragment()) }
-        footerLearn.setOnClickListener { switchFragment(LearnFragment()) }
+        footerLearn.setOnClickListener { switchFragment(AddWordFragment()) }
         footerStats.setOnClickListener { switchFragment(StatsFragment()) }
         footerSettings.setOnClickListener { switchFragment(SettingsFragment()) }
 
