@@ -2,7 +2,6 @@ package ru.sirius.grable
 
 import android.content.Context
 import android.content.SharedPreferences
-import SettingsFragment
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +10,7 @@ import androidx.fragment.app.Fragment
 import ru.sirius.grable.add_word.AddWordFragment
 import ru.sirius.grable.main.HomeFragment
 import ru.sirius.grable.progress.StatsFragment
+import ru.sirius.grable.settings.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
     
