@@ -52,6 +52,11 @@
     <string name="learn">Учить</string>
     <string name="statistics">Статистика</string>
     <string name="settings">Настройки</string>
-    <string name="add_word">Добавить слова</string>
-    <string name="progress">Прогресс</string>
+    <string name="settings_title">Настройки</string>
+    <string name="settings_subtitle">Основные</string>
+    <string name="learn_know">Знаю</string>
+    <string name="learn_next">Следующее</string>
+    <string name="learn_previous">Предыдущее</string>
+    <string name="learn_tap_to_card">Нажмите на карточку, чтобы увидеть перевод</string>
+    <string name="learn_play_sound">Воспроизвести произношение</string>
 </resources>

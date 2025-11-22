@@ -6,10 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_surface"
-    android:fillViewport="true"
-    tools:context=".MainActivity">
-
-
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,12 +15,6 @@
         android:paddingHorizontal="24dp"
         android:paddingTop="32dp"
         android:paddingBottom="40dp">
-
-        <!-- Header -->
-        <include
-            android:id="@+id/header"
-            layout="@layout/layout_header"
-            />
 
         <TextView
             android:id="@+id/title"
@@ -219,13 +210,6 @@
             android:textColor="@color/white"
             android:textStyle="bold" />
 
-        <!-- Footer -->
-        <include
-            android:id="@+id/footer"
-            layout="@layout/layout_footer" />
-
     </LinearLayout>
-
-
 
 </androidx.core.widget.NestedScrollView>
