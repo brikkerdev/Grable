@@ -13,7 +13,7 @@ class LearnFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_add_word, container, false)
+        return inflater.inflate(R.layout.fragment_learn, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
