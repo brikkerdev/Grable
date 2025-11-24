@@ -38,7 +38,7 @@
             android:layout_height="24dp"
             android:layout_gravity="end"
             android:src="@drawable/ic_edit_example"
-            app:tint="@color/black"
+            app:tint="@color/primary"
             android:contentDescription="Редактировать пример"
             android:padding="4dp" />
 
