@@ -8,12 +8,10 @@
     android:background="@color/background">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvWords"
+        android:id="@+id/word_items"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp"
+        android:padding="@dimen/spacing_base"
         app:layout_constraintBottom_toTopOf="@+id/btnAddWord"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
