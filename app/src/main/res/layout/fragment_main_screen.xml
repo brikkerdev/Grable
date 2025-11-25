@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/main_title"
-            style="@style/TextAppearanceHeadline2" />
+            android:textAppearance="@style/TextAppearanceHeadline2" />
 
         <TextView
             android:id="@+id/subtitle"
@@ -29,8 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_xs"
             android:text="@string/main_subtitle"
-            android:textColor="@color/text_secondary"
-            style="@style/TextAppearanceBody1" />
+            android:textAppearance="@style/TextAppearanceBody1Secondary" />
 
         <LinearLayout
             android:id="@+id/review_container"
@@ -46,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/action_repeat_title"
-                style="@style/TextAppearanceHeadline3" />
+                android:textAppearance="@style/TextAppearanceHeadline3" />
 
             <TextView
                 android:id="@+id/repeat_desc"
@@ -54,8 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_md"
                 android:text="@string/action_repeat_desc"
-                android:textColor="@color/text_secondary"
-                style="@style/TextAppearanceBody2" />
+                android:textAppearance="@style/TextAppearanceBody2Secondary" />
 
             <Button
                 android:id="@+id/button_repeat"
@@ -65,8 +63,7 @@
                 android:backgroundTint="@color/primary"
                 android:text="@string/action_repeat_cta"
                 android:textAllCaps="false"
-                android:textColor="@color/on_primary"
-                style="@style/TextAppearanceButton" />
+                android:textAppearance="@style/TextAppearanceButton" />
         </LinearLayout>
 
         <LinearLayout
@@ -83,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/action_collection_title"
-                style="@style/TextAppearanceHeadline3" />
+                android:textAppearance="@style/TextAppearanceHeadline3" />
 
             <TextView
                 android:id="@+id/collection_desc"
@@ -91,8 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_md"
                 android:text="@string/action_collection_desc"
-                android:textColor="@color/text_secondary"
-                style="@style/TextAppearanceBody2" />
+                android:textAppearance="@style/TextAppearanceBody2Secondary" />
 
             <Button
                 android:id="@+id/button_collection"
@@ -103,7 +99,7 @@
                 android:text="@string/action_collection_cta"
                 android:textAllCaps="false"
                 android:textColor="@color/on_secondary"
-                style="@style/TextAppearanceButton" />
+                android:textAppearance="@style/TextAppearanceButton" />
         </LinearLayout>
 
         <TextView
@@ -112,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_2xl"
             android:text="@string/categories_title"
-            style="@style/TextAppearanceHeadline3" />
+            android:textAppearance="@style/TextAppearanceHeadline3" />
 
         <TextView
             android:id="@+id/categories_hint"
@@ -120,83 +116,24 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_xs"
             android:text="@string/categories_hint"
-            style="@style/TextAppearanceBody2" />
-
-        <androidx.gridlayout.widget.GridLayout
+            android:textAppearance="@style/TextAppearanceBody2Secondary" />
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categories_grid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_lg"
-            app:alignmentMode="alignMargins"
-            app:columnCount="2"
-            app:columnOrderPreserved="false"
-            app:rowOrderPreserved="false"
-            app:useDefaultMargins="false">
-
-            <TextView
-                android:id="@+id/category_food"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/spacing_sm"
-                android:layout_marginBottom="@dimen/spacing_md"
-                android:background="@drawable/bg_category_chip"
-                android:gravity="center_vertical"
-                android:text="@string/category_food"
-                android:textColor="@color/text_primary"
-                style="@style/TextAppearanceBody2"
-                app:layout_columnWeight="1" />
-
-            <TextView
-                android:id="@+id/category_medicine"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_sm"
-                android:layout_marginBottom="@dimen/spacing_md"
-                android:background="@drawable/bg_category_chip"
-                android:gravity="center_vertical"
-                android:text="@string/category_medicine"
-                android:textColor="@color/text_primary"
-                style="@style/TextAppearanceBody2"
-                app:layout_columnWeight="1" />
-
-            <TextView
-                android:id="@+id/category_b2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/spacing_sm"
-                android:layout_marginBottom="@dimen/spacing_md"
-                android:background="@drawable/bg_category_chip"
-                android:gravity="center_vertical"
-                android:text="@string/category_b2"
-                android:textColor="@color/text_primary"
-                style="@style/TextAppearanceBody2"
-                app:layout_columnWeight="1" />
-
-            <TextView
-                android:id="@+id/category_c1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_sm"
-                android:layout_marginBottom="@dimen/spacing_md"
-                android:background="@drawable/bg_category_chip"
-                android:gravity="center_vertical"
-                android:text="@string/category_c1"
-                android:textColor="@color/text_primary"
-                style="@style/TextAppearanceBody2"
-                app:layout_columnWeight="1" />
-        </androidx.gridlayout.widget.GridLayout>
-
-            <Button
-                android:id="@+id/button_add_categories"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_md"
-                android:backgroundTint="@color/primary"
-                android:text="@string/add_categories_cta"
-                android:textAllCaps="false"
-                android:textColor="@color/on_primary"
-                style="@style/TextAppearanceButton" />
-
+            android:nestedScrollingEnabled="false"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2" />
+        <Button
+            android:id="@+id/button_add_categories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:backgroundTint="@color/primary"
+            android:text="@string/add_categories_cta"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearanceButton" />
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
