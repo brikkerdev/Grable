@@ -95,6 +95,7 @@
             app:backgroundTint="@color/primary_container"
             android:textColor="@color/primary"
             android:textAppearance="@style/TextAppearanceBody1" />
+            android:textAppearance="@style/TextAppearanceBody1" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAdd"
@@ -102,8 +103,8 @@
             android:layout_height="wrap_content"
             android:text="ДОБАВИТЬ СЛОВО"
             android:layout_marginTop="@dimen/spacing_xl"
-            app:backgroundTint="@color/primary"
-            android:textColor="@color/on_primary"
+            android:padding="@dimen/spacing_md"
+            android:backgroundTint="@color/primary"
             android:textAppearance="@style/TextAppearanceButton" />
 
     </LinearLayout>

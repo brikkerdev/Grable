@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="playlists"
-        style="@style/TextAppearanceHeadline3"
+        android:textAppearance="@style/TextAppearanceHeadline3"
         android:padding="@dimen/spacing_base"
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center"

@@ -13,26 +13,45 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvPeriodTitle"
+        <!-- Заголовок и выбор периода -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Статистика"
-            style="@style/TextAppearanceHeadline3"
-            android:layout_marginBottom="@dimen/spacing_base" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/spacing_base">
 
+            <TextView
+                android:id="@+id/tvPeriodTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Статистика"
+                style="@style/TextAppearanceHeadline3"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinnerPeriod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/spinner_background" />
+
+        </LinearLayout>
+
+        <!-- Период -->
         <TextView
+            android:id="@+id/tvPeriod"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Период: 7 дней"
             style="@style/TextAppearanceBody1"
-            android:textStyle="bold"
             android:layout_marginBottom="@dimen/spacing_sm" />
 
+        <!-- График дней -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Всего:"
+            android:text="Слова по дням:"
             style="@style/TextAppearanceBody1"
             android:textStyle="bold"
             android:layout_marginBottom="@dimen/spacing_sm" />
@@ -40,7 +59,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvDays"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="120dp"
             android:layout_marginBottom="@dimen/spacing_xl" />
 
         <View
@@ -49,17 +68,20 @@
             android:background="@color/divider"
             android:layout_marginBottom="@dimen/spacing_xl" />
 
+        <!-- Текущее обучение -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Заучивается сейчас:"
+            android:text="Заучивается сейчас: 0"
             style="@style/TextAppearanceHeadline3"
+            android:textStyle="bold"
             android:layout_marginBottom="@dimen/spacing_base" />
 
+        <!-- Общая статистика -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Всего"
+            android:text="Всего за период"
             style="@style/TextAppearanceBody1"
             android:textStyle="bold"
             android:layout_marginBottom="@dimen/spacing_base" />
