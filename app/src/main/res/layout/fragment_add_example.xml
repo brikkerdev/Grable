@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Пример"
-                style="@style/TextAppearanceHeadline3"/>
+                android:textAppearance="@style/TextAppearanceHeadline3"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

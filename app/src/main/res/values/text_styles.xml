@@ -32,6 +32,18 @@
         <item name="android:fontFamily">sans-serif</item>
     </style>
     
+    <style name="TextAppearanceBody2Secondary">
+        <item name="android:textSize">@dimen/text_sm</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    
+    <style name="TextAppearanceBody1Secondary">
+        <item name="android:textSize">@dimen/text_base</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    
     <!-- Label styles -->
     <style name="TextAppearanceLabel">
         <item name="android:textSize">@dimen/text_sm</item>
