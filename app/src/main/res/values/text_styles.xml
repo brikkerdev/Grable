@@ -19,6 +19,13 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
     
+    <style name="TextAppearanceWordOriginal">
+        <item name="android:textSize">@dimen/text_lg</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    
     <!-- Body styles -->
     <style name="TextAppearanceBody1">
         <item name="android:textSize">@dimen/text_base</item>

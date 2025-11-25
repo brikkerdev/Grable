@@ -30,9 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_base"
-            app:cardCornerRadius="@dimen/radius_md"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/surface">
+            style="@style/Widget.Grable.Card.Base">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,22 +97,18 @@
             android:id="@+id/btnAddExample"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="+ Добавить пример использования"
             android:layout_marginTop="@dimen/spacing_md"
-            app:backgroundTint="@color/primary_container"
-            android:textColor="@color/primary"
-            android:textAppearance="@style/TextAppearanceBody1" />
-            android:textAppearance="@style/TextAppearanceBody1" />
+            android:text="+ Добавить пример использования"
+            style="@style/Widget.Grable.Button.Secondary" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAdd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ДОБАВИТЬ СЛОВО"
             android:layout_marginTop="@dimen/spacing_xl"
             android:padding="@dimen/spacing_md"
-            android:backgroundTint="@color/primary"
-            android:textAppearance="@style/TextAppearanceButton" />
+            android:text="ДОБАВИТЬ СЛОВО"
+            style="@style/Widget.Grable.Button.Primary" />
 
     </LinearLayout>
 </ScrollView>
