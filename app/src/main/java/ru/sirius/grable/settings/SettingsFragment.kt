@@ -19,8 +19,13 @@ import java.util.Locale
 class SettingsFragment : Fragment() {
 
     private val viewModel: SettingsViewModel by viewModels()
-    private lateinit var adapter: SettingsAdapter
-    private lateinit var recyclerView: RecyclerView
+
+    // Используем ленивую инициализацию для адаптера
+    private val adapter: SettingsAdapter by lazy {
+        val initialSettingsState = viewModel.settingsState.value
+        val settingsItems = createSettingsItems(initialSettingsState)
+        SettingsAdapter(settingsItems)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_settings, container, false)
@@ -29,13 +34,9 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        // Получаем RecyclerView напрямую из view
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        // Инициализируем адаптер один раз
-        val initialSettingsState = viewModel.settingsState.value
-        val settingsItems = createSettingsItems(initialSettingsState)
-        adapter = SettingsAdapter(settingsItems)
         recyclerView.adapter = adapter
 
         // Наблюдаем за изменениями состояния настроек
