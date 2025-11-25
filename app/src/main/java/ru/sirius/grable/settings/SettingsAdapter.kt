@@ -1,0 +1,130 @@
+package ru.sirius.grable.settings
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.Switch
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import ru.sirius.grable.R
+
+class SettingsAdapter(private var items: List<SettingItem>) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    companion object {
+        private const val TYPE_SECTION_TITLE = 0
+        private const val TYPE_BASE_SETTING = 1
+        private const val TYPE_SWITCH_SETTING = 2
+        private const val TYPE_APP_VERSION = 3
+    }
+
+    fun updateItems(newItems: List<SettingItem>) {
+        items = newItems
+        notifyDataSetChanged()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (items[position]) {
+            is SettingItem.SectionTitle -> TYPE_SECTION_TITLE
+            is SettingItem.BaseSetting -> TYPE_BASE_SETTING
+            is SettingItem.SwitchSetting -> TYPE_SWITCH_SETTING
+            is SettingItem.AppVersion -> TYPE_APP_VERSION
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return when (viewType) {
+            TYPE_SECTION_TITLE -> SectionTitleViewHolder(
+                inflater.inflate(R.layout.item_setting, parent, false)
+            )
+            TYPE_BASE_SETTING -> BaseSettingViewHolder(
+                inflater.inflate(R.layout.item_setting, parent, false)
+            )
+            TYPE_SWITCH_SETTING -> SwitchSettingViewHolder(
+                inflater.inflate(R.layout.item_setting, parent, false)
+            )
+            TYPE_APP_VERSION -> AppVersionViewHolder(
+                inflater.inflate(R.layout.item_app_version, parent, false)
+            )
+            else -> throw IllegalArgumentException("Unknown view type")
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (val item = items[position]) {
+            is SettingItem.SectionTitle -> (holder as SectionTitleViewHolder).bind(item)
+            is SettingItem.BaseSetting -> (holder as BaseSettingViewHolder).bind(item)
+            is SettingItem.SwitchSetting -> (holder as SwitchSettingViewHolder).bind(item)
+            is SettingItem.AppVersion -> (holder as AppVersionViewHolder).bind(item)
+        }
+    }
+
+    override fun getItemCount(): Int = items.size
+
+    // ViewHolder для заголовка раздела
+    class SectionTitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val sectionTitle: TextView = itemView.findViewById(R.id.tvSectionTitle)
+        private val cardView: com.google.android.material.card.MaterialCardView = itemView.findViewById(R.id.cardView)
+
+        fun bind(item: SettingItem.SectionTitle) {
+            sectionTitle.text = item.title
+            sectionTitle.visibility = View.VISIBLE
+            cardView.visibility = View.GONE
+        }
+    }
+
+    // ViewHolder для базовой настройки
+    class BaseSettingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val baseSettingLayout: LinearLayout = itemView.findViewById(R.id.baseSettingLayout)
+        private val settingTitle: TextView = itemView.findViewById(R.id.tvSettingTitle)
+        private val settingValue: TextView = itemView.findViewById(R.id.tvSettingValue)
+        private val divider: View = itemView.findViewById(R.id.divider)
+        private val cardView: com.google.android.material.card.MaterialCardView = itemView.findViewById(R.id.cardView)
+
+        fun bind(item: SettingItem.BaseSetting) {
+            cardView.visibility = View.VISIBLE
+            baseSettingLayout.visibility = View.VISIBLE
+            settingTitle.text = item.title
+            settingValue.text = item.value
+            divider.visibility = if (item.showDivider) View.VISIBLE else View.GONE
+
+            baseSettingLayout.setOnClickListener {
+                item.onClick?.invoke()
+            }
+        }
+    }
+
+    // ViewHolder для настройки с переключателем
+    class SwitchSettingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val switchSettingLayout: LinearLayout = itemView.findViewById(R.id.switchSettingLayout)
+        private val switchTitle: TextView = itemView.findViewById(R.id.tvSwitchTitle)
+        private val switchSubtitle: TextView = itemView.findViewById(R.id.tvSwitchSubtitle)
+        private val switchSetting: Switch = itemView.findViewById(R.id.switchSetting)
+        private val divider: View = itemView.findViewById(R.id.divider)
+        private val cardView: com.google.android.material.card.MaterialCardView = itemView.findViewById(R.id.cardView)
+
+        fun bind(item: SettingItem.SwitchSetting) {
+            cardView.visibility = View.VISIBLE
+            switchSettingLayout.visibility = View.VISIBLE
+            switchTitle.text = item.title
+            switchSubtitle.text = item.subtitle
+            switchSetting.isChecked = item.isChecked
+            divider.visibility = if (item.showDivider) View.VISIBLE else View.GONE
+
+            switchSetting.setOnCheckedChangeListener { _, isChecked ->
+                item.onCheckedChange?.invoke(isChecked)
+            }
+        }
+    }
+
+    // ViewHolder для версии приложения
+    class AppVersionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val appVersion: TextView = itemView.findViewById(R.id.tvAppVersion)
+
+        fun bind(item: SettingItem.AppVersion) {
+            appVersion.text = item.version
+        }
+    }
+}
