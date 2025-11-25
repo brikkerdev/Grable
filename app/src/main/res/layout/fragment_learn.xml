@@ -20,14 +20,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Прогресс:"
-            style="@style/TextAppearanceBody2" />
+            android:textAppearance="@style/TextAppearanceBody2" />
 
         <TextView
             android:id="@+id/tvProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1/10"
-            style="@style/TextAppearanceBody2"
+            android:textAppearance="@style/TextAppearanceBody2"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:text="Hello"
                 android:textSize="@dimen/text_3xl"
-                style="@style/TextAppearanceHeadline1"
+                android:textAppearance="@style/TextAppearanceHeadline1"
                 android:layout_marginBottom="@dimen/spacing_base" />
 
             <!-- Транскрипция -->
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="/həˈləʊ/"
-                style="@style/TextAppearanceBody1"
+                android:textAppearance="@style/TextAppearanceBody1"
                 android:layout_marginBottom="@dimen/spacing_xl" />
 
             <!-- Перевод (скрыт по умолчанию) -->
@@ -80,7 +80,7 @@
                 android:text="Привет"
                 android:textSize="@dimen/text_xl"
                 android:textColor="@color/primary"
-                style="@style/TextAppearanceHeadline3"
+                android:textAppearance="@style/TextAppearanceHeadline3"
                 android:visibility="gone" />
 
             <!-- Аудио кнопка -->
@@ -102,7 +102,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/learn_tap_to_card"
-        style="@style/TextAppearanceBody2"
+        android:textAppearance="@style/TextAppearanceBody2Secondary"
         android:gravity="center"
         android:layout_marginBottom="@dimen/spacing_2xl" />
 
@@ -123,7 +123,7 @@
             android:text="@string/learn_previous"
             android:textColor="@color/primary"
             android:backgroundTint="@color/primary_container"
-            style="@style/TextAppearanceBody1" />
+            android:textAppearance="@style/TextAppearanceBody1" />
 
         <!-- Кнопка "Знаю/Не знаю" -->
         <Button
@@ -135,8 +135,7 @@
             android:layout_marginEnd="@dimen/spacing_sm"
             android:text="@string/learn_know"
             android:backgroundTint="@color/primary"
-            android:textColor="@color/on_primary"
-            style="@style/TextAppearanceButton" />
+            android:textAppearance="@style/TextAppearanceButton" />
 
         <!-- Кнопка "Следующее" -->
         <Button
@@ -148,7 +147,7 @@
             android:text="@string/learn_next"
             android:textColor="@color/primary"
             android:backgroundTint="@color/primary_container"
-            style="@style/TextAppearanceBody1" />
+            android:textAppearance="@style/TextAppearanceBody1" />
 
     </LinearLayout>
 

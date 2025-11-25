@@ -1,3 +1,5 @@
+package ru.sirius.grable.settings
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,6 +28,13 @@ class SettingsViewModel : ViewModel() {
         Voice("male", "Мужской")
     )
 
+    // Доступные темы
+    val availableThemes = listOf(
+        Theme("system", "Системная"),
+        Theme("light", "Светлая"),
+        Theme("dark", "Тёмная")
+    )
+
     // Доступное время для напоминаний
     val availableReminderTimes = listOf(
         "08:00", "09:00", "10:00", "11:00", "12:00",
@@ -43,6 +52,7 @@ class SettingsViewModel : ViewModel() {
             val currentSettings = SettingsState(
                 nativeLanguage = availableLanguages.first(),
                 voiceType = availableVoices.first(),
+                theme = availableThemes.first(),
                 dailyRemindersEnabled = true,
                 reminderTime = "19:00",
                 progressNotificationsEnabled = true,
@@ -62,6 +72,13 @@ class SettingsViewModel : ViewModel() {
     fun updateVoiceType(voice: Voice) {
         viewModelScope.launch {
             _settingsState.value = _settingsState.value.copy(voiceType = voice)
+            saveSettings()
+        }
+    }
+
+    fun updateTheme(theme: Theme) {
+        viewModelScope.launch {
+            _settingsState.value = _settingsState.value.copy(theme = theme)
             saveSettings()
         }
     }
@@ -91,7 +108,14 @@ class SettingsViewModel : ViewModel() {
         viewModelScope.launch {
             val state = _settingsState.value
             // Реализация сохранения в SharedPreferences/DataStore
+            // Здесь можно добавить применение темы
+            applyTheme(state.theme)
         }
+    }
+
+    private fun applyTheme(theme: Theme) {
+        // Здесь будет логика применения темы
+        // Например, через AppCompatDelegate.setDefaultNightMode()
     }
 
     fun getAppVersion(): String {
@@ -102,6 +126,7 @@ class SettingsViewModel : ViewModel() {
 data class SettingsState(
     val nativeLanguage: Language = Language("ru", "Русский"),
     val voiceType: Voice = Voice("female", "Женский"),
+    val theme: Theme = Theme("system", "Системная"),
     val dailyRemindersEnabled: Boolean = true,
     val reminderTime: String = "19:00",
     val progressNotificationsEnabled: Boolean = true,
@@ -114,6 +139,11 @@ data class Language(
 )
 
 data class Voice(
+    val id: String,
+    val name: String
+)
+
+data class Theme(
     val id: String,
     val name: String
 )

@@ -12,7 +12,6 @@ import ru.sirius.grable.learn.LearnFragment
 import ru.sirius.grable.playlist.SelectPlaylistFragment
 
 class HomeFragment : Fragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
