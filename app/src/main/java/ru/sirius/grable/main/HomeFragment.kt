@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridView
-import android.widget.TextView
+import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import ru.sirius.grable.MainActivity
 import ru.sirius.grable.R
-import java.util.zip.Inflater
+import ru.sirius.grable.learn.LearnFragment
+import ru.sirius.grable.playlist.SelectPlaylistFragment
 
 class HomeFragment : Fragment() {
     override fun onCreateView(
@@ -21,5 +21,16 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        view.findViewById<Button>(R.id.button_repeat)?.setOnClickListener {
+            (activity as? MainActivity)?.switchFragment(LearnFragment())
+        }
+
+        view.findViewById<Button>(R.id.button_collection)?.setOnClickListener {
+        }
+
+        view.findViewById<Button>(R.id.button_categories)?.setOnClickListener {
+            (activity as? MainActivity)?.switchFragment(SelectPlaylistFragment())
+        }
     }
 }

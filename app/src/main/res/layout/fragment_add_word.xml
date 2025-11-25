@@ -16,6 +16,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Нашли новое слово? Добавьте его в свой словарь для заучивания!"
+            android:textAlignment="center"
+            android:gravity="center"
+            style="@style/TextAppearanceHeadline3"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="@dimen/spacing_lg" />
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,7 +77,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_primary"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

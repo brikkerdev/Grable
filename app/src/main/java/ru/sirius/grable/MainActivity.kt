@@ -14,16 +14,15 @@ import ru.sirius.grable.progress.StatsFragment
 import ru.sirius.grable.settings.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
-    
+
     private val sharedPreferences: SharedPreferences by lazy {
         getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
     }
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Инициализация темы перед setContentView
         val savedThemeMode = sharedPreferences.getInt("theme_mode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         AppCompatDelegate.setDefaultNightMode(savedThemeMode)
-        
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -44,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun switchFragment(fragment: Fragment) {
+    fun switchFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)
