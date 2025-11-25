@@ -23,7 +23,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             style="@style/TextAppearanceHeadline3"
-            tools:text="Название плейлиста" />
+            tools:text="Название плейлиста"
+            />
 
         <TextView
             android:id="@+id/playlist_description"
