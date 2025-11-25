@@ -18,14 +18,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Статистика"
-            style="@style/TextAppearanceHeadline3"
+            android:textAppearance="@style/TextAppearanceHeadline3"
             android:layout_marginBottom="@dimen/spacing_base" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Период: 7 дней"
-            style="@style/TextAppearanceBody1"
+            android:textAppearance="@style/TextAppearanceBody1"
             android:textStyle="bold"
             android:layout_marginBottom="@dimen/spacing_sm" />
 
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Всего:"
-            style="@style/TextAppearanceBody1"
+            android:textAppearance="@style/TextAppearanceBody1"
             android:textStyle="bold"
             android:layout_marginBottom="@dimen/spacing_sm" />
 
@@ -53,14 +53,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Заучивается сейчас:"
-            style="@style/TextAppearanceHeadline3"
+            android:textAppearance="@style/TextAppearanceHeadline3"
             android:layout_marginBottom="@dimen/spacing_base" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Всего"
-            style="@style/TextAppearanceBody1"
+            android:textAppearance="@style/TextAppearanceBody1"
             android:textStyle="bold"
             android:layout_marginBottom="@dimen/spacing_base" />
 

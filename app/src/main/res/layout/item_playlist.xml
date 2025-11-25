@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            style="@style/TextAppearanceHeadline3"
+            android:textAppearance="@style/TextAppearanceHeadline3"
             tools:text="Название плейлиста" />
 
         <TextView
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_xs"
             android:gravity="center"
-            style="@style/TextAppearanceBody2"
+            android:textAppearance="@style/TextAppearanceBody2"
             tools:text="Описание плейлиста" />
 
     </LinearLayout>

@@ -88,7 +88,7 @@
             android:padding="@dimen/spacing_md"
             android:backgroundTint="@color/primary_container"
             android:textColor="@color/primary"
-            style="@style/TextAppearanceBody1" />
+            android:textAppearance="@style/TextAppearanceBody1" />
 
         <Button
             android:id="@+id/btnAdd"
@@ -98,8 +98,7 @@
             android:layout_marginTop="@dimen/spacing_xl"
             android:padding="@dimen/spacing_md"
             android:backgroundTint="@color/primary"
-            android:textColor="@color/on_primary"
-            style="@style/TextAppearanceButton" />
+            android:textAppearance="@style/TextAppearanceButton" />
 
     </LinearLayout>
 </ScrollView>
