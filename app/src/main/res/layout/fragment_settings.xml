@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/general_settings"
-            style="@style/TextAppearanceHeadline3"
+            android:textAppearance="@style/TextAppearanceHeadline3"
             android:layout_marginTop="@dimen/spacing_sm"
             android:layout_marginBottom="@dimen/spacing_base" />
 
@@ -60,14 +60,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/native_language"
-                            style="@style/TextAppearanceBody1" />
+                            android:textAppearance="@style/TextAppearanceBody1" />
 
                         <TextView
                             android:id="@+id/tvNativeLanguage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/russian"
-                            style="@style/TextAppearanceBody2" />
+                            android:textAppearance="@style/TextAppearanceBody2" />
 
                     </LinearLayout>
 
@@ -87,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/audio_settings"
-            style="@style/TextAppearanceHeadline3"
+            android:textAppearance="@style/TextAppearanceHeadline3"
             android:layout_marginBottom="@dimen/spacing_base" />
 
         <!-- Карточка для аудио настроек -->
@@ -125,14 +125,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/voice_type"
-                            style="@style/TextAppearanceBody1" />
+                            android:textAppearance="@style/TextAppearanceBody1" />
 
                         <TextView
                             android:id="@+id/tvVoiceType"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/female_voice"
-                            style="@style/TextAppearanceBody2" />
+                            android:textAppearance="@style/TextAppearanceBody2" />
 
                     </LinearLayout>
 
@@ -147,7 +147,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/notifications"
-            style="@style/TextAppearanceHeadline3"
+            android:textAppearance="@style/TextAppearanceHeadline3"
             android:layout_marginBottom="@dimen/spacing_base" />
 
         <!-- Карточка для уведомлений -->
@@ -182,14 +182,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/daily_reminders"
-                            style="@style/TextAppearanceBody1" />
+                            android:textAppearance="@style/TextAppearanceBody1" />
 
                         <TextView
                             android:id="@+id/tvReminderTime"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="19:00"
-                            style="@style/TextAppearanceBody2" />
+                            android:textAppearance="@style/TextAppearanceBody2" />
 
                     </LinearLayout>
 
@@ -223,13 +223,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/progress_notifications"
-                            style="@style/TextAppearanceBody1" />
+                            android:textAppearance="@style/TextAppearanceBody1" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/weekly_progress_reports"
-                            style="@style/TextAppearanceBody2" />
+                            android:textAppearance="@style/TextAppearanceBody2" />
 
                     </LinearLayout>
 
@@ -255,7 +255,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/about_app"
-            style="@style/TextAppearanceHeadline3"
+            android:textAppearance="@style/TextAppearanceHeadline3"
             android:layout_marginBottom="@dimen/spacing_base" />
 
         <!-- Карточка для информации о приложении -->
@@ -287,7 +287,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/about"
-                        style="@style/TextAppearanceBody1" />
+                        android:textAppearance="@style/TextAppearanceBody1" />
 
                 </LinearLayout>
 
@@ -306,7 +306,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_version"
-            style="@style/TextAppearanceBody2"
+            android:textAppearance="@style/TextAppearanceBody2"
             android:gravity="center"
             android:layout_marginTop="@dimen/spacing_xl"
             android:layout_marginBottom="@dimen/spacing_base" />
