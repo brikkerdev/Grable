@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             style="@style/TextAppearanceHeadline3"
-            tools:text="Название плейлиста" />
+            tools:text="Название категории" />
 
         <TextView
             android:id="@+id/playlist_description"
@@ -32,7 +32,7 @@
             android:layout_marginTop="@dimen/spacing_xs"
             android:gravity="center"
             style="@style/TextAppearanceBody2"
-            tools:text="Описание плейлиста" />
+            tools:text="Описание категории" />
 
     </LinearLayout>
 
