@@ -1,201 +1,212 @@
 package ru.sirius.grable.settings
 
-import SettingsViewModel
-import android.content.Context
-import android.content.SharedPreferences
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Switch
-import androidx.appcompat.app.AppCompatDelegate
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.TimeFormat
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.sirius.grable.R
+import java.util.Locale
 
 class SettingsFragment : Fragment() {
 
-    private val sharedPreferences: SharedPreferences by lazy {
-        requireContext().getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
-    }
     private val viewModel: SettingsViewModel by viewModels()
+    private lateinit var adapter: SettingsAdapter
+    private lateinit var recyclerView: RecyclerView
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
-//        val switchTheme = view.findViewById<Switch>(R.id.switchTheme)
-//        switchTheme?.let {
-//            setupThemeSwitch(it)
-//        }
 
+        recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        initFragment(view)
-    }
+        // Инициализируем адаптер один раз
+        val initialSettingsState = viewModel.settingsState.value
+        val settingsItems = createSettingsItems(initialSettingsState)
+        adapter = SettingsAdapter(settingsItems)
+        recyclerView.adapter = adapter
 
-    private fun setupThemeSwitch(switchTheme: Switch) {
-        val currentMode = AppCompatDelegate.getDefaultNightMode()
-        val isDarkMode = when (currentMode) {
-            AppCompatDelegate.MODE_NIGHT_YES -> true
-            AppCompatDelegate.MODE_NIGHT_NO -> false
-            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> {
-                val nightModeFlags =
-                    resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
-                nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES
-            }
-
-            else -> false
-        }
-
-        // Устанавливаем начальное состояние переключателя
-        switchTheme.isChecked = isDarkMode
-
-        // Сохраняем предпочтение пользователя
-        val savedThemeMode =
-            sharedPreferences.getInt("theme_mode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        if (savedThemeMode != AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
-            switchTheme.isChecked = savedThemeMode == AppCompatDelegate.MODE_NIGHT_YES
-        }
-
-        // Обработчик изменения темы
-        switchTheme.setOnCheckedChangeListener { _, isChecked ->
-            val mode = if (isChecked) {
-                AppCompatDelegate.MODE_NIGHT_YES
-            } else {
-                AppCompatDelegate.MODE_NIGHT_NO
-            }
-
-            // Сохраняем выбор пользователя
-            sharedPreferences.edit().putInt("theme_mode", mode).apply()
-
-            // Применяем тему
-            AppCompatDelegate.setDefaultNightMode(mode)
-        }
-    }
-
-    private fun initFragment(view: View) {
-        // Инициализация всех View элементов
-        val tvNativeLanguage: TextView = view.findViewById(R.id.tvNativeLanguage)
-        val tvVoiceType: TextView = view.findViewById(R.id.tvVoiceType)
-        val tvReminderTime: TextView = view.findViewById(R.id.tvReminderTime)
-        val switchReminders: Switch = view.findViewById(R.id.switchReminders)
-        val switchProgressNotifications: Switch = view.findViewById(R.id.switchProgressNotifications)
-        val tvAppVersion: TextView = view.findViewById(R.id.tvAppVersion)
-
-        val nativeLanguageLayout = view.findViewById<LinearLayout>(R.id.native_language_layout)
-        val voiceTypeLayout = view.findViewById<LinearLayout>(R.id.voice_type_layout)
-        val aboutLayout = view.findViewById<LinearLayout>(R.id.about_layout)
-        val reminderTimeLayout = view.findViewById<LinearLayout>(R.id.reminder_time_layout)
-
-        // Настройка наблюдателей
+        // Наблюдаем за изменениями состояния настроек
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.settingsState.collect { state ->
-                    tvNativeLanguage.text = state.nativeLanguage.name
-                    tvVoiceType.text = state.voiceType.name
-                    tvReminderTime.text = state.reminderTime
-                    switchReminders.isChecked = state.dailyRemindersEnabled
-                    switchProgressNotifications.isChecked = state.progressNotificationsEnabled
-                    tvAppVersion.text = "Версия ${state.appVersion}"
-                }
+            viewModel.settingsState.collect { settingsState ->
+                updateAdapterData(settingsState)
             }
-        }
-
-        // Настройка кликов
-        nativeLanguageLayout.setOnClickListener { showLanguageSelectionDialog() }
-        voiceTypeLayout.setOnClickListener { showVoiceSelectionDialog() }
-        reminderTimeLayout.setOnClickListener { showTimePickerDialog() }
-        aboutLayout.setOnClickListener { showAboutDialog() }
-
-        switchReminders.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.toggleDailyReminders(isChecked)
-        }
-
-        switchProgressNotifications.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.toggleProgressNotifications(isChecked)
         }
     }
 
-    // Методы showDialog остаются без изменений
-    private fun showLanguageSelectionDialog() {
-        val languages = viewModel.availableLanguages
-        val currentState = viewModel.settingsState.value
-        val currentLanguage = currentState.nativeLanguage
+    private fun createSettingsItems(settingsState: SettingsState): List<SettingItem> {
+        return listOf(
+            // Основные настройки
+            SettingItem.SectionTitle("Основные настройки"),
+            SettingItem.BaseSetting(
+                id = R.id.native_language_layout,
+                title = "Родной язык",
+                value = settingsState.nativeLanguage.name,
+                showDivider = true,
+                onClick = { showLanguageSelection() }
+            ),
+            SettingItem.BaseSetting(
+                id = R.id.theme_layout,
+                title = "Цветовая тема",
+                value = settingsState.theme.name,
+                showDivider = false,
+                onClick = { showThemeSelection() }
+            ),
 
-        val items = languages.map { it.name }.toTypedArray()
-        val checkedItem = languages.indexOfFirst { it.code == currentLanguage.code }
+            // Аудио настройки
+            SettingItem.SectionTitle("Аудио настройки"),
+            SettingItem.BaseSetting(
+                id = R.id.voice_type_layout,
+                title = "Озвучивание диктора",
+                value = settingsState.voiceType.name,
+                onClick = { showVoiceSelection() }
+            ),
+
+            // Уведомления
+            SettingItem.SectionTitle("Уведомления"),
+            SettingItem.SwitchSetting(
+                id = R.id.switchReminders,
+                title = "Напоминания",
+                subtitle = settingsState.reminderTime,
+                isChecked = settingsState.dailyRemindersEnabled,
+                showDivider = true,
+                onCheckedChange = { isChecked ->
+                    handleRemindersToggle(isChecked)
+                }
+            ),
+            SettingItem.SwitchSetting(
+                id = R.id.switchProgressNotifications,
+                title = "Уведомления о прогрессе",
+                subtitle = "Еженедельные отчеты о прогрессе",
+                isChecked = settingsState.progressNotificationsEnabled,
+                onCheckedChange = { isChecked ->
+                    handleProgressNotificationsToggle(isChecked)
+                }
+            ),
+
+            // О приложении
+            SettingItem.SectionTitle("О приложении"),
+            SettingItem.BaseSetting(
+                id = R.id.about_layout,
+                title = "О приложении",
+                value = "",
+                onClick = { showAboutApp() }
+            ),
+
+            // Версия приложения
+            SettingItem.AppVersion("Версия ${viewModel.getAppVersion()}")
+        )
+    }
+
+    private fun updateAdapterData(settingsState: SettingsState) {
+        val newSettingsItems = createSettingsItems(settingsState)
+        adapter.updateItems(newSettingsItems)
+    }
+
+    private fun showLanguageSelection() {
+        val languages = viewModel.availableLanguages
+        val languageNames = languages.map { it.name }.toTypedArray()
+        val currentLanguage = viewModel.settingsState.value.nativeLanguage
+        val currentLanguageIndex = languages.indexOfFirst { it.code == currentLanguage.code }
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Выберите язык")
-            .setSingleChoiceItems(items, checkedItem) { dialog, which ->
-                viewModel.updateNativeLanguage(languages[which])
+            .setSingleChoiceItems(languageNames, currentLanguageIndex) { dialog, which ->
+                val selectedLanguage = languages[which]
+                viewModel.updateNativeLanguage(selectedLanguage)
                 dialog.dismiss()
             }
-            .setNegativeButton("Отмена", null)
+            .setNegativeButton("Отмена") { dialog, _ ->
+                dialog.dismiss()
+            }
             .show()
     }
 
-    private fun showVoiceSelectionDialog() {
-        val voices = viewModel.availableVoices
-        val currentState = viewModel.settingsState.value
-        val currentVoice = currentState.voiceType
-
-        val items = voices.map { it.name }.toTypedArray()
-        val checkedItem = voices.indexOfFirst { it.id == currentVoice.id }
+    private fun showThemeSelection() {
+        val themes = viewModel.availableThemes
+        val themeNames = themes.map { it.name }.toTypedArray()
+        val currentTheme = viewModel.settingsState.value.theme
+        val currentThemeIndex = themes.indexOfFirst { it.id == currentTheme.id }
 
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Выберите тип голоса")
-            .setSingleChoiceItems(items, checkedItem) { dialog, which ->
-                viewModel.updateVoiceType(voices[which])
+            .setTitle("Выберите тему")
+            .setSingleChoiceItems(themeNames, currentThemeIndex) { dialog, which ->
+                val selectedTheme = themes[which]
+                viewModel.updateTheme(selectedTheme)
                 dialog.dismiss()
             }
-            .setNegativeButton("Отмена", null)
+            .setNegativeButton("Отмена") { dialog, _ ->
+                dialog.dismiss()
+            }
             .show()
     }
 
-    private fun showTimePickerDialog() {
-        val currentTime = viewModel.settingsState.value.reminderTime
-        val parts = currentTime.split(":")
-        val hour = parts[0].toInt()
-        val minute = parts[1].toInt()
+    private fun showVoiceSelection() {
+        val voices = viewModel.availableVoices
+        val voiceNames = voices.map { it.name }.toTypedArray()
+        val currentVoice = viewModel.settingsState.value.voiceType
+        val currentVoiceIndex = voices.indexOfFirst { it.id == currentVoice.id }
 
-        val timePicker = MaterialTimePicker.Builder()
-            .setTimeFormat(TimeFormat.CLOCK_24H)
-            .setHour(hour)
-            .setMinute(minute)
-            .setTitleText("Выберите время напоминания")
-            .build()
-
-        timePicker.addOnPositiveButtonClickListener {
-            val selectedTime = String.format("%02d:%02d", timePicker.hour, timePicker.minute)
-            viewModel.updateReminderTime(selectedTime)
-        }
-
-        timePicker.show(parentFragmentManager, "time_picker")
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Выберите голос диктора")
+            .setSingleChoiceItems(voiceNames, currentVoiceIndex) { dialog, which ->
+                val selectedVoice = voices[which]
+                viewModel.updateVoiceType(selectedVoice)
+                dialog.dismiss()
+            }
+            .setNegativeButton("Отмена") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
-    private fun showAboutDialog() {
+    private fun handleRemindersToggle(isChecked: Boolean) {
+        viewModel.toggleDailyReminders(isChecked)
+
+        if (isChecked) {
+            showTimePicker()
+        }
+    }
+
+    private fun showTimePicker() {
+        val currentTime = viewModel.settingsState.value.reminderTime
+        val (hour, minute) = currentTime.split(":").map { it.toInt() }
+
+        TimePickerDialog(
+            requireContext(),
+            { _, selectedHour, selectedMinute ->
+                val formattedTime = String.format(Locale.getDefault(), "%02d:%02d", selectedHour, selectedMinute)
+                viewModel.updateReminderTime(formattedTime)
+            },
+            hour,
+            minute,
+            true
+        ).show()
+    }
+
+    private fun handleProgressNotificationsToggle(isChecked: Boolean) {
+        viewModel.toggleProgressNotifications(isChecked)
+    }
+
+    private fun showAboutApp() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("О приложении")
-            .setMessage("Приложение для изучения языков\n\nВерсия: ${viewModel.getAppVersion()}")
-            .setPositiveButton("OK", null)
+            .setMessage("Grable - приложение для изучения языков\n\nВерсия: ${viewModel.getAppVersion()}")
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
             .show()
     }
 }
