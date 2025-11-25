@@ -18,6 +18,9 @@ class HomeViewModel : ViewModel() {
     val state = _state.asStateFlow()
 
     fun getPlaylists() {
-//        return _state.value.playlists;
+        _state.value = _state.value.copy(
+            playlists = listOf(Playlist("food", "Еда"), Playlist("medicine", "Медицина"),
+                Playlist("dictionaryB2", "Словарь B2"), Playlist("dictionaryC1", "Словарь C1"))
+        )
     }
 }

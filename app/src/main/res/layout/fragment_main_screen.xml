@@ -128,62 +128,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_lg"
             app:alignmentMode="alignMargins"
-            app:columnCount="2"
+            app:columnCount="1"
             app:columnOrderPreserved="false"
             app:rowOrderPreserved="false"
             app:useDefaultMargins="false">
 
-            <TextView
-                android:id="@+id/category_food"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/spacing_sm"
-                android:layout_marginBottom="@dimen/spacing_md"
-                android:background="@drawable/bg_category_chip"
-                android:gravity="center_vertical"
-                android:text="@string/category_food"
-                android:textColor="@color/text_primary"
-                style="@style/TextAppearanceBody2"
-                app:layout_columnWeight="1" />
 
-            <TextView
-                android:id="@+id/category_medicine"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_sm"
-                android:layout_marginBottom="@dimen/spacing_md"
-                android:background="@drawable/bg_category_chip"
-                android:gravity="center_vertical"
-                android:text="@string/category_medicine"
-                android:textColor="@color/text_primary"
-                style="@style/TextAppearanceBody2"
-                app:layout_columnWeight="1" />
-
-            <TextView
-                android:id="@+id/category_b2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/spacing_sm"
-                android:layout_marginBottom="@dimen/spacing_md"
-                android:background="@drawable/bg_category_chip"
-                android:gravity="center_vertical"
-                android:text="@string/category_b2"
-                android:textColor="@color/text_primary"
-                style="@style/TextAppearanceBody2"
-                app:layout_columnWeight="1" />
-
-            <TextView
-                android:id="@+id/category_c1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_sm"
-                android:layout_marginBottom="@dimen/spacing_md"
-                android:background="@drawable/bg_category_chip"
-                android:gravity="center_vertical"
-                android:text="@string/category_c1"
-                android:textColor="@color/text_primary"
-                style="@style/TextAppearanceBody2"
-                app:layout_columnWeight="1" />
         </androidx.gridlayout.widget.GridLayout>
 
             <Button
