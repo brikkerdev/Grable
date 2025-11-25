@@ -27,8 +27,7 @@
         android:layout_margin="16dp"
         android:padding="12dp"
         android:text="Добавить слово"
-        android:textSize="16sp"
-        android:textAllCaps="true"
+        style="@style/Widget.Grable.Button.Primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
