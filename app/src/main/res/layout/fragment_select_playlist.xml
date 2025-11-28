@@ -10,12 +10,11 @@
         android:id="@+id/page_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="playlists"
+        android:text="Категории"
         android:textAppearance="@style/TextAppearanceHeadline3"
         android:padding="@dimen/spacing_base"
         app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center"
-        tools:text="Категории" />
+        android:gravity="center" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/playlist_items"

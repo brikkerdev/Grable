@@ -7,10 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.sirius.grable.R
 
-class PlaylistAdapter(
+class SelectPlaylistAdapter(
     private val playlists: List<Playlist>,
     private val onItemClick: (Playlist) -> Unit
-) : RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>() {
+) : RecyclerView.Adapter<SelectPlaylistAdapter.PlaylistViewHolder>() {
 
     class PlaylistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameText: TextView = itemView.findViewById(R.id.playlist_name)
