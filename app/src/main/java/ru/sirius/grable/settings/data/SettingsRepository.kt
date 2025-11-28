@@ -31,7 +31,6 @@ class SettingsRepository {
 
     private val appVersion = "1.0.0"
 
-    // Flow методы
     fun get(): Flow<SettingsState> = _settingsState
 
     fun getAvailableLanguages(): Flow<List<Language>> = flowOf(availableLanguages)
@@ -42,7 +41,6 @@ class SettingsRepository {
 
     fun getAppVersion(): Flow<String> = flowOf(appVersion)
 
-    // Методы обновления
     suspend fun updateNativeLanguage(language: Language) {
         _settingsState.value = _settingsState.value.copy(nativeLanguage = language)
     }

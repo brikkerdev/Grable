@@ -1,24 +1,32 @@
 package ru.sirius.grable.settings.ui
 
-sealed class SettingItem {
-    data class SectionTitle(val title: String) : SettingItem()
+sealed interface SettingItem {
+    val id : Int
+
+    data class SectionTitle(
+        override val id: Int,
+        val title: String
+    ) : SettingItem
 
     data class BaseSetting(
-        val id: Int,
+        override val id: Int,
         val title: String,
         val value: String,
         val showDivider: Boolean = false,
         val onClick: (() -> Unit)? = null
-    ) : SettingItem()
+    ) : SettingItem
 
     data class SwitchSetting(
-        val id: Int,
+        override val id: Int,
         val title: String,
         val subtitle: String,
         val isChecked: Boolean,
         val showDivider: Boolean = false,
         val onCheckedChange: ((Boolean) -> Unit)? = null
-    ) : SettingItem()
+    ) : SettingItem
 
-    data class AppVersion(val version: String) : SettingItem()
+    data class AppVersion(
+        override val id: Int,
+        val version: String
+    ) : SettingItem
 }
