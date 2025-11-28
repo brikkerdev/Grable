@@ -1,4 +1,4 @@
-package ru.sirius.grable.settings
+package ru.sirius.grable.settings.ui
 
 sealed class SettingItem {
     data class SectionTitle(val title: String) : SettingItem()

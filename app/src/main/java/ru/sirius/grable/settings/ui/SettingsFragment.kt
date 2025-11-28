@@ -1,4 +1,4 @@
-package ru.sirius.grable.settings
+package ru.sirius.grable.settings.ui
 
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -14,18 +14,14 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.sirius.grable.R
+import ru.sirius.grable.settings.domain.SettingsUiState
+import ru.sirius.grable.settings.domain.SettingsViewModel
 import java.util.Locale
 
 class SettingsFragment : Fragment() {
 
     private val viewModel: SettingsViewModel by viewModels()
-
-    // Используем ленивую инициализацию для адаптера
-    private val adapter: SettingsAdapter by lazy {
-        val initialSettingsState = viewModel.settingsState.value
-        val settingsItems = createSettingsItems(initialSettingsState)
-        SettingsAdapter(settingsItems)
-    }
+    private lateinit var adapter: SettingsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_settings, container, false)
@@ -34,36 +30,43 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Получаем RecyclerView напрямую из view
+        // Инициализация адаптера с пустым списком
+        adapter = SettingsAdapter(emptyList())
+
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
-        // Наблюдаем за изменениями состояния настроек
+        // Наблюдаем за изменениями UI состояния
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.settingsState.collect { settingsState ->
-                updateAdapterData(settingsState)
+            viewModel.uiState.collect { uiState ->
+                updateUI(uiState)
             }
         }
     }
 
-    private fun createSettingsItems(settingsState: SettingsState): List<SettingItem> {
+    private fun updateUI(uiState: SettingsUiState) {
+        val settingsItems = createSettingsItems(uiState)
+        adapter.updateItems(settingsItems)
+    }
+
+    private fun createSettingsItems(uiState: SettingsUiState): List<SettingItem> {
         return listOf(
             // Основные настройки
             SettingItem.SectionTitle("Основные настройки"),
             SettingItem.BaseSetting(
                 id = R.id.native_language_layout,
                 title = "Родной язык",
-                value = settingsState.nativeLanguage.name,
+                value = uiState.settings.nativeLanguage.name,
                 showDivider = true,
-                onClick = { showLanguageSelection() }
+                onClick = { showLanguageSelection(uiState) }
             ),
             SettingItem.BaseSetting(
                 id = R.id.theme_layout,
                 title = "Цветовая тема",
-                value = settingsState.theme.name,
+                value = uiState.settings.theme.name,
                 showDivider = false,
-                onClick = { showThemeSelection() }
+                onClick = { showThemeSelection(uiState) }
             ),
 
             // Аудио настройки
@@ -71,8 +74,8 @@ class SettingsFragment : Fragment() {
             SettingItem.BaseSetting(
                 id = R.id.voice_type_layout,
                 title = "Озвучивание диктора",
-                value = settingsState.voiceType.name,
-                onClick = { showVoiceSelection() }
+                value = uiState.settings.voiceType.name,
+                onClick = { showVoiceSelection(uiState) }
             ),
 
             // Уведомления
@@ -80,20 +83,20 @@ class SettingsFragment : Fragment() {
             SettingItem.SwitchSetting(
                 id = R.id.switchReminders,
                 title = "Напоминания",
-                subtitle = settingsState.reminderTime,
-                isChecked = settingsState.dailyRemindersEnabled,
+                subtitle = uiState.settings.reminderTime,
+                isChecked = uiState.settings.dailyRemindersEnabled,
                 showDivider = true,
                 onCheckedChange = { isChecked ->
-                    handleRemindersToggle(isChecked)
+                    handleRemindersToggle(isChecked, uiState)
                 }
             ),
             SettingItem.SwitchSetting(
                 id = R.id.switchProgressNotifications,
                 title = "Уведомления о прогрессе",
                 subtitle = "Еженедельные отчеты о прогрессе",
-                isChecked = settingsState.progressNotificationsEnabled,
+                isChecked = uiState.settings.progressNotificationsEnabled,
                 onCheckedChange = { isChecked ->
-                    handleProgressNotificationsToggle(isChecked)
+                    viewModel.toggleProgressNotifications(isChecked)
                 }
             ),
 
@@ -103,23 +106,18 @@ class SettingsFragment : Fragment() {
                 id = R.id.about_layout,
                 title = "О приложении",
                 value = "",
-                onClick = { showAboutApp() }
+                onClick = { showAboutApp(uiState.appVersion) }
             ),
 
             // Версия приложения
-            SettingItem.AppVersion("Версия ${viewModel.getAppVersion()}")
+            SettingItem.AppVersion("Версия ${uiState.appVersion}")
         )
     }
 
-    private fun updateAdapterData(settingsState: SettingsState) {
-        val newSettingsItems = createSettingsItems(settingsState)
-        adapter.updateItems(newSettingsItems)
-    }
-
-    private fun showLanguageSelection() {
-        val languages = viewModel.availableLanguages
+    private fun showLanguageSelection(uiState: SettingsUiState) {
+        val languages = uiState.availableLanguages
         val languageNames = languages.map { it.name }.toTypedArray()
-        val currentLanguage = viewModel.settingsState.value.nativeLanguage
+        val currentLanguage = uiState.settings.nativeLanguage
         val currentLanguageIndex = languages.indexOfFirst { it.code == currentLanguage.code }
 
         MaterialAlertDialogBuilder(requireContext())
@@ -135,10 +133,10 @@ class SettingsFragment : Fragment() {
             .show()
     }
 
-    private fun showThemeSelection() {
-        val themes = viewModel.availableThemes
+    private fun showThemeSelection(uiState: SettingsUiState) {
+        val themes = uiState.availableThemes
         val themeNames = themes.map { it.name }.toTypedArray()
-        val currentTheme = viewModel.settingsState.value.theme
+        val currentTheme = uiState.settings.theme
         val currentThemeIndex = themes.indexOfFirst { it.id == currentTheme.id }
 
         MaterialAlertDialogBuilder(requireContext())
@@ -154,10 +152,10 @@ class SettingsFragment : Fragment() {
             .show()
     }
 
-    private fun showVoiceSelection() {
-        val voices = viewModel.availableVoices
+    private fun showVoiceSelection(uiState: SettingsUiState) {
+        val voices = uiState.availableVoices
         val voiceNames = voices.map { it.name }.toTypedArray()
-        val currentVoice = viewModel.settingsState.value.voiceType
+        val currentVoice = uiState.settings.voiceType
         val currentVoiceIndex = voices.indexOfFirst { it.id == currentVoice.id }
 
         MaterialAlertDialogBuilder(requireContext())
@@ -173,22 +171,26 @@ class SettingsFragment : Fragment() {
             .show()
     }
 
-    private fun handleRemindersToggle(isChecked: Boolean) {
+    private fun handleRemindersToggle(isChecked: Boolean, uiState: SettingsUiState) {
         viewModel.toggleDailyReminders(isChecked)
 
         if (isChecked) {
-            showTimePicker()
+            showTimePicker(uiState.settings.reminderTime)
         }
     }
 
-    private fun showTimePicker() {
-        val currentTime = viewModel.settingsState.value.reminderTime
+    private fun showTimePicker(currentTime: String) {
         val (hour, minute) = currentTime.split(":").map { it.toInt() }
 
         TimePickerDialog(
             requireContext(),
             { _, selectedHour, selectedMinute ->
-                val formattedTime = String.format(Locale.getDefault(), "%02d:%02d", selectedHour, selectedMinute)
+                val formattedTime = String.format(
+                    Locale.getDefault(),
+                    "%02d:%02d",
+                    selectedHour,
+                    selectedMinute
+                )
                 viewModel.updateReminderTime(formattedTime)
             },
             hour,
@@ -197,14 +199,10 @@ class SettingsFragment : Fragment() {
         ).show()
     }
 
-    private fun handleProgressNotificationsToggle(isChecked: Boolean) {
-        viewModel.toggleProgressNotifications(isChecked)
-    }
-
-    private fun showAboutApp() {
+    private fun showAboutApp(appVersion: String) {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("О приложении")
-            .setMessage("Grable - приложение для изучения языков\n\nВерсия: ${viewModel.getAppVersion()}")
+            .setMessage("Grable - приложение для изучения языков\n\nВерсия: $appVersion")
             .setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
             }

@@ -1,4 +1,4 @@
-package ru.sirius.grable.settings
+package ru.sirius.grable.settings.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import ru.sirius.grable.R
 
 class SettingsAdapter(private var items: List<SettingItem>) :
@@ -66,7 +67,7 @@ class SettingsAdapter(private var items: List<SettingItem>) :
     // ViewHolder для заголовка раздела
     class SectionTitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val sectionTitle: TextView = itemView.findViewById(R.id.tvSectionTitle)
-        private val cardView: com.google.android.material.card.MaterialCardView = itemView.findViewById(R.id.cardView)
+        private val cardView: MaterialCardView = itemView.findViewById(R.id.cardView)
 
         fun bind(item: SettingItem.SectionTitle) {
             sectionTitle.text = item.title
@@ -81,7 +82,7 @@ class SettingsAdapter(private var items: List<SettingItem>) :
         private val settingTitle: TextView = itemView.findViewById(R.id.tvSettingTitle)
         private val settingValue: TextView = itemView.findViewById(R.id.tvSettingValue)
         private val divider: View = itemView.findViewById(R.id.divider)
-        private val cardView: com.google.android.material.card.MaterialCardView = itemView.findViewById(R.id.cardView)
+        private val cardView: MaterialCardView = itemView.findViewById(R.id.cardView)
 
         fun bind(item: SettingItem.BaseSetting) {
             cardView.visibility = View.VISIBLE
@@ -103,7 +104,7 @@ class SettingsAdapter(private var items: List<SettingItem>) :
         private val switchSubtitle: TextView = itemView.findViewById(R.id.tvSwitchSubtitle)
         private val switchSetting: Switch = itemView.findViewById(R.id.switchSetting)
         private val divider: View = itemView.findViewById(R.id.divider)
-        private val cardView: com.google.android.material.card.MaterialCardView = itemView.findViewById(R.id.cardView)
+        private val cardView: MaterialCardView = itemView.findViewById(R.id.cardView)
 
         fun bind(item: SettingItem.SwitchSetting) {
             cardView.visibility = View.VISIBLE
