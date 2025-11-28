@@ -21,7 +21,9 @@ import java.util.Locale
 class SettingsFragment : Fragment() {
 
     private val viewModel: SettingsViewModel by viewModels()
-    private lateinit var adapter: SettingsAdapter
+    private val adapter: SettingsAdapter by lazy {
+        SettingsAdapter()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_settings, container, false)
@@ -30,14 +32,10 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Инициализация адаптера с пустым списком
-        adapter = SettingsAdapter(emptyList())
-
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
-        // Наблюдаем за изменениями UI состояния
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.uiState.collect { uiState ->
                 updateUI(uiState)
@@ -47,13 +45,13 @@ class SettingsFragment : Fragment() {
 
     private fun updateUI(uiState: SettingsUiState) {
         val settingsItems = createSettingsItems(uiState)
-        adapter.updateItems(settingsItems)
+        adapter.submitList(settingsItems)
     }
 
     private fun createSettingsItems(uiState: SettingsUiState): List<SettingItem> {
         return listOf(
             // Основные настройки
-            SettingItem.SectionTitle("Основные настройки"),
+            SettingItem.SectionTitle(0,"Основные настройки"),
             SettingItem.BaseSetting(
                 id = R.id.native_language_layout,
                 title = "Родной язык",
@@ -70,7 +68,7 @@ class SettingsFragment : Fragment() {
             ),
 
             // Аудио настройки
-            SettingItem.SectionTitle("Аудио настройки"),
+            SettingItem.SectionTitle(1, "Аудио настройки"),
             SettingItem.BaseSetting(
                 id = R.id.voice_type_layout,
                 title = "Озвучивание диктора",
@@ -79,7 +77,7 @@ class SettingsFragment : Fragment() {
             ),
 
             // Уведомления
-            SettingItem.SectionTitle("Уведомления"),
+            SettingItem.SectionTitle(2,"Уведомления"),
             SettingItem.SwitchSetting(
                 id = R.id.switchReminders,
                 title = "Напоминания",
@@ -101,7 +99,7 @@ class SettingsFragment : Fragment() {
             ),
 
             // О приложении
-            SettingItem.SectionTitle("О приложении"),
+            SettingItem.SectionTitle(3,"О приложении"),
             SettingItem.BaseSetting(
                 id = R.id.about_layout,
                 title = "О приложении",
@@ -110,7 +108,7 @@ class SettingsFragment : Fragment() {
             ),
 
             // Версия приложения
-            SettingItem.AppVersion("Версия ${uiState.appVersion}")
+            SettingItem.AppVersion(4,"Версия ${uiState.appVersion}")
         )
     }
 
