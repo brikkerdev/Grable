@@ -5,17 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.sirius.grable.R
 
 
-class LearnPlaylistAdapter : RecyclerView.Adapter<LearnPlaylistAdapter.WordsViewHolder>() {
-    private var words: List<Word> = emptyList()
-
-    fun submitList(newList: List<Word>) {
-        words = newList
-        notifyDataSetChanged()
-    }
+class LearnPlaylistAdapter : ListAdapter<Word, LearnPlaylistAdapter.WordsViewHolder>(WordDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordsViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -24,11 +20,8 @@ class LearnPlaylistAdapter : RecyclerView.Adapter<LearnPlaylistAdapter.WordsView
     }
 
     override fun onBindViewHolder(holder: WordsViewHolder, position: Int) {
-        val word = words[position]
-        holder.bind(word)
+        holder.bind(getItem(position))
     }
-
-    override fun getItemCount(): Int = words.size
 
     class WordsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nameTextView: TextView = itemView.findViewById(R.id.originalWord)
@@ -37,6 +30,16 @@ class LearnPlaylistAdapter : RecyclerView.Adapter<LearnPlaylistAdapter.WordsView
         fun bind(word: Word) {
             nameTextView.text = word.original
             translationTextView.text = word.translation
+        }
+    }
+
+    class WordDiffCallback : DiffUtil.ItemCallback<Word>() {
+        override fun areItemsTheSame(oldItem: Word, newItem: Word): Boolean {
+            return oldItem.original == newItem.original
+        }
+
+        override fun areContentsTheSame(oldItem: Word, newItem: Word): Boolean {
+            return oldItem == newItem
         }
     }
 }

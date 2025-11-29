@@ -9,6 +9,7 @@ import ru.sirius.grable.R
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.getValue
 
@@ -29,6 +30,7 @@ class LearnPlaylistFragment: Fragment() {
 
         val adapter = LearnPlaylistAdapter()
         recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.words.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
