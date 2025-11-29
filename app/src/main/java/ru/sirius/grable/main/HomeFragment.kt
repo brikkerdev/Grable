@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import ru.sirius.grable.MainActivity
 import ru.sirius.grable.R
 import ru.sirius.grable.learn.LearnFragment
-import ru.sirius.grable.playlist.SelectPlaylistFragment
+import ru.sirius.grable.playlist.ui.SelectPlaylistFragment
 
 class HomeFragment : Fragment() {
     override fun onCreateView(

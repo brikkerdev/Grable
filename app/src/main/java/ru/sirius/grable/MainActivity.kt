@@ -11,7 +11,7 @@ import ru.sirius.grable.add_word.AddWordFragment
 import ru.sirius.grable.learn.LearnFragment
 import ru.sirius.grable.main.HomeFragment
 import ru.sirius.grable.progress.StatsFragment
-import ru.sirius.grable.settings.SettingsFragment
+import ru.sirius.grable.settings.ui.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
 
