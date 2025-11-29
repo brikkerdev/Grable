@@ -1,6 +1,5 @@
-package ru.sirius.grable.playlist
+package ru.sirius.grable.learn
 
-import android.provider.UserDictionary
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ class LearnPlaylistAdapter : ListAdapter<Word, LearnPlaylistAdapter.WordsViewHol
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordsViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_playlist, parent, false)
+            .inflate(R.layout.item_word, parent, false)
         return WordsViewHolder(view)
     }
 
@@ -24,8 +23,8 @@ class LearnPlaylistAdapter : ListAdapter<Word, LearnPlaylistAdapter.WordsViewHol
     }
 
     class WordsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val nameTextView: TextView = itemView.findViewById(R.id.originalWord)
-        private val translationTextView: TextView = itemView.findViewById(R.id.translation)
+        private val nameTextView: TextView by lazy {itemView.findViewById(R.id.originalWord)}
+        private val translationTextView: TextView by lazy { itemView.findViewById(R.id.translation)}
 
         fun bind(word: Word) {
             nameTextView.text = word.original
