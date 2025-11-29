@@ -8,23 +8,38 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import kotlinx.coroutines.launch
 import ru.sirius.grable.R
+import ru.sirius.grable.progress.data.DayStat
 import ru.sirius.grable.progress.data.StatisticsData
 import ru.sirius.grable.progress.data.repository.StatisticsRepository
 
 
 class StatsFragment : Fragment() {
 
+    private lateinit var barChart: BarChart
     private lateinit var spinnerPeriod: Spinner
     private lateinit var tvPeriod: TextView
     private lateinit var rvDays: RecyclerView
     private lateinit var rvStatistics: RecyclerView
 
-    private val statisticsRepository = StatisticsRepository()
     private var currentPeriod = 7
+
+    private lateinit var binding: FragmentStatisticsBinding
+
+    private val viewModel by viewModels<StatisticsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,10 +53,14 @@ class StatsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
         setupSpinner()
-        loadStatistics(currentPeriod)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.statisticsData.collect(::updateUI)
+        }
     }
 
     private fun initViews(view: View) {
+        barChart = view.findViewById(R.id.barChart)
         spinnerPeriod = view.findViewById(R.id.spinnerPeriod)
         tvPeriod = view.findViewById(R.id.tvPeriod)
         rvDays = view.findViewById(R.id.rvDays)
@@ -65,16 +84,11 @@ class StatsFragment : Fragment() {
                     2 -> 90
                     else -> -1 // Все время
                 }
-                loadStatistics(currentPeriod)
+                viewModel.setPeriod(currentPeriod)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
-    }
-
-    private fun loadStatistics(period: Int) {
-        val statisticsData = statisticsRepository.getStatistics(period)
-        updateUI(statisticsData)
     }
 
     private fun updateUI(data: StatisticsData) {
@@ -90,5 +104,63 @@ class StatsFragment : Fragment() {
 
         val statisticsAdapter = StatisticsAdapter(data.statistics)
         rvStatistics.adapter = statisticsAdapter
+    }
+
+    private fun updateChart(days: List<DayStat>) {
+        val entries = ArrayList<BarEntry>()
+        val labels = ArrayList<String>()
+
+        days.forEachIndexed { index, dayStat ->
+            entries.add(BarEntry(index.toFloat(), dayStat.wordsCount.toFloat()))
+            labels.add(dayStat.date)
+        }
+
+        val dataSet = BarDataSet(entries, "Количество слов")
+        dataSet.color = ContextCompat.getColor(requireContext(), R.color.primary)
+        dataSet.valueTextSize = 10f
+
+        val data = BarData(dataSet)
+        data.barWidth = 0.7f
+
+        binding.barChart.data = data
+        binding.barChart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+        binding.barChart.invalidate()
+    }
+
+    private fun setupChart() {
+        // Базовая настройка графика
+        barChart.setDrawBarShadow(false)
+        barChart.setDrawValueAboveBar(true)
+        barChart.description.isEnabled = false
+        barChart.setMaxVisibleValueCount(60)
+        barChart.setPinchZoom(false)
+        barChart.setDrawGridBackground(false)
+
+        // Настройка оси X
+        val xAxis = barChart.xAxis
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.setDrawGridLines(false)
+        xAxis.granularity = 1f
+        xAxis.labelCount = 7
+        xAxis.valueFormatter = IndexAxisValueFormatter()
+
+        // Настройка левой оси Y
+        val leftAxis = barChart.axisLeft
+        leftAxis.setDrawGridLines(true)
+        leftAxis.spaceTop = 15f
+        leftAxis.axisMinimum = 0f
+        leftAxis.granularity = 1f
+
+        // Настройка правой оси Y
+        val rightAxis = barChart.axisRight
+        rightAxis.setDrawGridLines(false)
+        rightAxis.axisMinimum = 0f
+
+        // Легенда
+        val legend = barChart.legend
+        legend.isEnabled = false
+
+        // Анимация
+        barChart.animateY(1000)
     }
 }
