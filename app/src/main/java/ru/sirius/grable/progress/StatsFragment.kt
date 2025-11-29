@@ -32,7 +32,6 @@ class StatsFragment : Fragment() {
     private lateinit var barChart: BarChart
     private lateinit var spinnerPeriod: Spinner
     private lateinit var tvPeriod: TextView
-    private lateinit var rvDays: RecyclerView
     private lateinit var rvStatistics: RecyclerView
 
     private var currentPeriod = 7
@@ -61,12 +60,12 @@ class StatsFragment : Fragment() {
 
     private fun initViews(view: View) {
         barChart = view.findViewById(R.id.barChart)
+        setupChart()
+
         spinnerPeriod = view.findViewById(R.id.spinnerPeriod)
         tvPeriod = view.findViewById(R.id.tvPeriod)
-        rvDays = view.findViewById(R.id.rvDays)
         rvStatistics = view.findViewById(R.id.rvStatistics)
 
-        rvDays.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         rvStatistics.layoutManager = LinearLayoutManager(requireContext())
     }
 
@@ -98,12 +97,11 @@ class StatsFragment : Fragment() {
         val learningNowText = "Заучивается сейчас: ${data.learningNow}"
         requireView().findViewById<TextView>(R.id.tvPeriodTitle).text = learningNowText
 
-        // Настраиваем адаптеры
-        val daysAdapter = DaysAdapter(data.days)
-        rvDays.adapter = daysAdapter
 
         val statisticsAdapter = StatisticsAdapter(data.statistics)
         rvStatistics.adapter = statisticsAdapter
+
+        updateChart(data.days)
     }
 
     private fun updateChart(days: List<DayStat>) {
@@ -118,13 +116,15 @@ class StatsFragment : Fragment() {
         val dataSet = BarDataSet(entries, "Количество слов")
         dataSet.color = ContextCompat.getColor(requireContext(), R.color.primary)
         dataSet.valueTextSize = 10f
+        dataSet.valueTextColor = ContextCompat.getColor(requireContext(), R.color.primary)
 
         val data = BarData(dataSet)
         data.barWidth = 0.7f
 
-        binding.barChart.data = data
-        binding.barChart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
-        binding.barChart.invalidate()
+        barChart.data = data
+        barChart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+        barChart.xAxis.textColor = ContextCompat.getColor(requireContext(), R.color.primary)
+        barChart.invalidate()
     }
 
     private fun setupChart() {
@@ -150,11 +150,13 @@ class StatsFragment : Fragment() {
         leftAxis.spaceTop = 15f
         leftAxis.axisMinimum = 0f
         leftAxis.granularity = 1f
+        leftAxis.textColor = ContextCompat.getColor(requireContext(), R.color.primary)
 
         // Настройка правой оси Y
         val rightAxis = barChart.axisRight
         rightAxis.setDrawGridLines(false)
         rightAxis.axisMinimum = 0f
+        rightAxis.textColor = ContextCompat.getColor(requireContext(), R.color.primary)
 
         // Легенда
         val legend = barChart.legend
