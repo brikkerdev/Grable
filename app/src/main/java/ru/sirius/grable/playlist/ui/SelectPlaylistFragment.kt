@@ -20,7 +20,12 @@ import ru.sirius.grable.main.PlaylistViewModel
 class SelectPlaylistFragment : Fragment() {
 
     private val viewModel: PlaylistViewModel by viewModels()
-    private lateinit var adapter: SelectPlaylistAdapter
+
+    private val adapter: SelectPlaylistAdapter by lazy {
+        SelectPlaylistAdapter { playlist ->
+            // TODO: Implement onItemClick if needed
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,8 +48,6 @@ class SelectPlaylistFragment : Fragment() {
 
     private fun setupRecyclerView(view: View) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.playlist_items)
-        adapter = SelectPlaylistAdapter(emptyList()) { playlist ->
-        }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
     }
@@ -52,9 +55,7 @@ class SelectPlaylistFragment : Fragment() {
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.state.collect { state ->
-                adapter = SelectPlaylistAdapter(state.playlists) { playlist ->
-                }
-                view?.findViewById<RecyclerView>(R.id.playlist_items)?.adapter = adapter
+                adapter.submitList(state.playlists)
             }
         }
     }
