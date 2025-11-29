@@ -60,13 +60,8 @@
             android:id="@+id/barChart"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:layout_marginBottom="@dimen/spacing_xl" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvDays"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginBottom="@dimen/spacing_xl" />
+            android:layout_marginBottom="@dimen/spacing_xl"
+            />
 
         <View
             android:layout_width="match_parent"
