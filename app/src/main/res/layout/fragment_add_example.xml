@@ -10,10 +10,8 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/radius_md"
-        app:cardElevation="4dp"
-        app:cardBackgroundColor="@color/surface"
         android:layout_marginTop="@dimen/spacing_base"
+        style="@style/Widget.Grable.Card.Base"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">

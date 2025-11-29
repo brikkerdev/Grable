@@ -34,6 +34,10 @@
     
     <!-- Common dimensions used in layouts -->
     <dimen name="card_padding">20dp</dimen>
+    <dimen name="card_padding_compact">13dp</dimen>
+    <dimen name="card_corner_radius_sm">10dp</dimen>
+    <dimen name="card_elevation_sm">4dp</dimen>
+    <dimen name="card_elevation_md">5dp</dimen>
     <dimen name="chip_padding_horizontal">18dp</dimen>
     <dimen name="chip_padding_vertical">10dp</dimen>
     <dimen name="header_padding">8dp</dimen>

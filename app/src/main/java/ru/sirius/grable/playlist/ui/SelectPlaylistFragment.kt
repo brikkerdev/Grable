@@ -1,4 +1,4 @@
-package ru.sirius.grable.playlist
+package ru.sirius.grable.playlist.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,13 +14,18 @@ import kotlinx.coroutines.launch
 import ru.sirius.grable.MainActivity
 import ru.sirius.grable.R
 import ru.sirius.grable.main.HomeFragment
-import ru.sirius.grable.main.PlaylistAdapter
+import ru.sirius.grable.main.SelectPlaylistAdapter
 import ru.sirius.grable.main.PlaylistViewModel
 
-class SelectPlaylistFragment: Fragment() {
+class SelectPlaylistFragment : Fragment() {
 
     private val viewModel: PlaylistViewModel by viewModels()
-    private lateinit var adapter: PlaylistAdapter
+
+    private val adapter: SelectPlaylistAdapter by lazy {
+        SelectPlaylistAdapter { playlist ->
+            // TODO: Implement onItemClick if needed
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,18 +48,14 @@ class SelectPlaylistFragment: Fragment() {
 
     private fun setupRecyclerView(view: View) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.playlist_items)
-        adapter = PlaylistAdapter(emptyList()) { playlist ->
-        }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
     }
 
     private fun observeViewModel() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.state.collect { state ->
-                adapter = PlaylistAdapter(state.playlists) { playlist ->
-                }
-                view?.findViewById<RecyclerView>(R.id.playlist_items)?.adapter = adapter
+                adapter.submitList(state.playlists)
             }
         }
     }

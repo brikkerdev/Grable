@@ -1,4 +1,4 @@
-package ru.sirius.grable.settings
+package ru.sirius.grable.settings.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,14 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Switch
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import ru.sirius.grable.R
 
-class SettingsAdapter(private var items: List<SettingItem>) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SettingsAdapter() :
+    ListAdapter<SettingItem, RecyclerView.ViewHolder>(Calculator()) {
 
     companion object {
         private const val TYPE_SECTION_TITLE = 0
@@ -19,13 +22,8 @@ class SettingsAdapter(private var items: List<SettingItem>) :
         private const val TYPE_APP_VERSION = 3
     }
 
-    fun updateItems(newItems: List<SettingItem>) {
-        items = newItems
-        notifyDataSetChanged()
-    }
-
     override fun getItemViewType(position: Int): Int {
-        return when (items[position]) {
+        return when (getItem(position)) {
             is SettingItem.SectionTitle -> TYPE_SECTION_TITLE
             is SettingItem.BaseSetting -> TYPE_BASE_SETTING
             is SettingItem.SwitchSetting -> TYPE_SWITCH_SETTING
@@ -53,7 +51,7 @@ class SettingsAdapter(private var items: List<SettingItem>) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (val item = items[position]) {
+        when (val item = getItem(position)) {
             is SettingItem.SectionTitle -> (holder as SectionTitleViewHolder).bind(item)
             is SettingItem.BaseSetting -> (holder as BaseSettingViewHolder).bind(item)
             is SettingItem.SwitchSetting -> (holder as SwitchSettingViewHolder).bind(item)
@@ -61,12 +59,10 @@ class SettingsAdapter(private var items: List<SettingItem>) :
         }
     }
 
-    override fun getItemCount(): Int = items.size
-
     // ViewHolder для заголовка раздела
     class SectionTitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val sectionTitle: TextView = itemView.findViewById(R.id.tvSectionTitle)
-        private val cardView: com.google.android.material.card.MaterialCardView = itemView.findViewById(R.id.cardView)
+        private val cardView: MaterialCardView = itemView.findViewById(R.id.cardView)
 
         fun bind(item: SettingItem.SectionTitle) {
             sectionTitle.text = item.title
@@ -81,7 +77,7 @@ class SettingsAdapter(private var items: List<SettingItem>) :
         private val settingTitle: TextView = itemView.findViewById(R.id.tvSettingTitle)
         private val settingValue: TextView = itemView.findViewById(R.id.tvSettingValue)
         private val divider: View = itemView.findViewById(R.id.divider)
-        private val cardView: com.google.android.material.card.MaterialCardView = itemView.findViewById(R.id.cardView)
+        private val cardView: MaterialCardView = itemView.findViewById(R.id.cardView)
 
         fun bind(item: SettingItem.BaseSetting) {
             cardView.visibility = View.VISIBLE
@@ -103,7 +99,7 @@ class SettingsAdapter(private var items: List<SettingItem>) :
         private val switchSubtitle: TextView = itemView.findViewById(R.id.tvSwitchSubtitle)
         private val switchSetting: Switch = itemView.findViewById(R.id.switchSetting)
         private val divider: View = itemView.findViewById(R.id.divider)
-        private val cardView: com.google.android.material.card.MaterialCardView = itemView.findViewById(R.id.cardView)
+        private val cardView: MaterialCardView = itemView.findViewById(R.id.cardView)
 
         fun bind(item: SettingItem.SwitchSetting) {
             cardView.visibility = View.VISIBLE
@@ -125,6 +121,16 @@ class SettingsAdapter(private var items: List<SettingItem>) :
 
         fun bind(item: SettingItem.AppVersion) {
             appVersion.text = item.version
+        }
+    }
+
+    private class Calculator : DiffUtil.ItemCallback<SettingItem>() {
+        override fun areItemsTheSame(oldItem: SettingItem, newItem: SettingItem): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: SettingItem, newItem: SettingItem): Boolean {
+            return oldItem.hashCode() == newItem.hashCode()
         }
     }
 }
