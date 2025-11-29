@@ -56,6 +56,12 @@
             android:textStyle="bold"
             android:layout_marginBottom="@dimen/spacing_sm" />
 
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginBottom="@dimen/spacing_xl" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvDays"
             android:layout_width="match_parent"
