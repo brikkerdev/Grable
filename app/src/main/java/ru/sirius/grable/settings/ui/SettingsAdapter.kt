@@ -11,9 +11,16 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import ru.sirius.grable.R
+import ru.sirius.grable.settings.domain.SettingsUiState
 
-class SettingsAdapter() :
+class SettingsAdapter(
+    private val clickListener: ClickListener,
+) :
     ListAdapter<SettingItem, RecyclerView.ViewHolder>(Calculator()) {
+    interface ClickListener {
+        fun onClickListener(item: SettingItem)
+        fun onChangeListener(item: SettingItem, value: Boolean)
+    }
 
     companion object {
         private const val TYPE_SECTION_TITLE = 0
@@ -38,9 +45,11 @@ class SettingsAdapter() :
                 inflater.inflate(R.layout.item_setting, parent, false)
             )
             TYPE_BASE_SETTING -> BaseSettingViewHolder(
+                clickListener,
                 inflater.inflate(R.layout.item_setting, parent, false)
             )
             TYPE_SWITCH_SETTING -> SwitchSettingViewHolder(
+                clickListener,
                 inflater.inflate(R.layout.item_setting, parent, false)
             )
             TYPE_APP_VERSION -> AppVersionViewHolder(
@@ -72,7 +81,10 @@ class SettingsAdapter() :
     }
 
     // ViewHolder для базовой настройки
-    class BaseSettingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class BaseSettingViewHolder(
+        private val clickListener: ClickListener,
+        itemView: View
+    ) : RecyclerView.ViewHolder(itemView) {
         private val baseSettingLayout: LinearLayout = itemView.findViewById(R.id.baseSettingLayout)
         private val settingTitle: TextView = itemView.findViewById(R.id.tvSettingTitle)
         private val settingValue: TextView = itemView.findViewById(R.id.tvSettingValue)
@@ -87,13 +99,14 @@ class SettingsAdapter() :
             divider.visibility = if (item.showDivider) View.VISIBLE else View.GONE
 
             baseSettingLayout.setOnClickListener {
-                item.onClick?.invoke()
+                clickListener.onClickListener(item)
             }
         }
     }
 
     // ViewHolder для настройки с переключателем
-    class SwitchSettingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class SwitchSettingViewHolder(
+        private val clickListener: ClickListener,itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val switchSettingLayout: LinearLayout = itemView.findViewById(R.id.switchSettingLayout)
         private val switchTitle: TextView = itemView.findViewById(R.id.tvSwitchTitle)
         private val switchSubtitle: TextView = itemView.findViewById(R.id.tvSwitchSubtitle)
@@ -110,7 +123,7 @@ class SettingsAdapter() :
             divider.visibility = if (item.showDivider) View.VISIBLE else View.GONE
 
             switchSetting.setOnCheckedChangeListener { _, isChecked ->
-                item.onCheckedChange?.invoke(isChecked)
+                clickListener.onChangeListener(item, isChecked)
             }
         }
     }

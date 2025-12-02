@@ -14,7 +14,6 @@ import ru.sirius.grable.progress.StatsFragment
 import ru.sirius.grable.settings.ui.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
-
     private val sharedPreferences: SharedPreferences by lazy {
         getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
     }
