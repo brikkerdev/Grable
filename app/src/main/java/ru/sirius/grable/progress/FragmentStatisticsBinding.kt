@@ -13,7 +13,6 @@ class FragmentStatisticsBinding(rootView: View) {
     val spinnerPeriod: Spinner = rootView.findViewById(R.id.spinnerPeriod)
     val tvPeriod: TextView = rootView.findViewById(R.id.tvPeriod)
     val barChart: BarChart = rootView.findViewById(R.id.barChart)
-    val rvDays: RecyclerView = rootView.findViewById(R.id.rvDays)
     val rvStatistics: RecyclerView = rootView.findViewById(R.id.rvStatistics)
 
     companion object {
