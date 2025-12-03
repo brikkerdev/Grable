@@ -7,4 +7,5 @@
     <item name="switchProgressNotifications" type="id" />
     <item name="about_layout" type="id" />
     <item name="section_title" type="id" />
+    <item name="app_version" type="id" />
 </resources>

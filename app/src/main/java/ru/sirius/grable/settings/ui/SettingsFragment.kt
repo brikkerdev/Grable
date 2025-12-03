@@ -24,6 +24,7 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
     private val adapter: SettingsAdapter by lazy {
         SettingsAdapter(this)
     }
+    private val settingsItemsFactory = SettingsItemsFactory()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_settings, container, false)
@@ -57,7 +58,7 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
                 showVoiceSelection(uiState)
             }
             R.id.about_layout -> {
-                showAboutApp(uiState.appVersion)
+                showAboutApp(uiState)
             }
         }
     }
@@ -76,62 +77,8 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
     }
 
     private fun updateUI(uiState: SettingsUiState) {
-        val settingsItems = createSettingsItems(uiState)
+        val settingsItems = settingsItemsFactory.createSettingsItems(uiState)
         adapter.submitList(settingsItems)
-    }
-
-    private fun createSettingsItems(uiState: SettingsUiState): List<SettingItem> {
-        return listOf(
-            // Основные настройки
-            SettingItem.SectionTitle(R.id.section_title,"Основные настройки"),
-            SettingItem.BaseSetting(
-                id = R.id.native_language_layout,
-                title = "Родной язык",
-                value = uiState.settings.nativeLanguage.name,
-                showDivider = true,
-            ),
-            SettingItem.BaseSetting(
-                id = R.id.theme_layout,
-                title = "Цветовая тема",
-                value = uiState.settings.theme.name,
-                showDivider = false,
-            ),
-
-            // Аудио настройки
-            SettingItem.SectionTitle(R.id.section_title, "Аудио настройки"),
-            SettingItem.BaseSetting(
-                id = R.id.voice_type_layout,
-                title = "Озвучивание диктора",
-                value = uiState.settings.voiceType.name,
-            ),
-
-            // Уведомления
-            SettingItem.SectionTitle(R.id.section_title,"Уведомления"),
-            SettingItem.SwitchSetting(
-                id = R.id.switchReminders,
-                title = "Напоминания",
-                subtitle = uiState.settings.reminderTime,
-                isChecked = uiState.settings.dailyRemindersEnabled,
-                showDivider = true,
-            ),
-            SettingItem.SwitchSetting(
-                id = R.id.switchProgressNotifications,
-                title = "Уведомления о прогрессе",
-                subtitle = "Еженедельные отчеты о прогрессе",
-                isChecked = uiState.settings.progressNotificationsEnabled,
-            ),
-
-            // О приложении
-            SettingItem.SectionTitle(R.id.section_title,"О приложении"),
-            SettingItem.BaseSetting(
-                id = R.id.about_layout,
-                title = "О приложении",
-                value = "",
-            ),
-
-            // Версия приложения
-            SettingItem.AppVersion(R.id.section_title,"Версия ${uiState.appVersion}")
-        )
     }
 
     private fun showLanguageSelection(uiState: SettingsUiState) {
@@ -219,10 +166,10 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
         ).show()
     }
 
-    private fun showAboutApp(appVersion: String) {
+    private fun showAboutApp(uiState: SettingsUiState) {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("О приложении")
-            .setMessage("Grable - приложение для изучения языков\n\nВерсия: $appVersion")
+            .setTitle(uiState.texts.aboutAppTitle)
+            .setMessage("Grable - приложение для изучения языков\n\n${uiState.texts.aboutAppSubtitle}")
             .setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
             }

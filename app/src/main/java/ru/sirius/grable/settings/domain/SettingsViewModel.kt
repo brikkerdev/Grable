@@ -39,6 +39,20 @@ class SettingsViewModel(
                 availableVoices = voices,
                 availableThemes = themes,
                 appVersion = version,
+                texts = SettingsTexts(
+                    mainSettingsTitle = settingsInteractor.getMainSettingsTitle(),
+                    audioSettingsTitle = settingsInteractor.getAudioSettingsTitle(),
+                    notificationsTitle = settingsInteractor.getNotificationsTitle(),
+                    aboutTitle = settingsInteractor.getAboutTitle(),
+                    nativeLanguageTitle = settingsInteractor.getNativeLanguageTitle(),
+                    themeTitle = settingsInteractor.getThemeTitle(),
+                    voiceTitle = settingsInteractor.getVoiceTitle(),
+                    remindersTitle = settingsInteractor.getRemindersTitle(),
+                    progressNotificationsTitle = settingsInteractor.getProgressNotificationsTitle(),
+                    aboutAppTitle = settingsInteractor.getAboutAppTitle(),
+                    progressNotificationsSubtitle = settingsInteractor.getProgressNotificationsSubtitle(),
+                    aboutAppSubtitle = settingsInteractor.getAboutAppSubtitle(version)
+                ),
                 isLoading = false
             )
         }.onEach { newState ->
@@ -89,11 +103,27 @@ class SettingsViewModel(
     }
 }
 
+data class SettingsTexts(
+    val mainSettingsTitle: String = "",
+    val audioSettingsTitle: String = "",
+    val notificationsTitle: String = "",
+    val aboutTitle: String = "",
+    val nativeLanguageTitle: String = "",
+    val themeTitle: String = "",
+    val voiceTitle: String = "",
+    val remindersTitle: String = "",
+    val progressNotificationsTitle: String = "",
+    val aboutAppTitle: String = "",
+    val progressNotificationsSubtitle: String = "",
+    val aboutAppSubtitle: String = ""
+)
+
 data class SettingsUiState(
     val settings: ru.sirius.grable.settings.data.SettingsState = ru.sirius.grable.settings.data.SettingsState(),
     val availableLanguages: List<Language> = emptyList(),
     val availableVoices: List<Voice> = emptyList(),
     val availableThemes: List<Theme> = emptyList(),
     val appVersion: String = "",
+    val texts: SettingsTexts = SettingsTexts(),
     val isLoading: Boolean = true
 )
