@@ -7,11 +7,11 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
-import ru.sirius.grable.add_word.AddWordFragment
 import ru.sirius.grable.learn.LearnFragment
 import ru.sirius.grable.main.HomeFragment
 import ru.sirius.grable.progress.StatsFragment
 import ru.sirius.grable.settings.ui.SettingsFragment
+import ru.sirius.grable.add_word.ui.AddWordFragment
 
 class MainActivity : AppCompatActivity() {
 

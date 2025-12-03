@@ -1,4 +1,4 @@
-package ru.sirius.grable.add_word
+package ru.sirius.grable.add_word.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
