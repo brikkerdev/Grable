@@ -13,7 +13,6 @@ sealed interface SettingItem {
         val title: String,
         val value: String,
         val showDivider: Boolean = false,
-        val onClick: (() -> Unit)? = null
     ) : SettingItem
 
     data class SwitchSetting(
@@ -22,7 +21,6 @@ sealed interface SettingItem {
         val subtitle: String,
         val isChecked: Boolean,
         val showDivider: Boolean = false,
-        val onCheckedChange: ((Boolean) -> Unit)? = null
     ) : SettingItem
 
     data class AppVersion(

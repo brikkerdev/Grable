@@ -18,11 +18,11 @@ import ru.sirius.grable.settings.domain.SettingsUiState
 import ru.sirius.grable.settings.domain.SettingsViewModel
 import java.util.Locale
 
-class SettingsFragment : Fragment() {
+class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
 
     private val viewModel: SettingsViewModel by viewModels()
     private val adapter: SettingsAdapter by lazy {
-        SettingsAdapter()
+        SettingsAdapter(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -43,6 +43,38 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    override fun onClickListener(item: SettingItem) {
+        val uiState = viewModel.uiState.value
+
+        when (item.id) {
+            R.id.native_language_layout -> {
+                showLanguageSelection(uiState)
+            }
+            R.id.theme_layout -> {
+                showThemeSelection(uiState)
+            }
+            R.id.voice_type_layout -> {
+                showVoiceSelection(uiState)
+            }
+            R.id.about_layout -> {
+                showAboutApp(uiState.appVersion)
+            }
+        }
+    }
+
+    override fun onChangeListener(item: SettingItem, value: Boolean) {
+        val uiState = viewModel.uiState.value
+
+        when (item.id) {
+            R.id.switchReminders -> {
+                handleRemindersToggle(value, uiState)
+            }
+            R.id.switchProgressNotifications -> {
+                viewModel.toggleProgressNotifications(value)
+            }
+        }
+    }
+
     private fun updateUI(uiState: SettingsUiState) {
         val settingsItems = createSettingsItems(uiState)
         adapter.submitList(settingsItems)
@@ -51,64 +83,54 @@ class SettingsFragment : Fragment() {
     private fun createSettingsItems(uiState: SettingsUiState): List<SettingItem> {
         return listOf(
             // Основные настройки
-            SettingItem.SectionTitle(0,"Основные настройки"),
+            SettingItem.SectionTitle(R.id.section_title,"Основные настройки"),
             SettingItem.BaseSetting(
                 id = R.id.native_language_layout,
                 title = "Родной язык",
                 value = uiState.settings.nativeLanguage.name,
                 showDivider = true,
-                onClick = { showLanguageSelection(uiState) }
             ),
             SettingItem.BaseSetting(
                 id = R.id.theme_layout,
                 title = "Цветовая тема",
                 value = uiState.settings.theme.name,
                 showDivider = false,
-                onClick = { showThemeSelection(uiState) }
             ),
 
             // Аудио настройки
-            SettingItem.SectionTitle(1, "Аудио настройки"),
+            SettingItem.SectionTitle(R.id.section_title, "Аудио настройки"),
             SettingItem.BaseSetting(
                 id = R.id.voice_type_layout,
                 title = "Озвучивание диктора",
                 value = uiState.settings.voiceType.name,
-                onClick = { showVoiceSelection(uiState) }
             ),
 
             // Уведомления
-            SettingItem.SectionTitle(2,"Уведомления"),
+            SettingItem.SectionTitle(R.id.section_title,"Уведомления"),
             SettingItem.SwitchSetting(
                 id = R.id.switchReminders,
                 title = "Напоминания",
                 subtitle = uiState.settings.reminderTime,
                 isChecked = uiState.settings.dailyRemindersEnabled,
                 showDivider = true,
-                onCheckedChange = { isChecked ->
-                    handleRemindersToggle(isChecked, uiState)
-                }
             ),
             SettingItem.SwitchSetting(
                 id = R.id.switchProgressNotifications,
                 title = "Уведомления о прогрессе",
                 subtitle = "Еженедельные отчеты о прогрессе",
                 isChecked = uiState.settings.progressNotificationsEnabled,
-                onCheckedChange = { isChecked ->
-                    viewModel.toggleProgressNotifications(isChecked)
-                }
             ),
 
             // О приложении
-            SettingItem.SectionTitle(3,"О приложении"),
+            SettingItem.SectionTitle(R.id.section_title,"О приложении"),
             SettingItem.BaseSetting(
                 id = R.id.about_layout,
                 title = "О приложении",
                 value = "",
-                onClick = { showAboutApp(uiState.appVersion) }
             ),
 
             // Версия приложения
-            SettingItem.AppVersion(4,"Версия ${uiState.appVersion}")
+            SettingItem.AppVersion(R.id.section_title,"Версия ${uiState.appVersion}")
         )
     }
 
