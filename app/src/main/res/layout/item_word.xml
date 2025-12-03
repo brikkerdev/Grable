@@ -5,9 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/spacing_base"
-    android:layout_marginVertical="@dimen/spacing_sm"
-    style="@style/Widget.Grable.Card.ListItem">
+    android:layout_margin="@dimen/spacing_sm"
+    app:cardCornerRadius="@dimen/radius_md"
+    app:cardBackgroundColor="@color/surface"
+    app:cardElevation="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -15,7 +16,7 @@
     android:padding="@dimen/card_padding_compact">
 
         <TextView
-            android:id="@+id/tvOriginalWord"
+            android:id="@+id/originalWord"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             style="@style/TextAppearanceWordOriginal"
@@ -25,14 +26,14 @@
             tools:text="Text" />
 
         <TextView
-            android:id="@+id/tvTranslation"
+            android:id="@+id/translation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_xs"
             android:textAppearance="@style/TextAppearanceBody1Secondary"
             app:layout_constraintEnd_toStartOf="@+id/btnEditWord"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvOriginalWord"
+            app:layout_constraintTop_toBottomOf="@+id/originalWord"
             tools:text="Текст" />
 
         <ImageButton
