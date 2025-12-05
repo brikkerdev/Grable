@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.sirius.grable.R
 import ru.sirius.grable.add_word.data.Example
 
-class ExamplesAdapter(
+class ExampleAdapter(
     private val onEditClick: (position: Int, example: Example) -> Unit
-) : ListAdapter<Example, ExamplesAdapter.ExampleViewHolder>(DIFF_CALLBACK) {
+) : ListAdapter<Example, ExampleAdapter.ExampleViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Example>() {
