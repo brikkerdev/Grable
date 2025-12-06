@@ -5,20 +5,23 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "example",
+    tableName = "word",
     foreignKeys = [
         ForeignKey(
-            WordEntity::class,
+            PlaylistEntity::class,
             ["id"],
-            ["wordId"],
+            ["playlistId"],
             ForeignKey.CASCADE
         )
     ]
 )
-data class ExampleEntity(
+data class WordEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
-    val wordId: Long,
+    val id: Long,
+    val playlistId: Long,
+    val original: String,
+    val transcription: String,
+    val translation: String,
     val text: String,
-    val translatedText: String
+    val isNew: Boolean = true
 )

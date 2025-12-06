@@ -3,9 +3,10 @@ package ru.sirius.grable.common
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import java.sql.Timestamp
 
 @Entity(
-    tableName = "example",
+    tableName = "statistics",
     foreignKeys = [
         ForeignKey(
             WordEntity::class,
@@ -15,10 +16,10 @@ import androidx.room.PrimaryKey
         )
     ]
 )
-data class ExampleEntity(
+data class StatisticsEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val wordId: Long,
-    val text: String,
-    val translatedText: String
+    val date: Timestamp,
+    val isKnown: Boolean
 )

@@ -8,17 +8,14 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import coil3.request.target
 
-inline fun ImageView.load(
+fun ImageView.load(
     data: Any?,
     crossfade: Boolean = false,
-    imageLoader: CoilImageLoader = context.imageLoader,
-    builder: ImageRequest.Builder.() -> Unit = {},
 ): Disposable {
     val request = ImageRequest.Builder(context)
         .data(data)
         .target(this)
         .apply { if (crossfade) crossfade(true) }
-        .apply(builder)
         .build()
-    return imageLoader.enqueue(request)
+    return context.imageLoader.enqueue(request)
 }
