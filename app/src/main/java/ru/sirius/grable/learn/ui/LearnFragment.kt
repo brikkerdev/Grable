@@ -1,4 +1,4 @@
-package ru.sirius.grable.learn
+package ru.sirius.grable.learn.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
