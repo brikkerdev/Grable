@@ -55,4 +55,7 @@ dependencies {
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation(libs.bundles.room)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.coil.base)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 }
