@@ -1,72 +1,82 @@
 package ru.sirius.grable.settings.ui
 
+import android.content.res.Resources
+import android.content.res.loader.ResourcesLoader
+import androidx.core.content.ContextCompat.getString
 import ru.sirius.grable.R
-import ru.sirius.grable.settings.domain.SettingsUiState
+import ru.sirius.grable.settings.data.ID_APP_VERSION
+import ru.sirius.grable.settings.data.ID_DAILY_REMINDER
+import ru.sirius.grable.settings.data.ID_LANGUAGE
+import ru.sirius.grable.settings.data.ID_NOTIFICATION_PROGRESS
+import ru.sirius.grable.settings.data.ID_THEME
+import ru.sirius.grable.settings.data.ID_TIME_REMINDER
+import ru.sirius.grable.settings.data.ID_VOICE
+import ru.sirius.grable.settings.domain.SettingsUIState
 
 class SettingsItemsFactory {
 
-    fun createSettingsItems(uiState: SettingsUiState): List<SettingItem> {
-        val texts = uiState.texts
+    fun createSettingsItems(uiState: SettingsUIState): List<SettingItem> {
+        val values = uiState.values
 
         return listOf(
             // Основные настройки
             SettingItem.SectionTitle(
                 id = R.id.section_title,
-                title = texts.mainSettingsTitle
+                title = R.string.settings_general
             ),
             SettingItem.BaseSetting(
                 id = R.id.native_language_layout,
-                title = texts.nativeLanguageTitle,
-                value = uiState.settings.nativeLanguage.name,
+                title = R.string.native_language,
+                value = values[ID_LANGUAGE]?.stringValue().orEmpty(),
                 showDivider = true,
             ),
             SettingItem.BaseSetting(
                 id = R.id.theme_layout,
-                title = texts.themeTitle,
-                value = uiState.settings.theme.name,
+                title = R.string.theme_layout,
+                value = values[ID_THEME]?.stringValue().orEmpty(),
                 showDivider = false,
             ),
 
             // Аудио настройки
             SettingItem.SectionTitle(
                 id = R.id.section_title,
-                title = texts.audioSettingsTitle
+                title = R.string.settings_audio,
             ),
             SettingItem.BaseSetting(
                 id = R.id.voice_type_layout,
-                title = texts.voiceTitle,
-                value = uiState.settings.voiceType.name,
+                title = R.string.voice_type_layout,
+                value = values[ID_VOICE]?.stringValue().orEmpty(),
                 showDivider = true,
             ),
 
             // Уведомления
             SettingItem.SectionTitle(
                 id = R.id.section_title,
-                title = texts.notificationsTitle
+                title = R.string.settings_notifications
             ),
             SettingItem.SwitchSetting(
                 id = R.id.switchReminders,
-                title = texts.remindersTitle,
-                subtitle = uiState.settings.reminderTime,
-                isChecked = uiState.settings.dailyRemindersEnabled,
+                title = R.string.settings_daily_notifications,
+                subtitle = values[ID_TIME_REMINDER]?.stringValue().orEmpty(),
+                isChecked = values[ID_DAILY_REMINDER]?.booleanValue() ?: false,
                 showDivider = true,
             ),
-            SettingItem.SwitchSetting(
-                id = R.id.switchProgressNotifications,
-                title = texts.progressNotificationsTitle,
-                subtitle = texts.progressNotificationsSubtitle,
-                isChecked = uiState.settings.progressNotificationsEnabled,
-                showDivider = false,
-            ),
+//            SettingItem.SwitchSetting(
+//                id = R.id.switchProgressNotifications,
+//                title = "Отчет о прогрессе",
+//                subtitle = "Еженедельный",
+//                isChecked = values[ID_NOTIFICATION_PROGRESS]?.booleanValue() ?: false,
+//                showDivider = false,
+//            ),
 
             // О приложении
             SettingItem.SectionTitle(
                 id = R.id.section_title,
-                title = texts.aboutTitle
+                title = R.string.settings_about
             ),
             SettingItem.BaseSetting(
                 id = R.id.about_layout,
-                title = texts.aboutAppTitle,
+                title = R.string.settings_about,
                 value = "",
                 showDivider = true,
             ),
@@ -74,7 +84,7 @@ class SettingsItemsFactory {
             // Версия приложения
             SettingItem.AppVersion(
                 id = R.id.app_version,
-                version = texts.aboutAppSubtitle
+                version = values[ID_APP_VERSION]?.stringValue().orEmpty()
             )
         )
     }

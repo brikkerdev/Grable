@@ -1,15 +1,10 @@
 package ru.sirius.grable.settings.domain
 
-import ru.sirius.grable.settings.data.Language
-import ru.sirius.grable.settings.data.SettingsState
-import ru.sirius.grable.settings.data.Theme
-import ru.sirius.grable.settings.data.Voice
+import ru.sirius.grable.settings.data.SettingValues
 
 data class SettingsUIState(
-    val settings: SettingsState = SettingsState(),
-    val availableLanguages: List<Language> = emptyList(),
-    val availableVoices: List<Voice> = emptyList(),
-    val availableThemes: List<Theme> = emptyList(),
-    val appVersion: String = "",
-    val isLoading: Boolean = true
+    val values: Map<String, SettingValues<*>> = emptyMap(),
+    val availableLanguages: Map<String, String> = emptyMap(),
+    val availableVoices: Map<String, String> = emptyMap(),
+    val availableThemes: Map<String, String> = emptyMap(),
 )

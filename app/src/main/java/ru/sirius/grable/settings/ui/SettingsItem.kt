@@ -5,19 +5,19 @@ sealed interface SettingItem {
 
     data class SectionTitle(
         override val id: Int,
-        val title: String
+        val title: Int
     ) : SettingItem
 
     data class BaseSetting(
         override val id: Int,
-        val title: String,
+        val title: Int,
         val value: String,
         val showDivider: Boolean = false,
     ) : SettingItem
 
     data class SwitchSetting(
         override val id: Int,
-        val title: String,
+        val title: Int,
         val subtitle: String,
         val isChecked: Boolean,
         val showDivider: Boolean = false,

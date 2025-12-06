@@ -8,4 +8,5 @@
     android:padding="@dimen/spacing_base"
     android:background="@color/background">
 
+
 </androidx.recyclerview.widget.RecyclerView>

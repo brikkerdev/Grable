@@ -1,6 +1,8 @@
 package ru.sirius.grable.settings.ui
 
 import android.app.TimePickerDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,13 +16,20 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.sirius.grable.R
-import ru.sirius.grable.settings.domain.SettingsUiState
+import ru.sirius.grable.settings.data.ID_DAILY_REMINDER
+import ru.sirius.grable.settings.data.ID_LANGUAGE
+import ru.sirius.grable.settings.data.ID_NOTIFICATION_PROGRESS
+import ru.sirius.grable.settings.data.ID_THEME
+import ru.sirius.grable.settings.data.ID_TIME_REMINDER
+import ru.sirius.grable.settings.data.ID_VOICE
+import ru.sirius.grable.settings.data.SettingValues
+import ru.sirius.grable.settings.data.SettingsProvider
+import ru.sirius.grable.settings.domain.SettingsUIState
 import ru.sirius.grable.settings.domain.SettingsViewModel
 import java.util.Locale
 
 class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
-
-    private val viewModel: SettingsViewModel by viewModels()
+    private val viewModel: SettingsViewModel by viewModels { SettingsViewModel.Factory }
     private val adapter: SettingsAdapter by lazy {
         SettingsAdapter(this)
     }
@@ -36,11 +45,10 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
+        recyclerView.itemAnimator = null
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.uiState.collect { uiState ->
-                updateUI(uiState)
-            }
+            viewModel.uiState.collect(::updateUI)
         }
     }
 
@@ -71,27 +79,31 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
                 handleRemindersToggle(value, uiState)
             }
             R.id.switchProgressNotifications -> {
-                viewModel.toggleProgressNotifications(value)
+                handleProgressNotificatoins(value, uiState)
             }
         }
     }
 
-    private fun updateUI(uiState: SettingsUiState) {
+    private fun updateUI(uiState: SettingsUIState) {
         val settingsItems = settingsItemsFactory.createSettingsItems(uiState)
         adapter.submitList(settingsItems)
     }
 
-    private fun showLanguageSelection(uiState: SettingsUiState) {
+    private fun handleProgressNotificatoins(value: Boolean, uiState: SettingsUIState) {
+        val selected = SettingValues.BooleanValue(ID_NOTIFICATION_PROGRESS, value)
+        viewModel.update(selected)
+    }
+    private fun showLanguageSelection(uiState: SettingsUIState) {
         val languages = uiState.availableLanguages
-        val languageNames = languages.map { it.name }.toTypedArray()
-        val currentLanguage = uiState.settings.nativeLanguage
-        val currentLanguageIndex = languages.indexOfFirst { it.code == currentLanguage.code }
+        val languageNames = languages.values.toTypedArray()
+        val currentLanguage = uiState.values[ID_LANGUAGE]?.id ?: 0
+        val currentLanguageIndex = languages.keys.indexOfFirst { it == currentLanguage }
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Выберите язык")
             .setSingleChoiceItems(languageNames, currentLanguageIndex) { dialog, which ->
-                val selectedLanguage = languages[which]
-                viewModel.updateNativeLanguage(selectedLanguage)
+                val selected = SettingValues.StringValue(ID_LANGUAGE, languageNames[which])
+                viewModel.update(selected)
                 dialog.dismiss()
             }
             .setNegativeButton("Отмена") { dialog, _ ->
@@ -100,17 +112,17 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
             .show()
     }
 
-    private fun showThemeSelection(uiState: SettingsUiState) {
+    private fun showThemeSelection(uiState: SettingsUIState) {
         val themes = uiState.availableThemes
-        val themeNames = themes.map { it.name }.toTypedArray()
-        val currentTheme = uiState.settings.theme
-        val currentThemeIndex = themes.indexOfFirst { it.id == currentTheme.id }
+        val themeNames = themes.values.toTypedArray()
+        val currentTheme = uiState.values[ID_THEME]?.id ?: 0
+        val currentThemeIndex = themes.keys.indexOfFirst { it == currentTheme }
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Выберите тему")
             .setSingleChoiceItems(themeNames, currentThemeIndex) { dialog, which ->
-                val selectedTheme = themes[which]
-                viewModel.updateTheme(selectedTheme)
+                val selected = SettingValues.StringValue(ID_THEME, themeNames[which])
+                viewModel.update(selected)
                 dialog.dismiss()
             }
             .setNegativeButton("Отмена") { dialog, _ ->
@@ -119,30 +131,31 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
             .show()
     }
 
-    private fun showVoiceSelection(uiState: SettingsUiState) {
+    private fun showVoiceSelection(uiState: SettingsUIState) {
         val voices = uiState.availableVoices
-        val voiceNames = voices.map { it.name }.toTypedArray()
-        val currentVoice = uiState.settings.voiceType
-        val currentVoiceIndex = voices.indexOfFirst { it.id == currentVoice.id }
+        val voiceNames = voices.values.toTypedArray()
+        val currentVoice = uiState.values[ID_VOICE]?.id ?: 0
+        val currentVoiceIndex = voices.keys.indexOfFirst { it == currentVoice }
 
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Выберите голос диктора")
+            .setTitle(getString(R.string.settings_dialog_voice_type))
             .setSingleChoiceItems(voiceNames, currentVoiceIndex) { dialog, which ->
-                val selectedVoice = voices[which]
-                viewModel.updateVoiceType(selectedVoice)
+                val selected = SettingValues.StringValue(ID_VOICE, voiceNames[which])
+                viewModel.update(selected)
                 dialog.dismiss()
             }
-            .setNegativeButton("Отмена") { dialog, _ ->
+            .setNegativeButton(getString(R.string.settings_cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
     }
 
-    private fun handleRemindersToggle(isChecked: Boolean, uiState: SettingsUiState) {
-        viewModel.toggleDailyReminders(isChecked)
+    private fun handleRemindersToggle(isChecked: Boolean, uiState: SettingsUIState) {
+        val selected = SettingValues.BooleanValue(ID_DAILY_REMINDER, isChecked)
+        viewModel.update(selected)
 
         if (isChecked) {
-            showTimePicker(uiState.settings.reminderTime)
+            showTimePicker((uiState.values[ID_TIME_REMINDER]?.value ?: "19:00") as String)
         }
     }
 
@@ -158,7 +171,8 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
                     selectedHour,
                     selectedMinute
                 )
-                viewModel.updateReminderTime(formattedTime)
+                val selected = SettingValues.StringValue(ID_TIME_REMINDER, formattedTime)
+                viewModel.update(selected)
             },
             hour,
             minute,
@@ -166,10 +180,10 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
         ).show()
     }
 
-    private fun showAboutApp(uiState: SettingsUiState) {
+    private fun showAboutApp(uiState: SettingsUIState) {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(uiState.texts.aboutAppTitle)
-            .setMessage("Grable - приложение для изучения языков\n\n${uiState.texts.aboutAppSubtitle}")
+            .setTitle(getString(R.string.settings_about))
+            .setMessage(getString(R.string.settings_about_text))
             .setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
             }
