@@ -1,5 +1,7 @@
 package ru.sirius.grable.settings.ui
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +13,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import ru.sirius.grable.R
-import ru.sirius.grable.settings.domain.SettingsUiState
 
 class SettingsAdapter(
     private val clickListener: ClickListener,
@@ -72,9 +73,8 @@ class SettingsAdapter(
     class SectionTitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val sectionTitle: TextView = itemView.findViewById(R.id.tvSectionTitle)
         private val cardView: MaterialCardView = itemView.findViewById(R.id.cardView)
-
         fun bind(item: SettingItem.SectionTitle) {
-            sectionTitle.text = item.title
+            sectionTitle.text = itemView.context.getString(item.title)
             sectionTitle.visibility = View.VISIBLE
             cardView.visibility = View.GONE
         }
@@ -94,7 +94,7 @@ class SettingsAdapter(
         fun bind(item: SettingItem.BaseSetting) {
             cardView.visibility = View.VISIBLE
             baseSettingLayout.visibility = View.VISIBLE
-            settingTitle.text = item.title
+            settingTitle.text = itemView.context.getString(item.title)
             settingValue.text = item.value
             divider.visibility = if (item.showDivider) View.VISIBLE else View.GONE
 
@@ -117,7 +117,7 @@ class SettingsAdapter(
         fun bind(item: SettingItem.SwitchSetting) {
             cardView.visibility = View.VISIBLE
             switchSettingLayout.visibility = View.VISIBLE
-            switchTitle.text = item.title
+            switchTitle.text = itemView.context.getString(item.title)
             switchSubtitle.text = item.subtitle
             switchSetting.isChecked = item.isChecked
             divider.visibility = if (item.showDivider) View.VISIBLE else View.GONE
@@ -142,6 +142,7 @@ class SettingsAdapter(
             return oldItem == newItem
         }
 
+        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(oldItem: SettingItem, newItem: SettingItem): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }

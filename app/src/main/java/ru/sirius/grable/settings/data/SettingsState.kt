@@ -1,26 +1,37 @@
 package ru.sirius.grable.settings.data
 
+import ru.sirius.grable.settings.data.SettingValues.BooleanValue
+import ru.sirius.grable.settings.data.SettingValues.StringValue
+
 data class SettingsState(
-    val nativeLanguage: Language = Language("ru", "Русский"),
-    val voiceType: Voice = Voice("female", "Женский"),
-    val theme: Theme = Theme("system", "Системная"),
-    val dailyRemindersEnabled: Boolean = true,
-    val reminderTime: String = "19:00",
-    val progressNotificationsEnabled: Boolean = true,
-    val appVersion: String = "1.0.0"
+    val nativeLanguage: StringValue,
+    val voiceType: StringValue,
+    val theme: StringValue,
+    val dailyRemindersEnabled: BooleanValue,
+    val reminderTime: StringValue,
+    val progressNotificationsEnabled: BooleanValue,
+    val appVersion: StringValue,
 )
 
-data class Language(
-    val code: String,
-    val name: String
-)
+sealed interface SettingValues<T> {
+    val id: String
+    val value: T
 
-data class Voice(
-    val id: String,
-    val name: String
-)
+    fun stringValue(): String? {
+        return value.toString()
+    }
 
-data class Theme(
-    val id: String,
-    val name: String
-)
+    fun booleanValue() : Boolean? {
+        return value.toString().toBoolean()
+    }
+
+    data class StringValue(
+        override val id: String,
+        override val value: String
+    ) : SettingValues<String>
+
+    data class BooleanValue(
+        override val id: String,
+        override val value: Boolean
+    ) : SettingValues<Boolean>
+}
