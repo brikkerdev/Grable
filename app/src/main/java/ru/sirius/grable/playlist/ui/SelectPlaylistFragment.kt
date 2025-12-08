@@ -14,16 +14,24 @@ import kotlinx.coroutines.launch
 import ru.sirius.grable.MainActivity
 import ru.sirius.grable.R
 import ru.sirius.grable.main.HomeFragment
-import ru.sirius.grable.main.SelectPlaylistAdapter
 import ru.sirius.grable.main.PlaylistViewModel
+import ru.sirius.grable.main.SelectPlaylistAdapter
 
 class SelectPlaylistFragment : Fragment() {
 
-    private val viewModel: PlaylistViewModel by viewModels()
+    // ←←← ИЗМЕНЕНО: правильное создание AndroidViewModel
+    private val viewModel: PlaylistViewModel by viewModels {
+        object : androidx.lifecycle.ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
+                return PlaylistViewModel(requireActivity().application) as T
+            }
+        }
+    }
+    // ←←←
 
     private val adapter: SelectPlaylistAdapter by lazy {
         SelectPlaylistAdapter { playlist ->
-            // TODO: Implement onItemClick if needed
         }
     }
 
