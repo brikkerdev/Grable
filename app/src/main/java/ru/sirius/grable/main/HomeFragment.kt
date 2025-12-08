@@ -8,7 +8,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import ru.sirius.grable.MainActivity
 import ru.sirius.grable.R
-import ru.sirius.grable.learn.LearnFragment
+import ru.sirius.grable.learn.ui.LearnFragment
 import ru.sirius.grable.playlist.ui.SelectPlaylistFragment
 
 class HomeFragment : Fragment() {

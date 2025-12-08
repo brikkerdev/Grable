@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
-import ru.sirius.grable.learn.LearnFragment
+import ru.sirius.grable.learn.ui.LearnFragment
 import ru.sirius.grable.main.HomeFragment
 import ru.sirius.grable.progress.StatsFragment
 import ru.sirius.grable.settings.ui.SettingsFragment
