@@ -24,22 +24,9 @@ class SettingsRepository (
     private val settingsProvider = SettingsProvider(context)
     private val _settingsState by lazy { MutableStateFlow(loadSettings()) }
 
-    enum class Langs(val title: Int) {
-        RUSSIAN(R.string.caption_lang_ru),
-        ENGLISH(R.string.caption_lang_en),
+    init {
+        initSettings()
     }
-
-//    fun loadSettings() : SettingsState {
-//        return SettingsState(
-//            nativeLanguage = stringValue("nativeLanguageId"),
-//            voiceType = stringValue("voiceId"),
-//            theme = stringValue("themeId"),
-//            dailyRemindersEnabled = booleanValue("toggleDailyReminders"),
-//            reminderTime = stringValue("reminderTime"),
-//            progressNotificationsEnabled = booleanValue("progressNotifications"),
-//            appVersion = stringValue("appVersion")
-//        )
-//    }
 
     private fun loadSettings() : Map<String, SettingValues<*>> {
         return mapOf(
@@ -51,6 +38,28 @@ class SettingsRepository (
             ID_NOTIFICATION_PROGRESS to booleanValue(ID_NOTIFICATION_PROGRESS),
             ID_APP_VERSION to stringValue(ID_APP_VERSION)
         )
+    }
+
+    fun initSettings() {
+        if (settingsProvider.getStringValue(ID_LANGUAGE) == "NO DATA") {
+            settingsProvider.setStringValue(ID_LANGUAGE, "ru")
+        }
+
+        if (settingsProvider.getStringValue(ID_VOICE) == "NO DATA") {
+            settingsProvider.setStringValue(ID_VOICE, "male")
+        }
+
+        if (settingsProvider.getStringValue(ID_THEME) == "NO DATA") {
+            settingsProvider.setStringValue(ID_THEME, "light")
+        }
+
+        if (settingsProvider.getStringValue(ID_TIME_REMINDER) == "NO DATA") {
+            settingsProvider.setStringValue(ID_TIME_REMINDER, "20:00")
+        }
+
+        if (settingsProvider.getStringValue(ID_APP_VERSION) == "NO DATA") {
+            settingsProvider.setStringValue(ID_APP_VERSION, "1.0.0")
+        }
     }
 
     private fun stringValue(id: String): StringValue {
@@ -78,6 +87,7 @@ class SettingsRepository (
 
     fun getAvailableThemes() : Flow<Map<String, String>> {
         return flowOf(mapOf(
+            "system" to "Системная",
             "light" to "Светлая",
             "dark" to "Темная"
         ))

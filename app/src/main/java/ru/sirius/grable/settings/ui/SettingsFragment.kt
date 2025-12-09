@@ -155,7 +155,7 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
         viewModel.update(selected)
 
         if (isChecked) {
-            showTimePicker((uiState.values[ID_TIME_REMINDER]?.value ?: "19:00") as String)
+            showTimePicker(uiState.values[ID_TIME_REMINDER]?.stringValue() ?: "19:00")
         }
     }
 
