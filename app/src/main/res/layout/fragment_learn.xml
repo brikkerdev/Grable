@@ -44,54 +44,17 @@
         android:foreground="?android:attr/selectableItemBackground"
         style="@style/Widget.Grable.Card.Base">
 
-        <LinearLayout
+        <androidx.viewpager2.widget.ViewPager2
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:id="@+id/cardPager"
             android:padding="@dimen/spacing_2xl"
             android:gravity="center">
 
             <!-- Иностранное слово -->
-            <TextView
-                android:id="@+id/tvForeignWord"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hello"
-                android:textSize="@dimen/text_3xl"
-                android:textAppearance="@style/TextAppearanceHeadline1"
-                android:layout_marginBottom="@dimen/spacing_base" />
 
-            <!-- Транскрипция -->
-            <TextView
-                android:id="@+id/tvTranscription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="/həˈləʊ/"
-                android:textAppearance="@style/TextAppearanceBody1"
-                android:layout_marginBottom="@dimen/spacing_xl" />
 
-            <!-- Перевод (скрыт по умолчанию) -->
-            <TextView
-                android:id="@+id/tvTranslation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Привет"
-                android:textSize="@dimen/text_xl"
-                android:textColor="@color/primary"
-                android:textAppearance="@style/TextAppearanceHeadline3"
-                android:visibility="gone" />
-
-            <!-- Аудио кнопка -->
-            <ImageButton
-                android:id="@+id/btnAudio"
-                android:layout_width="@dimen/icon_xl"
-                android:layout_height="@dimen/icon_xl"
-                android:layout_marginTop="@dimen/spacing_xl"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/learn_play_sound"
-                app:tint="@color/primary" />
-
-        </LinearLayout>
+        </androidx.viewpager2.widget.ViewPager2>
 
     </com.google.android.material.card.MaterialCardView>
 

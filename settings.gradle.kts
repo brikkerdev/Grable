@@ -22,4 +22,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Grable"
 include(":app")
- 
+include(":network")

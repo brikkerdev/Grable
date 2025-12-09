@@ -11,6 +11,8 @@ import kotlinx.coroutines.launch
 import ru.sirius.grable.learn.domain.LearnPlaylistInteractor
 import ru.sirius.grable.learn.domain.WordsRepository
 
+import java.io.Serializable
+
 data class Word(
     val id: Long,
     val playlistId: Long,
@@ -18,7 +20,7 @@ data class Word(
     val translation: String,
     val transcription: String,
     val example: String
-)
+) : Serializable
 
 data class WordState(
     val words: List<Word> = emptyList()
