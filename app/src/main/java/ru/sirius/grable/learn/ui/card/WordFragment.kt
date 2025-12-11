@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import org.koin.android.ext.android.inject
+import ru.sirius.embedded.TTSImpl
 import ru.sirius.grable.databinding.WordCardBinding
 import ru.sirius.grable.learn.ui.Word
 
@@ -14,6 +16,7 @@ class WordFragment : Fragment() {
     private var _binding: WordCardBinding? = null
     private val binding get() = _binding!!
 
+    private val tts : TTSImpl by inject()
     private val word: Word by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             requireArguments().getSerializable(ARG_WORD, Word::class.java) as Word
@@ -38,6 +41,7 @@ class WordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         bindWord(word)
         binding.root.setOnClickListener { flipCard() }
+        binding.btnAudio.setOnClickListener { playAudio() }
     }
 
     override fun onResume() {
@@ -59,6 +63,10 @@ class WordFragment : Fragment() {
         binding.backExample.text = word.example
     }
 
+    private fun playAudio() {
+        val text = binding.frontWord.text as String
+        tts.play(text)
+    }
     private fun showFrontSide() {
         binding.frontGroup.animate().cancel()
         binding.backGroup.animate().cancel()
