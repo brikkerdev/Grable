@@ -1,23 +1,19 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace = "ru.sirius.grable"
+    namespace = "ru.sirius.embedded"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "ru.sirius.grable"
-        minSdk = 26
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = 24
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -36,10 +32,6 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
@@ -57,10 +49,6 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.8.9")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-    implementation(libs.bundles.room)
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.coil.base)
-    implementation(libs.coil.compose)
-    implementation(libs.coil.network.okhttp)
-    implementation(project(":feature:text_to_speech:embedded"))
+
+    api(project(":feature:text_to_speech:api"))
 }
