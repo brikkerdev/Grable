@@ -2,11 +2,11 @@ package ru.sirius.grable.add_word.domain
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import ru.sirius.grable.add_word.data.AddExampleObject
-import ru.sirius.grable.add_word.data.Example
-import java.util.Random
+import ru.sirius.grable.add_word.ui.Example
+import ru.sirius.grable.common.ExampleDao
+import ru.sirius.grable.common.ExampleEntity
 
-class AddWordRepositoryImpl : AddWordRepository {
+class AddWordRepositoryImpl(private val exampleDao: ExampleDao) : AddWordRepository {
 
     private val _word = MutableStateFlow("")
     override val word: Flow<String> = _word
@@ -43,13 +43,23 @@ class AddWordRepositoryImpl : AddWordRepository {
     }
 
     override suspend fun generateFakeExamples(count: Int) {
-        val samples = AddExampleObject.samples
+
 
         val newList = _examples.value.toMutableList()
-        val random = Random()
-        repeat(count) {
-            newList.add(samples[random.nextInt(samples.size)])
+
+        val entities: List<ExampleEntity> = exampleDao.getRandomExamples(count)
+        entities.forEach { entity ->
+               newList.add(
+                    Example(
+                        id = entity.id.toInt(), // Assuming IDs fit in Int; adjust if needed
+                        english = entity.text,
+                        russian = entity.translatedText
+         )
+   )
         }
+
+
+
         _examples.value = newList
     }
 

@@ -79,13 +79,13 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <ImageView
+        <!---<ImageView
             android:id="@+id/imageExample"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:scaleType="centerCrop"
             android:layout_marginTop="@dimen/spacing_base"
-            />
+            /> -->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvExample"

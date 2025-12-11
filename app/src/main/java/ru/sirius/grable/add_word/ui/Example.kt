@@ -1,4 +1,4 @@
-package ru.sirius.grable.add_word.data
+package ru.sirius.grable.add_word.ui
 
 data class Example(
     val id : Int,

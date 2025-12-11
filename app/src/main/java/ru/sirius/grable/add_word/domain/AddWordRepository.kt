@@ -1,7 +1,7 @@
 package ru.sirius.grable.add_word.domain
 
 import kotlinx.coroutines.flow.Flow
-import ru.sirius.grable.add_word.data.Example
+import ru.sirius.grable.add_word.ui.Example
 
 interface AddWordRepository {
     val word: Flow<String>

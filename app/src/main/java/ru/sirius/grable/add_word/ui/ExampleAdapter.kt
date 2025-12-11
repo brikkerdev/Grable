@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.sirius.grable.R
-import ru.sirius.grable.add_word.data.Example
 
 class ExampleAdapter(
     private val onEditClick: (position: Int, example: Example) -> Unit

@@ -24,6 +24,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun playlistDao(): PlaylistDao;
+    abstract fun exampleDao(): ExampleDao;
+    abstract fun wordDao(): WordDao;
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
