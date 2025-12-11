@@ -13,8 +13,24 @@ import kotlinx.coroutines.launch
 import ru.sirius.grable.R
 
 class LearnPlaylistFragment: Fragment() {
-    private val viewModel: LearnPlaylistViewModel by viewModels()
+    private val viewModel: LearnPlaylistViewModel by viewModels {
+        LearnPlaylistViewModel.Factory(requireActivity().application, playlistId)
+    }
     private  val adapter: LearnPlaylistAdapter by lazy { LearnPlaylistAdapter() }
+
+    companion object {
+        private const val ARG_PLAYLIST_ID = "playlist_id"
+
+        fun newInstance(id: Long) = LearnPlaylistFragment().apply {
+            arguments = Bundle().apply {
+                putLong(ARG_PLAYLIST_ID, id)
+            }
+        }
+    }
+
+    private val playlistId: Long by lazy {
+        arguments?.getLong(ARG_PLAYLIST_ID) ?: 1L
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
