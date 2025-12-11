@@ -23,7 +23,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun playlistDao(): PlaylistDao;
+    abstract fun playlistDao(): PlaylistDao
+    abstract fun wordDao(): WordDao
     abstract fun statisticsDao(): StatisticsDao
     companion object {
         @Volatile
@@ -42,7 +43,7 @@ abstract class AppDatabase : RoomDatabase() {
                 AppDatabase::class.java,
                 "app_database"
             )
-                .addMigrations(MIGRATION_1_2)
+//                .addMigrations(MIGRATION_1_2)
                 .addCallback(DatabaseInitCallback)
                 .build()
         }
@@ -51,7 +52,7 @@ abstract class AppDatabase : RoomDatabase() {
         private object DatabaseInitCallback : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
-                populateInitialData(db)
+//                populateInitialData(db)
             }
         }
 

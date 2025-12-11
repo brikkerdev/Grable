@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import ru.sirius.grable.MainActivity
 import ru.sirius.grable.R
 import ru.sirius.grable.learn.ui.LearnFragment
+import ru.sirius.grable.learn.ui.LearnPlaylistFragment
 import ru.sirius.grable.playlist.ui.SelectPlaylistFragment
 
 class HomeFragment : Fragment() {
@@ -27,6 +28,7 @@ class HomeFragment : Fragment() {
         }
 
         view.findViewById<Button>(R.id.button_collection)?.setOnClickListener {
+            (activity as? MainActivity)?.switchFragment(LearnPlaylistFragment())
         }
 
         view.findViewById<Button>(R.id.button_categories)?.setOnClickListener {
