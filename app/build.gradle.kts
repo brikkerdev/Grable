@@ -39,6 +39,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -60,8 +61,7 @@ dependencies {
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation(libs.bundles.room)
     ksp(libs.androidx.room.compiler)
-    implementation(libs.coil.base)
-    implementation(libs.coil.compose)
-    implementation(libs.coil.network.okhttp)
+    implementation(project(":libs:di"))
+    implementation(project(":libs:imageloader:coil"))
     implementation(project(":feature:text_to_speech:embedded"))
 }

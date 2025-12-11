@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.sirius.grable.R
 import ru.sirius.grable.add_word.data.Example
-import ru.sirius.grable.common.load
+
 
 class AddWordFragment : Fragment() {
 
@@ -41,7 +41,8 @@ class AddWordFragment : Fragment() {
         val btnAddExample = view.findViewById<MaterialButton>(R.id.btnAddExample)
         val img = view.findViewById<ImageView>(R.id.imageExample)
 
-        img.load("https://sun9-48.userapi.com/s/v1/ig2/ImtKfLVzCA809SBorvbrXFcuIEqeuCkgNrllHf1X-AC5lmPKwCKAgnoQADvGDf0D2rhMUKlNqsu0SZCoOlXkYWp1.jpg?quality=95&as=32x26,48x39,72x58,108x87,160x129,240x193,250x201&from=bu&cs=250x0", crossfade = true)
+        TODO("Достать load из :libs:imageloader:coil")
+//        img.load("https://sun9-48.userapi.com/s/v1/ig2/ImtKfLVzCA809SBorvbrXFcuIEqeuCkgNrllHf1X-AC5lmPKwCKAgnoQADvGDf0D2rhMUKlNqsu0SZCoOlXkYWp1.jpg?quality=95&as=32x26,48x39,72x58,108x87,160x129,240x193,250x201&from=bu&cs=250x0", crossfade = true)
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter

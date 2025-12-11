@@ -22,6 +22,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "Grable"
 include(":app")
+include(":libs:di")
+include(":libs:imageloader:api")
+include(":libs:imageloader:coil")
 include(":feature:text_to_speech:api")
 include(":feature:text_to_speech:embedded")
 include(":network")

@@ -13,6 +13,8 @@ gridlayout = "1.0.0"
 room = "2.8.4"
 ksp = "2.2.20-2.0.4"
 coil = "3.3.0"
+koin-bom = "4.1.1"
+startup = "1.2.0"
 jetbrainsKotlinJvm = "2.2.20"
 lifecycleViewmodelAndroid = "2.10.0"
 viewpager2 = "1.1.0"
@@ -38,9 +40,14 @@ coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp"
 androidx-lifecycle-viewmodel-android = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-android", version.ref = "lifecycleViewmodelAndroid" }
 androidx-viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
 
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
+koin-core = { module = "io.insert-koin:koin-core" }
+koin-android = { module = "io.insert-koin:koin-android" }
+androidx-startup = { module = "androidx.startup:startup-runtime", version.ref = "startup"}
 
 [bundles]
 room = ["androidx-room-runtime", "androidx-room-ktx"]
+di = ["koin-core", "koin-android", "androidx-startup"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
