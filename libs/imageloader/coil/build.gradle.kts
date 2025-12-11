@@ -37,6 +37,6 @@ android {
 dependencies {
     api(project(":libs:imageloader:api"))
     implementation(project(":libs:di"))
-    implementation(libs.coil.base)
-    implementation(libs.coil.network.okhttp)
+    api(libs.coil.base)
+    api(libs.coil.network.okhttp)
 }

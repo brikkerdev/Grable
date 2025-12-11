@@ -63,6 +63,5 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(project(":libs:di"))
     implementation(project(":libs:imageloader:coil"))
-    implementation(libs.coil.base)
     implementation(project(":feature:text_to_speech:embedded"))
 }
