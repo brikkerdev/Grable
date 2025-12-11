@@ -22,4 +22,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Grable"
 include(":app")
- 
+include(":libs:di")
+include(":libs:imageloader:api")
+include(":libs:imageloader:coil")
