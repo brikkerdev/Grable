@@ -1,15 +1,18 @@
 package ru.sirius.grable.learn.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import ru.sirius.grable.common.AppDatabase
 import ru.sirius.grable.learn.domain.LearnPlaylistInteractor
 import ru.sirius.grable.learn.domain.WordsRepository
+import ru.sirius.network.words_api.NetworkModule
+
+import java.io.Serializable
 
 data class Word(
     val id: Long,
@@ -18,23 +21,27 @@ data class Word(
     val translation: String,
     val transcription: String,
     val example: String
-)
+) : Serializable
 
 data class WordState(
     val words: List<Word> = emptyList()
 )
 
-class LearnPlaylistViewModel: ViewModel() {
+class LearnPlaylistViewModel(application: Application) : AndroidViewModel(application) {
     private val _state = MutableStateFlow(WordState())
     val state = _state.asStateFlow()
-    private val repository: WordsRepository = WordsRepository()
-    private val learnPlaylistInteractor: LearnPlaylistInteractor = LearnPlaylistInteractor(repository)
+    private val repository: WordsRepository
+    private val learnPlaylistInteractor: LearnPlaylistInteractor
 
     init {
+        val db = AppDatabase.getDatabase(application)
+        val api = NetworkModule.createWordsApiService()
+        repository = WordsRepository(db, api)
+        learnPlaylistInteractor = LearnPlaylistInteractor(repository)
         loadWords()
     }
 
-    private fun loadWords(playlistId: Long=1) {
+    private fun loadWords(playlistId: Long = 1) {
         viewModelScope.launch {
             learnPlaylistInteractor.getWordsById(playlistId).collectLatest { words ->
                 _state.value = WordState(words)
