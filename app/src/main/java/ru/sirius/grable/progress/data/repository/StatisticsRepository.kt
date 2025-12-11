@@ -1,46 +1,64 @@
 package ru.sirius.grable.progress.data.repository
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import ru.sirius.grable.common.StatisticsDao
+import ru.sirius.grable.common.StatisticsEntity
 import ru.sirius.grable.progress.data.DayStat
 import ru.sirius.grable.progress.data.StatisticItem
 import ru.sirius.grable.progress.data.StatisticsData
+import java.sql.Date
 import java.text.SimpleDateFormat
-import java.util.Date
+import java.util.Calendar
+import java.sql.Timestamp
 import java.util.Locale
 
 interface StatisticsRepository {
     fun getStatistics(period: Int): Flow<StatisticsData>
-    suspend fun updateDailyStats(newWords: Int, repeatedWords: Int)
-    suspend fun getLearningWordsCount(): Int
-    suspend fun addLearningWord()
-    suspend fun removeLearningWord()
+    suspend fun addNewWord(wordId: Long)
+    suspend fun markWordAsKnown(wordId: Long)
+    suspend fun addWordRepetition(wordId: Long)
+    suspend fun getLearningWordsCount(periodDays: Int): Int
 }
 
-class StatisticsRepositoryImpl : StatisticsRepository {
-
-    // Имитация базы данных или файлового хранилища
-    private val dailyStats = mutableListOf<DayStat>()
-    private var learningWordsCount = 0
-    private var totalWordsLearned = 754
-    private var totalWordsRepeated = 754
-    private var totalFullyLearned = 284
-    private var totalKnownWords = 275
-
-    init {
-        // Инициализация тестовыми данными
-        initTestData()
-    }
+class StatisticsRepositoryImpl(
+    private val statisticsDao: StatisticsDao
+) : StatisticsRepository {
 
     override fun getStatistics(period: Int): Flow<StatisticsData> = flow {
-        val filteredDays = getFilteredDays(period)
-        val learningNow = getLearningWordsCount()
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, -period)
+        val startDate = Timestamp(calendar.time.time)
 
+        // Получаем данные из БД
+        val dailyStats = statisticsDao.getDailyStats(startDate)
+        val totalKnown = statisticsDao.getTotalKnownCount()
+        val totalRepeated = statisticsDao.getTotalRepeatedCount()
+        val totalNewWords = statisticsDao.getTotalNewWordsCount()
+
+        // Получаем статистику за период
+        val periodStats = statisticsDao.getSinceDate(startDate)
+        val periodKnown = periodStats.count { it.isKnown }
+        val periodRepeated = periodStats.count { it.isRepeated }
+        val periodNewWords = periodStats.count { it.isNewWord }
+
+        // Получаем изучаемые слова
+        val learningCalendar = Calendar.getInstance()
+        learningCalendar.add(Calendar.DAY_OF_YEAR, -7)
+        val learningStartDate = Timestamp(learningCalendar.time.time)
+        val learningWords = statisticsDao.getLearningWordsCount(learningStartDate)
+
+        // Конвертируем DailyStat в DayStat
+        val domainDays = dailyStats.map { it.toDomain() }
+
+        // Формируем статистику
         val statistics = listOf(
-            StatisticItem("Заучено новых слов", totalWordsLearned, calculatePeriodCount(filteredDays) { it.newWords }),
-            StatisticItem("Повторено (уникальных)", totalWordsRepeated, calculatePeriodCount(filteredDays) { it.repeatedWords }),
-            StatisticItem("Полностью выучено", totalFullyLearned, 44),
-            StatisticItem("Уже известные", totalKnownWords, 17)
+            StatisticItem("Заучено новых слов", totalNewWords, periodNewWords),
+            StatisticItem("Повторено слов", totalRepeated, periodRepeated),
+            StatisticItem("Всего выучено", totalKnown, periodKnown),
+            StatisticItem("Уже известные", totalKnown, 0)
         )
 
         val periodTitle = when (period) {
@@ -50,86 +68,83 @@ class StatisticsRepositoryImpl : StatisticsRepository {
             else -> "Все время"
         }
 
-        emit(StatisticsData(periodTitle, learningNow, filteredDays, statistics, period))
-    }
+        emit(StatisticsData(periodTitle, learningWords, domainDays, statistics, period))
+    }.flowOn(Dispatchers.IO)
 
-    override suspend fun updateDailyStats(newWords: Int, repeatedWords: Int) {
-        val currentDate = getCurrentDate()
-
-        // Обновляем общую статистику
-        totalWordsLearned += newWords
-        totalWordsRepeated += repeatedWords
-
-        // Обновляем дневную статистику
-        val existingStat = dailyStats.find { it.date == currentDate }
-        if (existingStat != null) {
-            dailyStats.remove(existingStat)
-            dailyStats.add(
-                existingStat.copy(
-                    wordsCount = existingStat.wordsCount + newWords + repeatedWords,
-                    newWords = existingStat.newWords + newWords,
-                    repeatedWords = existingStat.repeatedWords + repeatedWords
-                )
-            )
-        } else {
-            dailyStats.add(
-                DayStat(
-                    date = currentDate,
-                    wordsCount = newWords + repeatedWords,
-                    newWords = newWords,
-                    repeatedWords = repeatedWords
-                )
-            )
-        }
-    }
-
-    override suspend fun getLearningWordsCount(): Int {
-        return learningWordsCount
-    }
-
-    override suspend fun addLearningWord() {
-        learningWordsCount++
-    }
-
-    override suspend fun removeLearningWord() {
-        if (learningWordsCount > 0) {
-            learningWordsCount--
-        }
-    }
-
-    private fun getFilteredDays(period: Int): List<DayStat> {
-        if (period == -1) return dailyStats
-
-        // Для простоты возвращаем последние N дней
-        return dailyStats.takeLast(period).ifEmpty { dailyStats }
-    }
-
-    private fun calculatePeriodCount(days: List<DayStat>, selector: (DayStat) -> Int): Int {
-        return days.sumOf { selector(it) }
-    }
-
-    private fun getCurrentDate(): String {
-        return SimpleDateFormat("d MMM", Locale.getDefault()).format(Date())
-    }
-
-    private fun initTestData() {
-        dailyStats.addAll(
-            listOf(
-                DayStat("3 мар", 6, 4, 2),
-                DayStat("4 мар", 22, 15, 7),
-                DayStat("5 мар", 18, 12, 6),
-                DayStat("6 мар", 16, 10, 6),
-                DayStat("7 мар", 4, 2, 2),
-                DayStat("8 мар", 3, 2, 1),
-                DayStat("9 мар", 7, 5, 2),
-                DayStat("10 мар", 6, 4, 2),
-                DayStat("11 мар", 22, 15, 7),
-                DayStat("12 мар", 18, 12, 6),
-                DayStat("13 мар", 16, 10, 6),
-                DayStat("14 мар", 4, 2, 2),
-                DayStat("15 мар", 3, 2, 1),
-                DayStat("16 мар", 7, 5, 2)
-            )
+    override suspend fun addNewWord(wordId: Long) {
+        val calendar = Calendar.getInstance()
+        val statistic = StatisticsEntity(
+            wordId = wordId,
+            date = Timestamp(calendar.time.time),
+            isKnown = false,
+            isRepeated = false,
+            isNewWord = true
         )
+        statisticsDao.insert(statistic)
+    }
+
+    override suspend fun markWordAsKnown(wordId: Long) {
+        // Находим все записи для этого слова
+        val allStats = statisticsDao.getAll()
+        val wordStats = allStats.filter { it.wordId == wordId }
+
+        // Помечаем как выученное
+        val existingStat = wordStats.find { it.isNewWord && !it.isKnown }
+
+        existingStat?.let {
+            statisticsDao.update(it.copy(isKnown = true))
+        } ?: run {
+            var calendar = Calendar.getInstance()
+            val newStat = StatisticsEntity(
+                wordId = wordId,
+                date = Timestamp(calendar.time.time),
+                isKnown = true,
+                isRepeated = false,
+                isNewWord = false
+            )
+            statisticsDao.insert(newStat)
+        }
+    }
+
+    override suspend fun addWordRepetition(wordId: Long) {
+        var calendar = Calendar.getInstance()
+        val repetitionStat = StatisticsEntity(
+            wordId = wordId,
+            date = Timestamp(calendar.time.time),
+            isKnown = true,
+            isRepeated = true,
+            isNewWord = false
+        )
+        statisticsDao.insert(repetitionStat)
+    }
+
+    override suspend fun getLearningWordsCount(periodDays: Int): Int {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, -periodDays)
+        val startDate = Timestamp(calendar.time.time)
+        return statisticsDao.getLearningWordsCount(startDate)
+    }
+
+    private fun ru.sirius.grable.common.DailyStat.toDomain(): DayStat {
+        return try {
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val displayFormat = SimpleDateFormat("d MMM", Locale.getDefault())
+            val date = dateFormat.parse(this.day)
+            var calendar = Calendar.getInstance()
+
+            DayStat(
+                date = displayFormat.format(date ?: Timestamp(calendar.time.time)),
+                wordsCount = this.total_count,
+                newWords = this.new_words,
+                repeatedWords = this.repeated_words
+            )
+        } catch (e: Exception) {
+            DayStat(
+                date = this.day,
+                wordsCount = this.total_count,
+                newWords = this.new_words,
+                repeatedWords = this.repeated_words
+            )
+        }
     }
 }

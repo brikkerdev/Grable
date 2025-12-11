@@ -24,3 +24,4 @@ rootProject.name = "Grable"
 include(":app")
 include(":feature:text_to_speech:api")
 include(":feature:text_to_speech:embedded")
+include(":network")
