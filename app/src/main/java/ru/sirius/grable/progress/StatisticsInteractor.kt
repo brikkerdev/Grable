@@ -3,29 +3,36 @@ package ru.sirius.grable.progress
 import kotlinx.coroutines.flow.Flow
 import ru.sirius.grable.progress.data.StatisticsData
 import ru.sirius.grable.progress.data.repository.StatisticsRepository
-import ru.sirius.grable.progress.data.repository.StatisticsRepositoryImpl
 
 class StatisticsInteractor(
-    private val repository: StatisticsRepository = StatisticsRepositoryImpl()
+    private val repository: StatisticsRepository
 ) {
 
     fun getStatistics(period: Int): Flow<StatisticsData> {
         return repository.getStatistics(period)
     }
 
-    suspend fun updateDailyStats(newWords: Int, repeatedWords: Int) {
-        repository.updateDailyStats(newWords, repeatedWords)
+    suspend fun addNewWord(wordId: Long) {
+        repository.addNewWord(wordId)
+    }
+
+    suspend fun markWordAsKnown(wordId: Long) {
+        repository.markWordAsKnown(wordId)
+    }
+
+    suspend fun addWordRepetition(wordId: Long) {
+        repository.addWordRepetition(wordId)
     }
 
     suspend fun getLearningWordsCount(): Int {
-        return repository.getLearningWordsCount()
+        return repository.getLearningWordsCount(7)
     }
 
-    suspend fun addLearningWord() {
-        repository.addLearningWord()
+    suspend fun getTodayStats(): StatisticsData? {
+        return null
     }
 
-    suspend fun removeLearningWord() {
-        repository.removeLearningWord()
+    suspend fun getWordProgress(wordId: Long): Map<String, Any> {
+        return emptyMap()
     }
 }

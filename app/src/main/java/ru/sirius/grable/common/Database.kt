@@ -23,8 +23,9 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun playlistDao(): PlaylistDao;
+    abstract fun playlistDao(): PlaylistDao
     abstract fun wordDao(): WordDao
+    abstract fun statisticsDao(): StatisticsDao
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
@@ -333,7 +334,9 @@ abstract class AppDatabase : RoomDatabase() {
                 cv.clear()
                 cv.put("wordId", wordId)
                 cv.put("date", timestamp)
+                cv.put("isRepeated", 0)
                 cv.put("isKnown", if (known) 1 else 0)
+                cv.put("isNewWord", if (known) 0 else 1)
                 db.insert("statistics", SQLiteDatabase.CONFLICT_NONE, cv)
 
                 // Для части слов — второе повторение (раньше и неверно)
@@ -342,6 +345,8 @@ abstract class AppDatabase : RoomDatabase() {
                     cv.put("wordId", wordId)
                     cv.put("date", timestamp - 10 * 86_400_000L)
                     cv.put("isKnown", 0)
+                    cv.put("isRepeated", 1)
+                    cv.put("isNewWord", 0)
                     db.insert("statistics", SQLiteDatabase.CONFLICT_NONE, cv)
                 }
             }
