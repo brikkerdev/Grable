@@ -24,7 +24,7 @@ class DaysAdapter(private val days: List<DayStat>) :
             val layoutParams = bar.layoutParams
             if (maxWords > 0) {
                 val percentage = day.wordsCount.toFloat() / maxWords
-                layoutParams.height = (percentage * 80).toInt() // 80dp максимальная высота
+                layoutParams.height = (percentage * 80).toInt()
             } else {
                 layoutParams.height = 0
             }

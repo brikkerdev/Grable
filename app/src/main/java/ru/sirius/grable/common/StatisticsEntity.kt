@@ -21,5 +21,7 @@ data class StatisticsEntity(
     val id: Long = 0,
     val wordId: Long,
     val date: Timestamp,
-    val isKnown: Boolean
+    val isKnown: Boolean,
+    val isRepeated: Boolean = false,
+    val isNewWord: Boolean = true
 )
