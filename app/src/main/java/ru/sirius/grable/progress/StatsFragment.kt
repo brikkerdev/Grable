@@ -22,93 +22,237 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import kotlinx.coroutines.launch
 import ru.sirius.grable.R
+import ru.sirius.grable.common.AppDatabase
 import ru.sirius.grable.progress.data.DayStat
 import ru.sirius.grable.progress.data.StatisticsData
 import ru.sirius.grable.progress.data.repository.StatisticsRepository
+import ru.sirius.grable.progress.data.repository.StatisticsRepositoryImpl
 
 
 class StatsFragment : Fragment() {
 
-    private lateinit var barChart: BarChart
-    private lateinit var spinnerPeriod: Spinner
-    private lateinit var tvPeriod: TextView
-    private lateinit var rvStatistics: RecyclerView
+    private var _binding: FragmentStatisticsBinding? = null
+    private val binding get() = _binding!!
 
-    private var currentPeriod = 7
+    // Используем viewModels delegate с кастомной фабрикой
+    private val viewModel: StatisticsViewModel by viewModels {
+        val database = AppDatabase.getDatabase(requireContext())
+        val statisticsDao = database.statisticsDao()
 
-    private lateinit var binding: FragmentStatisticsBinding
+        val repository = StatisticsRepositoryImpl(statisticsDao)
+        val interactor = StatisticsInteractor(repository)
 
-    private val viewModel by viewModels<StatisticsViewModel>()
+        StatisticsViewModelFactory(interactor)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_progress, container, false)
+    ): View {
+        _binding = FragmentStatisticsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews(view)
-        setupSpinner()
+        setupViews()
+        setupObservers()
+        loadInitialData()
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setupViews() {
+        setupSpinner()
+        setupChart()
+        setupRecyclerViews()
+        setupTestButtons()
+        setupErrorHandling()
+    }
+
+    private fun setupObservers() {
+        // Наблюдаем за статистикой
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.statisticsData.collect(::updateUI)
+            viewModel.statisticsData.collect { data ->
+                updateUI(data)
+                updateChart(data.days)
+            }
+        }
+
+        // Наблюдаем за количеством изучаемых слов
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.learningWordsCount.collect { count ->
+                binding.tvLearningNow.text = "Заучивается сейчас: $count"
+            }
+        }
+
+        // Наблюдаем за состоянием загрузки
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isLoading.collect { isLoading ->
+                if (isLoading) {
+                    showLoading()
+                } else {
+                    hideLoading()
+                }
+            }
+        }
+
+        // Наблюдаем за ошибками
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.errorMessage.collect { error ->
+                error?.let {
+                    showError(it)
+                } ?: hideError()
+            }
         }
     }
 
-    private fun initViews(view: View) {
-        barChart = view.findViewById(R.id.barChart)
-        setupChart()
+    private fun setupErrorHandling() {
+        binding.buttonRetry.setOnClickListener {
+            viewModel.clearError()
+            viewModel.refreshData()
+        }
+    }
 
-        spinnerPeriod = view.findViewById(R.id.spinnerPeriod)
-        tvPeriod = view.findViewById(R.id.tvPeriod)
-        rvStatistics = view.findViewById(R.id.rvStatistics)
+    private fun showLoading() {
+        binding.progressBar.visibility = View.VISIBLE
+        binding.contentLayout.visibility = View.GONE
+        binding.errorLayout.visibility = View.GONE
+    }
 
-        rvStatistics.layoutManager = LinearLayoutManager(requireContext())
+    private fun hideLoading() {
+        binding.progressBar.visibility = View.GONE
+        binding.contentLayout.visibility = View.VISIBLE
+    }
+
+    private fun showError(message: String) {
+        binding.errorLayout.visibility = View.VISIBLE
+        binding.contentLayout.visibility = View.GONE
+        binding.textError.text = message
+    }
+
+    private fun hideError() {
+        binding.errorLayout.visibility = View.GONE
+    }
+
+    private fun loadInitialData() {
+        // Начальная загрузка уже происходит через ViewModel
     }
 
     private fun setupSpinner() {
         val periods = arrayOf("7 дней", "30 дней", "90 дней", "Все время")
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, periods)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerPeriod.adapter = adapter
+        binding.spinnerPeriod.adapter = adapter
 
-        spinnerPeriod.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding.spinnerPeriod.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                currentPeriod = when (position) {
+                val period = when (position) {
                     0 -> 7
                     1 -> 30
                     2 -> 90
                     else -> -1 // Все время
                 }
-                viewModel.setPeriod(currentPeriod)
+                viewModel.setPeriod(period)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 
+    private fun setupChart() {
+        binding.barChart.apply {
+            // Базовая настройка графика
+            setDrawBarShadow(false)
+            setDrawValueAboveBar(true)
+            description.isEnabled = false
+            setMaxVisibleValueCount(60)
+            setPinchZoom(false)
+            setDrawGridBackground(false)
+
+            // Настройка оси X
+            val xAxis = xAxis
+            xAxis.position = XAxis.XAxisPosition.BOTTOM
+            xAxis.setDrawGridLines(false)
+            xAxis.granularity = 1f
+            xAxis.labelCount = 7
+            xAxis.valueFormatter = IndexAxisValueFormatter()
+
+            // Настройка левой оси Y
+            val leftAxis = axisLeft
+            leftAxis.setDrawGridLines(true)
+            leftAxis.spaceTop = 15f
+            leftAxis.axisMinimum = 0f
+            leftAxis.granularity = 1f
+            leftAxis.textColor = ContextCompat.getColor(requireContext(), R.color.primary)
+
+            // Настройка правой оси Y
+            val rightAxis = axisRight
+            rightAxis.setDrawGridLines(false)
+            rightAxis.axisMinimum = 0f
+            rightAxis.textColor = ContextCompat.getColor(requireContext(), R.color.primary)
+
+            // Легенда
+            val legend = legend
+            legend.isEnabled = false
+
+            // Анимация
+            animateY(1000)
+        }
+    }
+
+    private fun setupRecyclerViews() {
+        binding.rvDays.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvStatistics.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    private fun setupTestButtons() {
+        // Тестовые кнопки для демонстрации
+        binding.buttonAddWord.setOnClickListener {
+            val testWordId = System.currentTimeMillis() % 1000
+            viewModel.addNewWord(testWordId)
+        }
+
+        binding.buttonMarkKnown.setOnClickListener {
+            val testWordId = (System.currentTimeMillis() % 1000).toLong()
+            viewModel.markWordAsKnown(testWordId)
+        }
+
+        binding.buttonAddRepeat.setOnClickListener {
+            val testWordId = (System.currentTimeMillis() % 1000).toLong()
+            viewModel.addWordRepetition(testWordId)
+        }
+    }
+
     private fun updateUI(data: StatisticsData) {
-        tvPeriod.text = "Период: ${data.periodTitle}"
+        binding.tvPeriod.text = "Период: ${data.periodTitle}"
 
-        // Обновляем заголовок "Заучивается сейчас"
-        val learningNowText = "Заучивается сейчас: ${data.learningNow}"
-        requireView().findViewById<TextView>(R.id.tvPeriodTitle).text = learningNowText
-
-
-        val statisticsAdapter = StatisticsAdapter(data.statistics)
-        rvStatistics.adapter = statisticsAdapter
-
-        updateChart(data.days)
+        // Обновляем адаптеры
+        binding.rvDays.adapter = DaysAdapter(data.days)
+        binding.rvStatistics.adapter = StatisticsAdapter(data.statistics)
     }
 
     private fun updateChart(days: List<DayStat>) {
+        if (days.isEmpty()) {
+            binding.barChart.visibility = View.GONE
+            binding.emptyChartText.visibility = View.VISIBLE
+            return
+        }
+
+        binding.barChart.visibility = View.VISIBLE
+        binding.emptyChartText.visibility = View.GONE
+
         val entries = ArrayList<BarEntry>()
         val labels = ArrayList<String>()
 
-        days.forEachIndexed { index, dayStat ->
+        // Ограничиваем количество отображаемых дней для лучшей читаемости
+        val displayDays = if (days.size > 10) days.takeLast(10) else days
+
+        displayDays.forEachIndexed { index, dayStat ->
             entries.add(BarEntry(index.toFloat(), dayStat.wordsCount.toFloat()))
             labels.add(dayStat.date)
         }
@@ -116,53 +260,14 @@ class StatsFragment : Fragment() {
         val dataSet = BarDataSet(entries, "Количество слов")
         dataSet.color = ContextCompat.getColor(requireContext(), R.color.primary)
         dataSet.valueTextSize = 10f
-        dataSet.valueTextColor = ContextCompat.getColor(requireContext(), R.color.primary)
 
         val data = BarData(dataSet)
         data.barWidth = 0.7f
 
-        barChart.data = data
-        barChart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
-        barChart.xAxis.textColor = ContextCompat.getColor(requireContext(), R.color.primary)
-        barChart.invalidate()
-    }
-
-    private fun setupChart() {
-        // Базовая настройка графика
-        barChart.setDrawBarShadow(false)
-        barChart.setDrawValueAboveBar(true)
-        barChart.description.isEnabled = false
-        barChart.setMaxVisibleValueCount(60)
-        barChart.setPinchZoom(false)
-        barChart.setDrawGridBackground(false)
-
-        // Настройка оси X
-        val xAxis = barChart.xAxis
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.setDrawGridLines(false)
-        xAxis.granularity = 1f
-        xAxis.labelCount = 7
-        xAxis.valueFormatter = IndexAxisValueFormatter()
-
-        // Настройка левой оси Y
-        val leftAxis = barChart.axisLeft
-        leftAxis.setDrawGridLines(true)
-        leftAxis.spaceTop = 15f
-        leftAxis.axisMinimum = 0f
-        leftAxis.granularity = 1f
-        leftAxis.textColor = ContextCompat.getColor(requireContext(), R.color.primary)
-
-        // Настройка правой оси Y
-        val rightAxis = barChart.axisRight
-        rightAxis.setDrawGridLines(false)
-        rightAxis.axisMinimum = 0f
-        rightAxis.textColor = ContextCompat.getColor(requireContext(), R.color.primary)
-
-        // Легенда
-        val legend = barChart.legend
-        legend.isEnabled = false
-
-        // Анимация
-        barChart.animateY(1000)
+        binding.barChart.data = data
+        binding.barChart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+        binding.barChart.xAxis.labelCount = minOf(labels.size, 7)
+        binding.barChart.animateY(1000)
+        binding.barChart.invalidate()
     }
 }
