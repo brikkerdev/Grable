@@ -1,5 +1,6 @@
 package ru.sirius.grable.learn.ui.card
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,18 +30,13 @@ class WordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val word = requireArguments().getSerializable(ARG_WORD) as Word
         bindWord(word)
         binding.root.setOnClickListener { flipCard() }
         binding.btnAudio.setOnClickListener { playAudio() }
     }
 
     private fun bindWord(word: Word) {
-        showingFront = true
-        binding.frontGroup.visibility = View.VISIBLE
-        binding.backGroup.visibility = View.GONE
-        binding.frontGroup.rotationY = 0f
-        binding.backGroup.rotationY = 0f
+        showFrontSide()
 
         binding.frontWord.text = word.original
         binding.frontTranscription.text = word.transcription

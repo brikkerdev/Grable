@@ -32,31 +32,17 @@
 
     </LinearLayout>
 
-    <!-- Карточка слова -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardWord"
+    <androidx.viewpager2.widget.ViewPager2
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginBottom="@dimen/spacing_xl"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        style="@style/Widget.Grable.Card.Base">
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/cardPager"
-            android:padding="@dimen/spacing_2xl"
-            android:gravity="center">
-
-            <!-- Иностранное слово -->
-
-
-        </androidx.viewpager2.widget.ViewPager2>
-
-    </com.google.android.material.card.MaterialCardView>
+        android:id="@+id/cardPager"
+        android:gravity="center"
+        style="@style/Widget.Grable.Card.Word">
+    </androidx.viewpager2.widget.ViewPager2>
 
     <!-- Подсказка -->
     <TextView
