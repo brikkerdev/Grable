@@ -17,9 +17,6 @@ class SettingsItemsFactory {
 
     fun createSettingsItems(uiState: SettingsUIState): List<SettingItem> {
         val values = uiState.values
-        val langs = uiState.availableLanguages
-        val voices = uiState.availableVoices
-        val themes = uiState.availableThemes
 
         return listOf(
             // Основные настройки
@@ -30,13 +27,13 @@ class SettingsItemsFactory {
             SettingItem.BaseSetting(
                 id = R.id.native_language_layout,
                 title = R.string.native_language,
-                value =  langs[values[ID_LANGUAGE]?.stringValue()].orEmpty(),
+                value = values[ID_LANGUAGE]?.stringValue().orEmpty(),
                 showDivider = true,
             ),
             SettingItem.BaseSetting(
                 id = R.id.theme_layout,
                 title = R.string.theme_layout,
-                value = themes[values[ID_THEME]?.stringValue()].orEmpty(),
+                value = values[ID_THEME]?.stringValue().orEmpty(),
                 showDivider = false,
             ),
 
@@ -48,7 +45,7 @@ class SettingsItemsFactory {
             SettingItem.BaseSetting(
                 id = R.id.voice_type_layout,
                 title = R.string.voice_type_layout,
-                value = voices[values[ID_VOICE]?.stringValue()].orEmpty(),
+                value = values[ID_VOICE]?.stringValue().orEmpty(),
                 showDivider = true,
             ),
 

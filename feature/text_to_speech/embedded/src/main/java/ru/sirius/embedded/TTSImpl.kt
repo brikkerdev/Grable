@@ -1,9 +1,8 @@
 package ru.sirius.embedded
 
 import android.content.Context
-import android.os.Build
-import android.os.Handler
 import android.speech.tts.TextToSpeech
+import android.speech.tts.TextToSpeech.OnInitListener
 import android.speech.tts.UtteranceProgressListener
 import android.util.Log
 import ru.sirius.api.ITTS
@@ -14,6 +13,8 @@ import kotlin.coroutines.suspendCoroutine
 class TTSImpl(
     private val context: Context
 ) : ITTS {
+
+    // НЕ наследуемся от TextToSpeech, а создаем экземпляр
     private var tts: TextToSpeech? = null
     private var isInitialized = false
     private var isLanguageSet = false
@@ -28,7 +29,7 @@ class TTSImpl(
 
     private fun initTTS() {
         // Инициализируем TTS с явным слушателем
-        tts = TextToSpeech(context, TextToSpeech.OnInitListener { status ->
+        tts = TextToSpeech(context, OnInitListener { status ->
             Log.d("TTS", "TTS OnInit status: $status")
 
             isInitialized = status == TextToSpeech.SUCCESS
@@ -38,7 +39,7 @@ class TTSImpl(
                 setupUtteranceListener()
 
                 // Даем время на полную инициализацию
-                Handler(context.mainLooper).postDelayed({
+                android.os.Handler(context.mainLooper).postDelayed({
                     setLanguageInternal()
                 }, 200)
             } else {
@@ -148,7 +149,7 @@ class TTSImpl(
             val id = utteranceId ?: "utterance_${System.currentTimeMillis()}"
 
             // Для Android 21+ используем новый метод
-            val result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val result = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                 tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, id)
             } else {
                 @Suppress("DEPRECATION")

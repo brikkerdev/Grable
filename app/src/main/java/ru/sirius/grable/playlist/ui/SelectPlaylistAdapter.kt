@@ -1,6 +1,5 @@
 package ru.sirius.grable.main
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +39,6 @@ class SelectPlaylistAdapter(
         val playlist = getItem(position)
         holder.nameText.text = playlist.name
         holder.descText.text = playlist.description ?: "${playlist.name} description"
-        Log.d("TEST_CLICK", "CLICKED ${playlist.name}")
         holder.itemView.setOnClickListener { onItemClick(playlist) }
     }
 }

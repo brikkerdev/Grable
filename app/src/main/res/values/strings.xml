@@ -73,6 +73,5 @@
     <string name="settings_about_text">Grable - приложение для изучения языков</string>
     <string name="settings_dialog_voice_type">Выберите голос диктора</string>
     <string name="settings_cancel">Отмена</string>
-    <string name="back">Назад</string>
-    <string name="categories">Категории</string>
+
 </resources>

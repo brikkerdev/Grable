@@ -6,10 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/spacing_sm"
-    style="@style/Widget.Grable.Card.Base"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?attr/selectableItemBackground">
+    style="@style/Widget.Grable.Card.Base">
 
     <LinearLayout
         android:layout_width="match_parent"

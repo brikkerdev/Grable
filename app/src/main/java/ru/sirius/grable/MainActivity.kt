@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.sirius.grable.learn.ui.LearnFragment
 import ru.sirius.grable.main.HomeFragment
 import ru.sirius.grable.progress.StatsFragment
@@ -21,44 +20,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val savedThemeMode =
-            sharedPreferences.getString("themeId", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString())
-        AppCompatDelegate.setDefaultNightMode(savedThemeMode!!.toInt())
+            sharedPreferences.getInt("theme_mode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        AppCompatDelegate.setDefaultNightMode(savedThemeMode)
 
         super.onCreate(savedInstanceState)
         ActivityMainBinding.inflate(layoutInflater).run {
             setContentView(root)
-            
-            val bottomNav = root.findViewById<BottomNavigationView>(R.id.bottom_nav)
-            
-            bottomNav.setOnItemSelectedListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.nav_home -> {
-                        switchFragment(HomeFragment())
-                        true
-                    }
-                    R.id.nav_add_word -> {
-                        switchFragment(AddWordFragment())
-                        true
-                    }
-                    R.id.nav_learn -> {
-                        switchFragment(LearnFragment())
-                        true
-                    }
-                    R.id.nav_stats -> {
-                        switchFragment(StatsFragment())
-                        true
-                    }
-                    R.id.nav_settings -> {
-                        switchFragment(SettingsFragment())
-                        true
-                    }
-                    else -> false
-                }
+            footer.footerHome.setOnClickListener {
+                switchFragment(HomeFragment())
             }
+            footer.footerLearn.setOnClickListener { switchFragment(LearnFragment()) }
+            footer.footerAddWord.setOnClickListener { switchFragment(AddWordFragment()) }
+            footer.footerStats.setOnClickListener { switchFragment(StatsFragment()) }
+            footer.footerSettings.setOnClickListener { switchFragment(SettingsFragment()) }
 
             if (savedInstanceState == null) {
                 switchFragment(HomeFragment())
-                bottomNav.selectedItemId = R.id.nav_home
             }
         }
     }

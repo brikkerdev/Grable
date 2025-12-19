@@ -1,7 +1,6 @@
 package ru.sirius.grable.settings.data
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatDelegate
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -47,11 +46,11 @@ class SettingsRepository (
         }
 
         if (settingsProvider.getStringValue(ID_VOICE) == "NO DATA") {
-            settingsProvider.setStringValue(ID_VOICE, "female")
+            settingsProvider.setStringValue(ID_VOICE, "male")
         }
 
         if (settingsProvider.getStringValue(ID_THEME) == "NO DATA") {
-            settingsProvider.setStringValue(ID_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString())
+            settingsProvider.setStringValue(ID_THEME, "light")
         }
 
         if (settingsProvider.getStringValue(ID_TIME_REMINDER) == "NO DATA") {
@@ -88,9 +87,9 @@ class SettingsRepository (
 
     fun getAvailableThemes() : Flow<Map<String, String>> {
         return flowOf(mapOf(
-            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString() to "Системная",
-            AppCompatDelegate.MODE_NIGHT_NO.toString() to "Светлая",
-            AppCompatDelegate.MODE_NIGHT_YES.toString() to "Темная"
+            "system" to "Системная",
+            "light" to "Светлая",
+            "dark" to "Темная"
         ))
     }
 
