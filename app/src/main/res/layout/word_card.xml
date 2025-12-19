@@ -33,6 +33,7 @@
             android:layout_height="@dimen/icon_xl"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/learn_play_sound"
+            app:srcCompat="@drawable/ic_play_audio_word"
             app:tint="@color/primary" />
     </LinearLayout>
 

@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.sirius.grable.common.AppDatabase
@@ -24,7 +25,8 @@ data class Word(
 ) : Serializable
 
 data class WordState(
-    val words: List<Word> = emptyList()
+    val words: List<Word> = emptyList(),
+    val isLoading: Boolean = true
 )
 
 class LearnPlaylistViewModel(application: Application) : AndroidViewModel(application) {
@@ -43,9 +45,15 @@ class LearnPlaylistViewModel(application: Application) : AndroidViewModel(applic
 
     private fun loadWords(playlistId: Long = 1) {
         viewModelScope.launch {
-            learnPlaylistInteractor.getWordsById(playlistId).collectLatest { words ->
-                _state.value = WordState(words)
-            }
+            _state.value = _state.value.copy(isLoading = true)
+            learnPlaylistInteractor.getWordsById(playlistId)
+                .catch {
+                    _state.value = _state.value.copy(words = emptyList(), isLoading = true)
+                }
+                .collectLatest { words ->
+                    val loading = words.isEmpty()
+                    _state.value = WordState(words = words, isLoading = loading)
+                }
         }
     }
 }
