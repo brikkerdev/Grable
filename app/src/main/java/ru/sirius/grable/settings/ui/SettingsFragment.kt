@@ -4,6 +4,7 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.sirius.grable.R
+import ru.sirius.grable.databinding.FragmentLearnBinding
+import ru.sirius.grable.databinding.FragmentSettingsBinding
 import ru.sirius.grable.settings.data.ID_DAILY_REMINDER
 import ru.sirius.grable.settings.data.ID_LANGUAGE
 import ru.sirius.grable.settings.data.ID_NOTIFICATION_PROGRESS
@@ -25,24 +28,27 @@ import ru.sirius.grable.settings.data.ID_VOICE
 import ru.sirius.grable.settings.data.SettingValues
 import ru.sirius.grable.settings.data.SettingsProvider
 import ru.sirius.grable.settings.domain.SettingsUIState
-import ru.sirius.grable.settings.domain.SettingsViewModel
+import ru.sirius.grable.settings.ui.SettingsViewModel
 import java.util.Locale
 
 class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: SettingsViewModel by viewModels { SettingsViewModel.Factory }
     private val adapter: SettingsAdapter by lazy {
         SettingsAdapter(this)
     }
     private val settingsItemsFactory = SettingsItemsFactory()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
         recyclerView.itemAnimator = null
@@ -151,9 +157,11 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
     }
 
     private fun handleRemindersToggle(isChecked: Boolean, uiState: SettingsUIState) {
+        if (uiState.values[ID_DAILY_REMINDER]?.booleanValue() == isChecked) {
+            return
+        }
         val selected = SettingValues.BooleanValue(ID_DAILY_REMINDER, isChecked)
         viewModel.update(selected)
-
         if (isChecked) {
             showTimePicker(uiState.values[ID_TIME_REMINDER]?.stringValue() ?: "19:00")
         }
@@ -161,7 +169,7 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
 
     private fun showTimePicker(currentTime: String) {
         val (hour, minute) = currentTime.split(":").map { it.toInt() }
-
+        Log.d("TIMEPICKER", "executed")
         TimePickerDialog(
             requireContext(),
             { _, selectedHour, selectedMinute ->
