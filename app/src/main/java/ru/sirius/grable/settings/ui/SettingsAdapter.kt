@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import ru.sirius.grable.R
+import ru.sirius.grable.databinding.FragmentLearnBinding
 
 class SettingsAdapter(
     private val clickListener: ClickListener,
@@ -22,7 +23,6 @@ class SettingsAdapter(
         fun onClickListener(item: SettingItem)
         fun onChangeListener(item: SettingItem, value: Boolean)
     }
-
     companion object {
         private const val TYPE_SECTION_TITLE = 0
         private const val TYPE_BASE_SETTING = 1

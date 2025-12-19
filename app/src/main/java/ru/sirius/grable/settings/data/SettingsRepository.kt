@@ -42,15 +42,15 @@ class SettingsRepository (
 
     fun initSettings() {
         if (settingsProvider.getStringValue(ID_LANGUAGE) == "NO DATA") {
-            settingsProvider.setStringValue(ID_LANGUAGE, "ru")
+            settingsProvider.setStringValue(ID_LANGUAGE, "Русский")
         }
 
         if (settingsProvider.getStringValue(ID_VOICE) == "NO DATA") {
-            settingsProvider.setStringValue(ID_VOICE, "male")
+            settingsProvider.setStringValue(ID_VOICE, "Женский")
         }
 
         if (settingsProvider.getStringValue(ID_THEME) == "NO DATA") {
-            settingsProvider.setStringValue(ID_THEME, "light")
+            settingsProvider.setStringValue(ID_THEME, "Системная")
         }
 
         if (settingsProvider.getStringValue(ID_TIME_REMINDER) == "NO DATA") {
