@@ -33,6 +33,9 @@
         <item name="colorOutline">@color/outline</item>
         <item name="colorOutlineVariant">@color/outline_variant</item>
         
+        <!-- Components -->
+        <item name="bottomNavigationStyle">@style/Widget.Grable.BottomNavigation</item>
+        
         <!-- Typography -->
         <item name="textAppearanceHeadline1">@style/TextAppearanceHeadline1</item>
         <item name="textAppearanceHeadline2">@style/TextAppearanceHeadline2</item>
