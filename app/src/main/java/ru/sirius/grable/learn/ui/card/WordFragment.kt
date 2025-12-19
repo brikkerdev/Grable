@@ -1,5 +1,6 @@
 package ru.sirius.grable.learn.ui.card
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,15 @@ class WordFragment : Fragment() {
 
     private var _binding: WordCardBinding? = null
     private val binding get() = _binding!!
+
+    private val word: Word by lazy {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requireArguments().getSerializable(ARG_WORD, Word::class.java) as Word
+        } else {
+            @Suppress("DEPRECATION")
+            requireArguments().getSerializable(ARG_WORD) as Word
+        }
+    }
 
     private var showingFront = true
 
@@ -26,22 +36,37 @@ class WordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val word = requireArguments().getSerializable(ARG_WORD) as Word
         bindWord(word)
         binding.root.setOnClickListener { flipCard() }
     }
 
+    override fun onResume() {
+        super.onResume()
+        showFrontSide()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        showFrontSide()
+    }
+
     private fun bindWord(word: Word) {
-        showingFront = true
-        binding.frontGroup.visibility = View.VISIBLE
-        binding.backGroup.visibility = View.GONE
-        binding.frontGroup.rotationY = 0f
-        binding.backGroup.rotationY = 0f
+        showFrontSide()
 
         binding.frontWord.text = word.original
         binding.frontTranscription.text = word.transcription
         binding.backTranslation.text = word.translation
         binding.backExample.text = word.example
+    }
+
+    private fun showFrontSide() {
+        binding.frontGroup.animate().cancel()
+        binding.backGroup.animate().cancel()
+        showingFront = true
+        binding.frontGroup.visibility = View.VISIBLE
+        binding.backGroup.visibility = View.GONE
+        binding.frontGroup.rotationY = 0f
+        binding.backGroup.rotationY = 0f
     }
 
     private fun flipCard() {
