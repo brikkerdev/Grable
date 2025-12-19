@@ -17,15 +17,6 @@ class WordFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val tts : TTSImpl by inject()
-    private val word: Word by lazy {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requireArguments().getSerializable(ARG_WORD, Word::class.java) as Word
-        } else {
-            @Suppress("DEPRECATION")
-            requireArguments().getSerializable(ARG_WORD) as Word
-        }
-    }
-
     private var showingFront = true
 
     override fun onCreateView(
@@ -44,16 +35,6 @@ class WordFragment : Fragment() {
         binding.btnAudio.setOnClickListener { playAudio() }
     }
 
-    override fun onResume() {
-        super.onResume()
-        showFrontSide()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        showFrontSide()
-    }
-
     private fun bindWord(word: Word) {
         showFrontSide()
 
@@ -67,16 +48,6 @@ class WordFragment : Fragment() {
         val text = binding.frontWord.text as String
         tts.play(text)
     }
-    private fun showFrontSide() {
-        binding.frontGroup.animate().cancel()
-        binding.backGroup.animate().cancel()
-        showingFront = true
-        binding.frontGroup.visibility = View.VISIBLE
-        binding.backGroup.visibility = View.GONE
-        binding.frontGroup.rotationY = 0f
-        binding.backGroup.rotationY = 0f
-    }
-
     private fun flipCard() {
         val front = binding.frontGroup
         val back = binding.backGroup
