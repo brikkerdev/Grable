@@ -54,6 +54,16 @@ class WordFragment : Fragment() {
         showFrontSide()
     }
 
+    override fun onResume() {
+        super.onResume()
+        showFrontSide()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        showFrontSide()
+    }
+
     private fun bindWord(word: Word) {
         showFrontSide()
 
@@ -67,6 +77,16 @@ class WordFragment : Fragment() {
         val text = binding.frontWord.text as String
         tts.play(text)
     }
+    private fun showFrontSide() {
+        binding.frontGroup.animate().cancel()
+        binding.backGroup.animate().cancel()
+        showingFront = true
+        binding.frontGroup.visibility = View.VISIBLE
+        binding.backGroup.visibility = View.GONE
+        binding.frontGroup.rotationY = 0f
+        binding.backGroup.rotationY = 0f
+    }
+
     private fun flipCard() {
         val front = binding.frontGroup
         val back = binding.backGroup
