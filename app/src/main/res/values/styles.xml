@@ -50,5 +50,19 @@
         <item name="android:background">@drawable/bg_action_card</item>
         <item name="android:padding">@dimen/card_padding</item>
     </style>
+
+    <!-- Bottom navigation -->
+    <style name="Widget.Grable.BottomNavigation" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemIconTint">@color/bottom_nav_item_color</item>
+        <item name="itemTextColor">@color/bottom_nav_item_color</item>
+        <item name="itemRippleColor">@color/bottom_nav_ripple</item>
+        <item name="android:background">@color/surface</item>
+        <item name="itemActiveIndicatorStyle">@style/Widget.Grable.BottomNavigation.ActiveIndicator</item>
+    </style>
+
+    <style name="Widget.Grable.BottomNavigation.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/primary_container</item>
+        <item name="android:alpha">1</item>
+    </style>
 </resources>
 
