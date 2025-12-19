@@ -1,43 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/page_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Категории"
+        android:text="@string/categories"
         android:textAppearance="@style/TextAppearanceHeadline3"
         android:padding="@dimen/spacing_base"
-        app:layout_constraintTop_toTopOf="parent"
         android:gravity="center" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/playlist_items"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:padding="@dimen/spacing_base"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/button_back"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/page_name"
-        app:spanCount="2"
         tools:listitem="@layout/item_playlist" />
 
     <Button
         android:id="@+id/button_back"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing_base"
-        android:text="Назад"
-        style="@style/Widget.Grable.Button.Primary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="@string/back"
+        style="@style/Widget.Grable.Button.Primary" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
