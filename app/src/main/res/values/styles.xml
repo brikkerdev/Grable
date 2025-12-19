@@ -5,10 +5,6 @@
         <item name="cardElevation">@dimen/card_elevation_sm</item>
         <item name="cardBackgroundColor">@color/surface</item>
     </style>
-
-    <style name="Widget.Grable.Card.Word" parent="Widget.Grable.Card.Base">
-        <item name="cardBackgroundColor">@color/card_surface</item>
-    </style>
     
     <!-- Card variants -->
     <style name="Widget.Grable.Card.ListItem" parent="Widget.Grable.Card.Base">
