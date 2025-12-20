@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -43,6 +44,7 @@ class SelectPlaylistFragment : Fragment() {
     private val playlistTitle by lazy { requireView().findViewById<TextView>(R.id.page_name) }
     private val backButton by lazy { requireView().findViewById<Button>(R.id.button_back) }
     private val playlistSkeleton by lazy { requireView().findViewById<ShimmerFrameLayout>(R.id.playlist_skeleton) }
+    private val contentGroup by lazy { requireView().findViewById<LinearLayout>(R.id.content_group) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,9 +84,7 @@ class SelectPlaylistFragment : Fragment() {
 
     private fun applyLoading(isLoading: Boolean) {
         playlistSkeleton.isVisible = isLoading
-        playlistTitle.isVisible = !isLoading
-        playlistRecyclerView.isVisible = !isLoading
-        backButton.isVisible = !isLoading
+        contentGroup.isVisible = !isLoading
 
         if (isLoading) {
             playlistSkeleton.startShimmer()
