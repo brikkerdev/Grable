@@ -32,8 +32,8 @@
             android:id="@+id/btnAudio"
             android:layout_width="@dimen/icon_xl"
             android:layout_height="@dimen/icon_xl"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/learn_play_sound"
+            android:background="@color/card_surface"
             app:srcCompat="@drawable/ic_play_audio_word"
             app:tint="@color/primary" />
     </LinearLayout>
