@@ -5,8 +5,7 @@
     android:id="@+id/recyclerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/spacing_base"
-    android:background="@color/background">
+    style="@style/Widget.Grable.RecyclerView.Settings">
 
 
 </androidx.recyclerview.widget.RecyclerView>
