@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import com.facebook.shimmer.ShimmerFrameLayout
 import ru.sirius.grable.MainActivity
 import ru.sirius.grable.R
+import ru.sirius.grable.learn.ui.LearnPlaylistFragment
 import ru.sirius.grable.main.HomeFragment
 import ru.sirius.grable.main.PlaylistViewModel
 import ru.sirius.grable.main.SelectPlaylistAdapter
@@ -29,10 +30,12 @@ class SelectPlaylistFragment : Fragment() {
             }
         }
     }
-    // ←←←
 
     private val adapter: SelectPlaylistAdapter by lazy {
         SelectPlaylistAdapter { playlist ->
+            (activity as? MainActivity)?.switchFragment(
+                LearnPlaylistFragment.newInstance(playlist.id)
+            )
         }
     }
 

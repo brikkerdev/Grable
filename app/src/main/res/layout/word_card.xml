@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:background="@color/card_surface"
         android:orientation="vertical">
 
         <TextView
@@ -40,6 +41,7 @@
     <!-- Back side -->
     <LinearLayout
         android:id="@+id/backGroup"
+        android:background="@color/card_surface"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

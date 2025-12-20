@@ -1,10 +1,7 @@
-package ru.sirius.grable.settings.domain
+package ru.sirius.grable.settings.ui
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,6 +13,8 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ru.sirius.grable.settings.data.SettingValues
 import ru.sirius.grable.settings.data.SettingsRepository
+import ru.sirius.grable.settings.domain.SettingsInteractor
+import ru.sirius.grable.settings.domain.SettingsUIState
 
 class SettingsViewModel(
     private val settingsInteractor: SettingsInteractor,
@@ -63,7 +62,7 @@ class SettingsViewModel(
                 modelClass: Class<T>,
                 extras: CreationExtras
             ): T {
-                val application = checkNotNull(extras[APPLICATION_KEY])
+                val application = checkNotNull(extras[ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY])
 
                 return SettingsViewModel(
                     SettingsInteractor(SettingsRepository(application))

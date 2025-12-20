@@ -2,6 +2,8 @@ package ru.sirius.grable.learn.ui
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -29,7 +31,10 @@ data class WordState(
     val isLoading: Boolean = true
 )
 
-class LearnPlaylistViewModel(application: Application) : AndroidViewModel(application) {
+class LearnPlaylistViewModel(
+    private val playlistId: Long,
+    application: Application
+) : AndroidViewModel(application) {
     private val _state = MutableStateFlow(WordState())
     val state = _state.asStateFlow()
     private val repository: WordsRepository
@@ -43,7 +48,7 @@ class LearnPlaylistViewModel(application: Application) : AndroidViewModel(applic
         loadWords()
     }
 
-    private fun loadWords(playlistId: Long = 1) {
+    private fun loadWords() {
         viewModelScope.launch {
             _state.value = _state.value.copy(isLoading = true)
             learnPlaylistInteractor.getWordsById(playlistId)
@@ -54,6 +59,17 @@ class LearnPlaylistViewModel(application: Application) : AndroidViewModel(applic
                     val loading = words.isEmpty()
                     _state.value = WordState(words = words, isLoading = loading)
                 }
+        }
+    }
+
+    class Factory(
+        private val application: Application,
+        private val playlistId: Long
+    ) : ViewModelProvider.Factory {
+
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return LearnPlaylistViewModel(playlistId, application) as T
         }
     }
 }

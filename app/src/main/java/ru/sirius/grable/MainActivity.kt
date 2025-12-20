@@ -21,8 +21,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val savedThemeMode =
-            sharedPreferences.getInt("theme_mode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        AppCompatDelegate.setDefaultNightMode(savedThemeMode)
+            sharedPreferences.getString("themeId", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString())
+        AppCompatDelegate.setDefaultNightMode(savedThemeMode!!.toInt())
 
         super.onCreate(savedInstanceState)
         ActivityMainBinding.inflate(layoutInflater).run {
