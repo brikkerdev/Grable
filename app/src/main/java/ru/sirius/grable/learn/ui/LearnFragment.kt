@@ -31,7 +31,9 @@ class LearnFragment : Fragment() {
         LearnPlaylistViewModel.Factory(requireActivity().application, 1L)
     }
 
-    private lateinit var pagerAdapter: LearnWordsPagerAdapter
+    private val pagerAdapter by lazy {
+        LearnWordsPagerAdapter(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,7 +53,6 @@ class LearnFragment : Fragment() {
     }
 
     private fun setupPager() {
-        pagerAdapter = LearnWordsPagerAdapter(this)
         binding.cardPager.apply {
             adapter = pagerAdapter
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -91,7 +92,9 @@ class LearnFragment : Fragment() {
                     if (state.isLoading) return@collect
                     val previousIndex = binding.cardPager.currentItem
                     pagerAdapter.submitWords(state.words)
-                    val clampedIndex = previousIndex.coerceIn(0, (pagerAdapter.itemCount - 1).coerceAtLeast(0))
+                    val clampedIndex = previousIndex
+                            .coerceIn(0, (pagerAdapter.itemCount - 1)
+                            .coerceAtLeast(0))
                     binding.cardPager.setCurrentItem(clampedIndex, false)
                     updateProgress(state.words.size, clampedIndex)
                 }
