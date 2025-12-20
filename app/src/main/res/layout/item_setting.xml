@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="@dimen/spacing_base"
-                android:background="?android:attr/selectableItemBackground"
+                style="@style/Widget.Grable.Layout.Clickable"
                 android:clickable="true"
                 android:focusable="true"
                 android:visibility="gone">
