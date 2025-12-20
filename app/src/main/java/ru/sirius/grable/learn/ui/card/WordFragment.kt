@@ -54,16 +54,6 @@ class WordFragment : Fragment() {
         showFrontSide()
     }
 
-    override fun onResume() {
-        super.onResume()
-        showFrontSide()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        showFrontSide()
-    }
-
     private fun bindWord(word: Word) {
         showFrontSide()
 
