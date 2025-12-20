@@ -16,10 +16,10 @@
             <option value="$PROJECT_DIR$/libs/imageloader" />
             <option value="$PROJECT_DIR$/libs/imageloader/api" />
             <option value="$PROJECT_DIR$/libs/imageloader/coil" />
+            <option value="$PROJECT_DIR$/libs/network" />
             <option value="$PROJECT_DIR$/libs/tts" />
             <option value="$PROJECT_DIR$/libs/tts/api" />
             <option value="$PROJECT_DIR$/libs/tts/embedded" />
-            <option value="$PROJECT_DIR$/network" />
           </set>
         </option>
       </GradleProjectSettings>
