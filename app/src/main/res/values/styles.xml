@@ -44,7 +44,11 @@
     <style name="Widget.Grable.Layout" parent="android:Widget">
         <!-- Base layout style -->
     </style>
-    
+
+    <style name="Widget.Grable.Layout.Clickable" parent="android:Widget">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
     <style name="Widget.Grable.Layout.ActionCard" parent="Widget.Grable.Layout">
         <item name="android:orientation">vertical</item>
         <item name="android:background">@drawable/bg_action_card</item>
