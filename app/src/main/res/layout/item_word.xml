@@ -20,7 +20,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             style="@style/TextAppearanceWordOriginal"
-            app:layout_constraintEnd_toStartOf="@+id/btnEditWord"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Text" />
@@ -31,21 +30,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_xs"
             android:textAppearance="@style/TextAppearanceBody1Secondary"
-            app:layout_constraintEnd_toStartOf="@+id/btnEditWord"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/originalWord"
             tools:text="Текст" />
-
-        <ImageButton
-            android:id="@+id/btnEditWord"
-            android:layout_width="@dimen/icon_xl"
-            android:layout_height="@dimen/icon_xl"
-            android:contentDescription="@string/editWord"
-            android:src="@android:drawable/ic_menu_edit"
-            style="@style/Widget.Grable.IconButton.Secondary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

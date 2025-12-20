@@ -13,12 +13,15 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import ru.sirius.grable.MainActivity
 import ru.sirius.grable.R
+import ru.sirius.grable.databinding.FragmentSelectPlaylistBinding
 import ru.sirius.grable.learn.ui.LearnPlaylistFragment
 import ru.sirius.grable.main.HomeFragment
 import ru.sirius.grable.main.PlaylistViewModel
 import ru.sirius.grable.main.SelectPlaylistAdapter
 
 class SelectPlaylistFragment : Fragment() {
+    private var _binding: FragmentSelectPlaylistBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: PlaylistViewModel by viewModels {
         object : androidx.lifecycle.ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
@@ -40,7 +43,8 @@ class SelectPlaylistFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_select_playlist, container, false)
+        _binding = FragmentSelectPlaylistBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,7 +52,7 @@ class SelectPlaylistFragment : Fragment() {
 
         setupRecyclerView(view)
 
-        view.findViewById<Button>(R.id.button_back).setOnClickListener {
+        binding.buttonBack.setOnClickListener {
             (activity as? MainActivity)?.switchFragment(HomeFragment())
         }
 
@@ -56,7 +60,7 @@ class SelectPlaylistFragment : Fragment() {
     }
 
     private fun setupRecyclerView(view: View) {
-        val recyclerView = view.findViewById<RecyclerView>(R.id.playlist_items)
+        val recyclerView = binding.playlistItems
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
     }
