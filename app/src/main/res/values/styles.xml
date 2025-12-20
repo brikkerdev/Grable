@@ -45,6 +45,11 @@
         <!-- Base layout style -->
     </style>
 
+    <style name="Widget.Grable.RecyclerView.Settings" parent="android:Widget">
+        <item name="android:padding">@dimen/spacing_base</item>
+        <item name="android:background">@color/background</item>
+    </style>
+
     <style name="Widget.Grable.Layout.Clickable" parent="android:Widget">
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
