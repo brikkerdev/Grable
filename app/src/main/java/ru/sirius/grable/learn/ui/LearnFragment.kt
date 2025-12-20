@@ -26,7 +26,9 @@ class LearnFragment : Fragment() {
     private var _binding: FragmentLearnBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: LearnPlaylistViewModel by viewModels()
+    private val viewModel: LearnPlaylistViewModel by viewModels {
+        LearnPlaylistViewModel.Factory(requireActivity().application, 1L)
+    }
 
     private lateinit var pagerAdapter: LearnWordsPagerAdapter
 
