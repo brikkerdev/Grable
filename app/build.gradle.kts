@@ -51,7 +51,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.gridlayout)
     implementation(libs.androidx.viewpager2)
-    implementation(project(":network"))
+    implementation(project(":libs:network"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
