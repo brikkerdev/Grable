@@ -4,22 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import ru.sirius.grable.R
 import ru.sirius.grable.add_word.data.Example
+import ru.sirius.grable.databinding.FragmentAddWordBinding
 import com.example.api.ImageLoader
 import org.koin.java.KoinJavaComponent.inject
+
 class AddWordFragment : Fragment() {
+
+    private var _binding: FragmentAddWordBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel: AddWordViewModel by viewModels()
 
@@ -29,25 +28,29 @@ class AddWordFragment : Fragment() {
         }
     }
 
+    private val imageLoader: ImageLoader<android.widget.ImageView> by inject(ImageLoader::class.java)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_add_word, container, false)
+    ): View {
+        _binding = FragmentAddWordBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rvExample)
-        val btnAddExample = view.findViewById<MaterialButton>(R.id.btnAddExample)
-        val img = view.findViewById<ImageView>(R.id.imageExample)
+        imageLoader.load(
+            binding.imageExample,
+            "https://sun9-48.userapi.com/s/v1/ig2/ImtKfLVzCA809SBorvbrXFcuIEqeuCkgNrllHf1X-AC5lmPKwCKAgnoQADvGDf0D2rhMUKlNqsu0SZCoOlXkYWp1.jpg?quality=95&as=32x26,48x39,72x58,108x87,160x129,240x193,250x201&from=bu&cs=250x0",
+            crossfade = true
+        )
 
-        val imageLoader: ImageLoader<ImageView> by inject(ImageLoader::class.java)
-        imageLoader.load(img, "https://sun9-48.userapi.com/s/v1/ig2/ImtKfLVzCA809SBorvbrXFcuIEqeuCkgNrllHf1X-AC5lmPKwCKAgnoQADvGDf0D2rhMUKlNqsu0SZCoOlXkYWp1.jpg?quality=95&as=32x26,48x39,72x58,108x87,160x129,240x193,250x201&from=bu&cs=250x0", crossfade = true)
+        binding.rvExample.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvExample.adapter = adapter
 
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = adapter
-
-        btnAddExample.setOnClickListener { showAddExampleDialog() }
+        binding.btnAddExample.setOnClickListener { showAddExampleDialog() }
 
         observeViewModel()
     }
@@ -61,47 +64,38 @@ class AddWordFragment : Fragment() {
     }
 
     private fun showAddExampleDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_add_example, null)
-        val inputEn = dialogView.findViewById<TextInputEditText>(R.id.inputExampleEn)
-        val inputRu = dialogView.findViewById<TextInputEditText>(R.id.inputExampleRu)
-
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Добавить пример")
-            .setView(dialogView)
-            .setPositiveButton("Добавить") { dialog, _ ->
-                val en = inputEn.text.toString().trim()
-                val ru = inputRu.text.toString().trim()
-                if (en.isNotEmpty()) {
-                    viewModel.addExample(Example(id,en, ru))
-                }
-                dialog.dismiss()
+        val dialog = AddExampleDialogFragment.newInstance()
+        dialog.setOnExampleSavedListener(object : AddExampleDialogFragment.OnExampleSavedListener {
+            override fun onExampleSaved(example: Example) {
+                viewModel.addExample(example)
             }
-            .setNegativeButton("Отмена") { dialog, _ -> dialog.dismiss() }
-            .show()
+
+            override fun onExampleUpdated(example: Example) {
+            }
+        })
+        dialog.show(childFragmentManager, "AddExampleDialog")
     }
 
     private fun showEditExampleDialog(index: Int, oldExample: Example) {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_add_example, null)
-        val inputEn = dialogView.findViewById<TextInputEditText>(R.id.inputExampleEn)
-        val inputRu = dialogView.findViewById<TextInputEditText>(R.id.inputExampleRu)
+        val dialog = AddExampleDialogFragment.newInstance(oldExample)
+        dialog.setOnExampleSavedListener(object : AddExampleDialogFragment.OnExampleSavedListener {
+            override fun onExampleSaved(example: Example) {
+            }
 
-        inputEn.setText(oldExample.english)
-        inputRu.setText(oldExample.russian)
-
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Редактировать пример")
-            .setView(dialogView)
-            .setPositiveButton("Сохранить") { dialog, _ ->
-                val en = inputEn.text.toString().trim()
-                val ru = inputRu.text.toString().trim()
-                if (en.isNotEmpty()) {
-                    val list = viewModel.state.value.examples.toMutableList()
-                    list[index] = Example(id, en, ru)
+            override fun onExampleUpdated(example: Example) {
+                val list = viewModel.state.value.examples.toMutableList()
+                val updatedIndex = list.indexOfFirst { it.id == oldExample.id }
+                if (updatedIndex != -1) {
+                    list[updatedIndex] = example
                     viewModel.updateExamples(list)
                 }
-                dialog.dismiss()
             }
-            .setNegativeButton("Отмена") { dialog, _ -> dialog.dismiss() }
-            .show()
+        })
+        dialog.show(childFragmentManager, "EditExampleDialog")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
