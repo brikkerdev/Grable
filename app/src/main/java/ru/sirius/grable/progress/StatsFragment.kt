@@ -21,13 +21,12 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import kotlinx.coroutines.launch
-import ru.sirius.grable.R
 import ru.sirius.grable.common.AppDatabase
 import ru.sirius.grable.progress.data.DayStat
 import ru.sirius.grable.progress.data.StatisticsData
 import ru.sirius.grable.progress.data.repository.StatisticsRepository
 import ru.sirius.grable.progress.data.repository.StatisticsRepositoryImpl
-
+import ru.sirius.grable.core.design.R
 
 class StatsFragment : Fragment() {
 

@@ -4,9 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,12 +12,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import com.facebook.shimmer.ShimmerFrameLayout
-import ru.sirius.grable.MainActivity
+import org.koin.android.ext.android.inject
 import ru.sirius.grable.R
-import ru.sirius.grable.learn.ui.LearnPlaylistFragment
-import ru.sirius.grable.main.HomeFragment
+import ru.sirius.grable.databinding.FragmentSelectPlaylistBinding
 import ru.sirius.grable.main.PlaylistViewModel
 import ru.sirius.grable.main.SelectPlaylistAdapter
+import ru.sirius.grable.navigation.api.NavigationRouter
+import ru.sirius.grable.navigation.api.Screens
 
 class SelectPlaylistFragment : Fragment() {
     private val viewModel: PlaylistViewModel by viewModels {
@@ -34,23 +32,26 @@ class SelectPlaylistFragment : Fragment() {
 
     private val adapter: SelectPlaylistAdapter by lazy {
         SelectPlaylistAdapter { playlist ->
-            (activity as? MainActivity)?.switchFragment(
-                LearnPlaylistFragment.newInstance(playlist.id)
+            // TODO: navigate via DI once learn playlist is modularized
+            navigateToFragmentReflective(
+                className = "ru.sirius.grable.learn.ui.LearnPlaylistFragment",
+                args = arrayOf(playlist.id),
+                parameterTypes = arrayOf(Long::class.java)
             )
         }
     }
 
-    private val playlistRecyclerView by lazy { requireView().findViewById<RecyclerView>(R.id.playlist_items) }
-    private val playlistTitle by lazy { requireView().findViewById<TextView>(R.id.page_name) }
-    private val backButton by lazy { requireView().findViewById<Button>(R.id.button_back) }
-    private val playlistSkeleton by lazy { requireView().findViewById<ShimmerFrameLayout>(R.id.playlist_skeleton) }
-    private val contentGroup by lazy { requireView().findViewById<LinearLayout>(R.id.content_group) }
+    private var _binding: FragmentSelectPlaylistBinding? = null
+    private val binding get() = _binding!!
+
+    private val navigationRouter: NavigationRouter by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_select_playlist, container, false)
+    ): View {
+        _binding = FragmentSelectPlaylistBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,8 +59,8 @@ class SelectPlaylistFragment : Fragment() {
 
         setupRecyclerView()
 
-        backButton.setOnClickListener {
-            (activity as? MainActivity)?.switchFragment(HomeFragment())
+        binding.buttonBack.setOnClickListener {
+            navigationRouter.navigateToScreen(Screens.HOME)
         }
 
         applyLoading(viewModel.state.value.isLoading)
@@ -67,8 +68,8 @@ class SelectPlaylistFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        playlistRecyclerView.adapter = adapter
-        playlistRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.playlistItems.adapter = adapter
+        binding.playlistItems.layoutManager = GridLayoutManager(requireContext(), 2)
     }
 
     private fun observeViewModel() {
@@ -83,25 +84,48 @@ class SelectPlaylistFragment : Fragment() {
     }
 
     private fun applyLoading(isLoading: Boolean) {
-        playlistSkeleton.isVisible = isLoading
-        contentGroup.isVisible = !isLoading
+        binding.playlistSkeleton.isVisible = isLoading
+        binding.contentGroup.isVisible = !isLoading
 
         if (isLoading) {
-            playlistSkeleton.startShimmer()
+            binding.playlistSkeleton.startShimmer()
         } else {
-            playlistSkeleton.stopShimmer()
+            binding.playlistSkeleton.stopShimmer()
         }
     }
 
     override fun onResume() {
         super.onResume()
-        if (playlistSkeleton.isVisible) {
-            playlistSkeleton.startShimmer()
+        if (binding.playlistSkeleton.isVisible) {
+            binding.playlistSkeleton.startShimmer()
         }
     }
 
     override fun onPause() {
-        playlistSkeleton.stopShimmer()
+        binding.playlistSkeleton.stopShimmer()
         super.onPause()
+    }
+
+    override fun onDestroyView() {
+        binding.playlistSkeleton.stopShimmer()
+        _binding = null
+        super.onDestroyView()
+    }
+
+    private fun navigateToFragmentReflective(
+        className: String,
+        args: Array<Any?> = emptyArray(),
+        parameterTypes: Array<Class<*>> = emptyArray()
+    ) {
+        try {
+            val fragmentClass = Class.forName(className)
+            val method = fragmentClass.getMethod("newInstance", *parameterTypes)
+            val fragment = method.invoke(null, *args) as? Fragment
+            fragment?.let {
+                navigationRouter.navigateToFragment(it)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }
