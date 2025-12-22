@@ -22,7 +22,7 @@ import ru.sirius.grable.learn.ui.LearnFragment
 import ru.sirius.grable.navigation.api.NavigationRouter
 import ru.sirius.grable.navigation.api.Screens
 import ru.sirius.grable.progress.StatsFragment
-import ru.sirius.grable.settings.ui.SettingsFragment
+import ru.sirius.settings.ui.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
     private val sharedPreferences: SharedPreferences by lazy {
@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                         true
                     }
                     R.id.nav_settings -> {
-                        navigateToFragment(SettingsConstants.SETTINGS_SCREEN)
+                        navigationRouter.navigateToScreen(Screens.SETTINGS)
                         true
                     }
                     else -> false
