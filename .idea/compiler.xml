@@ -3,6 +3,7 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="11">
       <module name="Grable.feature.text_to_speech.embedded" target="21" />
+      <module name="Grable.network" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>

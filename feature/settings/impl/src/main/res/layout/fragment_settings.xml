@@ -7,5 +7,4 @@
     android:layout_height="match_parent"
     style="@style/Widget.Grable.RecyclerView.Settings">
 
-
 </androidx.recyclerview.widget.RecyclerView>

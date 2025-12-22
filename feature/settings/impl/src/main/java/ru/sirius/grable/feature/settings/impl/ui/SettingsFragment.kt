@@ -1,10 +1,7 @@
-package ru.sirius.grable.settings.ui
+package ru.sirius.grable.feature.settings.impl.ui
 
 import android.app.TimePickerDialog
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,23 +10,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import ru.sirius.grable.R
-import ru.sirius.grable.databinding.FragmentLearnBinding
-import ru.sirius.grable.databinding.FragmentSettingsBinding
-import ru.sirius.grable.settings.data.ID_DAILY_REMINDER
-import ru.sirius.grable.settings.data.ID_LANGUAGE
-import ru.sirius.grable.settings.data.ID_NOTIFICATION_PROGRESS
-import ru.sirius.grable.settings.data.ID_THEME
-import ru.sirius.grable.settings.data.ID_TIME_REMINDER
-import ru.sirius.grable.settings.data.ID_VOICE
-import ru.sirius.grable.settings.data.SettingValues
-import ru.sirius.grable.settings.data.SettingsProvider
-import ru.sirius.grable.settings.domain.SettingsUIState
-import ru.sirius.grable.settings.ui.SettingsViewModel
+import ru.sirius.feature.settings.impl.R
+import ru.sirius.grable.feature.settings.impl.databinding.FragmentSettingsBinding
+import ru.sirius.grable.feature.settings.impl.data.ID_DAILY_REMINDER
+import ru.sirius.grable.feature.settings.impl.data.ID_LANGUAGE
+import ru.sirius.grable.feature.settings.impl.data.ID_NOTIFICATION_PROGRESS
+import ru.sirius.grable.feature.settings.impl.data.ID_THEME
+import ru.sirius.grable.feature.settings.impl.data.ID_TIME_REMINDER
+import ru.sirius.grable.feature.settings.impl.data.ID_VOICE
+import ru.sirius.grable.feature.settings.api.data.SettingValues
+import ru.sirius.grable.feature.settings.api.domain.SettingsUIState
 import java.util.Locale
 
 class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
@@ -42,7 +34,7 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
     private val settingsItemsFactory = SettingsItemsFactory()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        _binding = FragmentSettingsBinding.Companion.inflate(inflater, container, false)
         return binding.root
     }
 

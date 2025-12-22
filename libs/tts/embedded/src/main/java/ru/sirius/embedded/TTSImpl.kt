@@ -20,7 +20,7 @@ class TTSImpl(
     private val pendingUtterances = mutableMapOf<String, String>()
     private var onInitListener: ((Boolean) -> Unit)? = null
     private var onUtteranceListener: OnUtteranceListener? = null
-    private var defaultLocale: Locale = Locale.getDefault()
+    private var defaultLocale: Locale = Locale.ENGLISH
 
     init {
         initTTS()

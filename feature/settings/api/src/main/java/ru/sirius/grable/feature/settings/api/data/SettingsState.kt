@@ -1,16 +1,13 @@
-package ru.sirius.grable.settings.data
-
-import ru.sirius.grable.settings.data.SettingValues.BooleanValue
-import ru.sirius.grable.settings.data.SettingValues.StringValue
+package ru.sirius.grable.feature.settings.api.data
 
 data class SettingsState(
-    val nativeLanguage: StringValue,
-    val voiceType: StringValue,
-    val theme: StringValue,
-    val dailyRemindersEnabled: BooleanValue,
-    val reminderTime: StringValue,
-    val progressNotificationsEnabled: BooleanValue,
-    val appVersion: StringValue,
+    val nativeLanguage: SettingValues.StringValue,
+    val voiceType: SettingValues.StringValue,
+    val theme: SettingValues.StringValue,
+    val dailyRemindersEnabled: SettingValues.BooleanValue,
+    val reminderTime: SettingValues.StringValue,
+    val progressNotificationsEnabled: SettingValues.BooleanValue,
+    val appVersion: SettingValues.StringValue,
 )
 
 sealed interface SettingValues<T> {

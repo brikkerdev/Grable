@@ -3,9 +3,6 @@
     android:id="@+id/tvAppVersion"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Версия 1.0.0"
-    android:textSize="14sp"
-    android:textColor="@color/text_secondary"
-    android:gravity="center"
-    android:layout_marginTop="24dp"
-    android:layout_marginBottom="16dp" />
+    android:text="@string/app_version"
+    style="@style/AppVersion"
+    />

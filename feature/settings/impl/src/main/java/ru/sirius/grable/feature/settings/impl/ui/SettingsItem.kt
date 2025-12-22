@@ -1,4 +1,4 @@
-package ru.sirius.grable.settings.ui
+package ru.sirius.grable.feature.settings.impl.ui
 
 sealed interface SettingItem {
     val id : Int

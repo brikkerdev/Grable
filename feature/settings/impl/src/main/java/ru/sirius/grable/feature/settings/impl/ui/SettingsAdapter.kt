@@ -1,19 +1,17 @@
-package ru.sirius.grable.settings.ui
+package ru.sirius.grable.feature.settings.impl.ui
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Switch
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
-import ru.sirius.grable.R
-import ru.sirius.grable.databinding.FragmentLearnBinding
+import ru.sirius.feature.settings.impl.R
 
 class SettingsAdapter(
     private val clickListener: ClickListener,
@@ -85,7 +83,7 @@ class SettingsAdapter(
         private val clickListener: ClickListener,
         itemView: View
     ) : RecyclerView.ViewHolder(itemView) {
-        private val baseSettingLayout: LinearLayout = itemView.findViewById(R.id.baseSettingLayout)
+        private val baseSettingLayout: ConstraintLayout = itemView.findViewById(R.id.baseSettingLayout)
         private val settingTitle: TextView = itemView.findViewById(R.id.tvSettingTitle)
         private val settingValue: TextView = itemView.findViewById(R.id.tvSettingValue)
         private val divider: View = itemView.findViewById(R.id.divider)
@@ -107,7 +105,7 @@ class SettingsAdapter(
     // ViewHolder для настройки с переключателем
     class SwitchSettingViewHolder(
         private val clickListener: ClickListener,itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val switchSettingLayout: LinearLayout = itemView.findViewById(R.id.switchSettingLayout)
+        private val switchSettingLayout: ConstraintLayout = itemView.findViewById(R.id.switchSettingLayout)
         private val switchTitle: TextView = itemView.findViewById(R.id.tvSwitchTitle)
         private val switchSubtitle: TextView = itemView.findViewById(R.id.tvSwitchSubtitle)
         private val switchSetting: Switch = itemView.findViewById(R.id.switchSetting)

@@ -73,6 +73,6 @@ dependencies {
     implementation(project(":feature:learn:api"))
     implementation(project(":feature:learn:impl"))
     implementation(project(":feature:progress:api"))
-    implementation(project(":feature:settings:api"))
+    implementation(project(":feature:settings:impl"))
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 }

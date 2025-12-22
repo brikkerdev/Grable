@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.Grable.RecyclerView.Settings" parent="android:Widget">
+        <item name="android:padding">@dimen/spacing_base</item>
+        <item name="android:background">@color/background</item>
+    </style>
+
+    <style name="Widget.Grable.Layout.Clickable" parent="android:Widget">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="TextAppearanceHeadline3">
+        <item name="android:textSize">@dimen/text_xl</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="AppVersion">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+
+    <!-- Section title -->
+    <style name="SectionTitle" parent="@style/TextAppearanceHeadline3">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/spacing_sm</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_base</item>
+    </style>
+
+    <style name="SettingsCard" parent="@style/Widget.Grable.Card.Small">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_xl</item>
+    </style>
+
+    <style name="SettingRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/spacing_base</item>
+    </style>
+
+    <style name="SettingRow.Clickable" parent="SettingRow">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="SettingRow.Title" parent="@style/TextAppearanceBody1">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="SettingRow.Subtitle" parent="@style/TextAppearanceBody2">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="SettingRow.Switch">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="SettingsDivider">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:background">@color/divider</item>
+    </style>
+
+</resources>
