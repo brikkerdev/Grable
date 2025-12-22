@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/database" />
             <option value="$PROJECT_DIR$/core/design" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/add_word" />
@@ -21,6 +22,7 @@
             <option value="$PROJECT_DIR$/feature/home/impl" />
             <option value="$PROJECT_DIR$/feature/learn" />
             <option value="$PROJECT_DIR$/feature/learn/api" />
+            <option value="$PROJECT_DIR$/feature/learn/impl" />
             <option value="$PROJECT_DIR$/feature/progress" />
             <option value="$PROJECT_DIR$/feature/progress/api" />
             <option value="$PROJECT_DIR$/feature/settings" />

@@ -1,10 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace = "ru.sirius.grable.navigation.api"
+    namespace = "ru.sirius.grable.core.database"
     compileSdk = 36
 
     defaultConfig {
@@ -22,10 +23,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":libs:di"))
     implementation(libs.androidx.core.ktx)
-    api(project(":feature:home:api"))
-    api(project(":feature:learn:api"))
-    api(project(":feature:settings:api"))
-    implementation("androidx.fragment:fragment-ktx:1.8.9")
+    implementation(libs.bundles.room)
+    ksp(libs.androidx.room.compiler)
 }
 

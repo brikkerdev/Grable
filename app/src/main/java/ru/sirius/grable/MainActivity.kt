@@ -19,7 +19,6 @@ import ru.sirius.grable.feature.add_word.api.Constants as AddWordConstants
 import ru.sirius.grable.feature.learn.api.Constants as LearnConstants
 import ru.sirius.grable.feature.progress.api.Constants as ProgressConstants
 import ru.sirius.grable.feature.settings.api.Constants as SettingsConstants
-import ru.sirius.grable.learn.ui.LearnFragment
 import ru.sirius.grable.navigation.api.NavigationRouter
 import ru.sirius.grable.navigation.api.Screens
 import ru.sirius.grable.progress.StatsFragment
@@ -54,12 +53,8 @@ class MainActivity : AppCompatActivity() {
                 // Register non-modularized fragments
                 factory<Class<out Fragment>>(named(AddWordConstants.ADD_WORD_SCREEN)) {
                     AddWordFragment::class.java
-                }
-
-                factory<Class<out Fragment>>(named(LearnConstants.LEARN_SCREEN)) {
-                    LearnFragment::class.java
-                }
-
+                }                
+                
                 factory<Class<out Fragment>>(named(ProgressConstants.STATS_SCREEN)) {
                     StatsFragment::class.java
                 }
@@ -84,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                         true
                     }
                     R.id.nav_learn -> {
-                        navigateToFragment(LearnConstants.LEARN_SCREEN)
+                        navigationRouter.navigateToScreen(Screens.LEARN)
                         true
                     }
                     R.id.nav_stats -> {

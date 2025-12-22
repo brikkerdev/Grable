@@ -14,4 +14,9 @@ kotlin {
     }
 }
 
+dependencies {
+    // API module should not depend on Android modules
+    // Entity classes are in core:database, but API uses its own data models (Word)
+}
+
 

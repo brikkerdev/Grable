@@ -1,5 +1,6 @@
 package ru.sirius.grable.navigation.api
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 
 interface NavigationRouter {
@@ -10,6 +11,13 @@ interface NavigationRouter {
      * Useful for navigating to non-modularized screens or screens registered in Koin.
      */
     fun navigateToScreenByQualifier(qualifier: String)
+    
+    /**
+     * Navigate to a screen by qualifier with arguments.
+     * @param qualifier Screen qualifier from feature API Constants
+     * @param arguments Optional bundle with arguments for the fragment
+     */
+    fun navigateToScreenByQualifier(qualifier: String, arguments: Bundle?)
     
     /**
      * Navigate to a fragment directly.
