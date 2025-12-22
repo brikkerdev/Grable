@@ -1,110 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/spacing_base"
     android:background="@color/background">
 
-    <!-- Прогресс изучения -->
+    <!-- Shimmer skeleton -->
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/learnSkeleton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_base">
+
+            <!-- Skeleton progress -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/spacing_xl">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_skeleton_rounded" />
+
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="@dimen/spacing_base"
+                    android:background="@drawable/bg_skeleton_rounded" />
+
+            </LinearLayout>
+
+            <!-- Skeleton card -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="@dimen/spacing_xl"
+                android:background="@drawable/bg_skeleton_rounded"
+                android:minHeight="200dp" />
+
+            <!-- Skeleton hint -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_marginBottom="@dimen/spacing_2xl"
+                android:background="@drawable/bg_skeleton_rounded" />
+
+            <!-- Skeleton buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/spacing_sm"
+                    android:background="@drawable/bg_skeleton_rounded" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="0.65"
+                    android:layout_marginStart="@dimen/spacing_sm"
+                    android:layout_marginEnd="@dimen/spacing_sm"
+                    android:background="@drawable/bg_skeleton_rounded" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/spacing_sm"
+                    android:background="@drawable/bg_skeleton_rounded" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <!-- Content group -->
     <LinearLayout
+        android:id="@+id/contentGroup"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="@dimen/spacing_xl">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_base"
+        android:background="@color/background">
 
-        <TextView
-            android:layout_width="0dp"
+        <!-- Прогресс изучения -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Прогресс:"
-            android:textAppearance="@style/TextAppearanceBody2" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/spacing_xl">
 
-        <TextView
-            android:id="@+id/tvProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1/10"
-            android:textAppearance="@style/TextAppearanceBody2"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Прогресс:"
+                android:textAppearance="@style/TextAppearanceBody2" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1/10"
+                android:textAppearance="@style/TextAppearanceBody2"
+                android:textStyle="bold" />
 
-    <!-- Карточка слова -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardWord"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginBottom="@dimen/spacing_xl"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        style="@style/Widget.Grable.Card.Base">
+        </LinearLayout>
 
         <androidx.viewpager2.widget.ViewPager2
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/spacing_xl"
+            android:clickable="true"
+            android:focusable="true"
             android:id="@+id/cardPager"
-            android:padding="@dimen/spacing_2xl"
-            android:gravity="center">
-
-            <!-- Иностранное слово -->
-
-
+            android:gravity="center"
+            style="@style/Widget.Grable.Card.Word">
         </androidx.viewpager2.widget.ViewPager2>
 
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- Подсказка -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/learn_tap_to_card"
-        android:textAppearance="@style/TextAppearanceBody2Secondary"
-        android:gravity="center"
-        android:layout_marginBottom="@dimen/spacing_2xl" />
-
-    <!-- Кнопки навигации -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <!-- Кнопка "Предыдущее" -->
-        <Button
-            android:id="@+id/btnPrevious"
-            android:layout_width="0dp"
+        <!-- Подсказка -->
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginEnd="@dimen/spacing_sm"
-            android:text="@string/learn_previous"
-            style="@style/Widget.Grable.Button.Secondary" />
+            android:text="@string/learn_tap_to_card"
+            android:textAppearance="@style/TextAppearanceBody2Secondary"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/spacing_2xl" />
 
-        <!-- Кнопка "Знаю/Не знаю" -->
-        <Button
-            android:id="@+id/btnKnow"
-            android:layout_width="0dp"
+        <!-- Кнопки навигации -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.65"
-            android:layout_marginStart="@dimen/spacing_sm"
-            android:layout_marginEnd="@dimen/spacing_sm"
-            android:text="@string/learn_know"
-            style="@style/Widget.Grable.Button.Primary" />
+            android:orientation="horizontal"
+            android:gravity="center">
 
-        <!-- Кнопка "Следующее" -->
-        <Button
-            android:id="@+id/btnNext"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="@dimen/spacing_sm"
-            android:text="@string/learn_next"
-            style="@style/Widget.Grable.Button.Secondary" />
+            <!-- Кнопка "Предыдущее" -->
+            <Button
+                android:id="@+id/btnPrevious"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/spacing_sm"
+                android:text="@string/learn_previous"
+                style="@style/Widget.Grable.Button.Secondary" />
+
+            <!-- Кнопка "Знаю/Не знаю" -->
+            <Button
+                android:id="@+id/btnKnow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.65"
+                android:layout_marginStart="@dimen/spacing_sm"
+                android:layout_marginEnd="@dimen/spacing_sm"
+                android:text="@string/learn_know"
+                style="@style/Widget.Grable.Button.Primary" />
+
+            <!-- Кнопка "Следующее" -->
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/spacing_sm"
+                android:text="@string/learn_next"
+                style="@style/Widget.Grable.Button.Secondary" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

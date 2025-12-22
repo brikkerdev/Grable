@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -26,9 +27,13 @@ class LearnFragment : Fragment() {
     private var _binding: FragmentLearnBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: LearnPlaylistViewModel by viewModels()
+    private val viewModel: LearnPlaylistViewModel by viewModels {
+        LearnPlaylistViewModel.Factory(requireActivity().application, 1L)
+    }
 
-    private lateinit var pagerAdapter: LearnWordsPagerAdapter
+    private val pagerAdapter by lazy {
+        LearnWordsPagerAdapter(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,11 +48,11 @@ class LearnFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupPager()
         setupButtons()
+        renderLoading(viewModel.state.value.isLoading)
         observeState()
     }
 
     private fun setupPager() {
-        pagerAdapter = LearnWordsPagerAdapter(this)
         binding.cardPager.apply {
             adapter = pagerAdapter
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -83,13 +88,27 @@ class LearnFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
+                    renderLoading(state.isLoading)
+                    if (state.isLoading) return@collect
                     val previousIndex = binding.cardPager.currentItem
                     pagerAdapter.submitWords(state.words)
-                    val clampedIndex = previousIndex.coerceIn(0, (pagerAdapter.itemCount - 1).coerceAtLeast(0))
+                    val clampedIndex = previousIndex
+                            .coerceIn(0, (pagerAdapter.itemCount - 1)
+                            .coerceAtLeast(0))
                     binding.cardPager.setCurrentItem(clampedIndex, false)
                     updateProgress(state.words.size, clampedIndex)
                 }
             }
+        }
+    }
+
+    private fun renderLoading(isLoading: Boolean) {
+        binding.learnSkeleton.isVisible = isLoading
+        binding.contentGroup.isVisible = !isLoading
+        if (isLoading) {
+            binding.learnSkeleton.startShimmer()
+        } else {
+            binding.learnSkeleton.stopShimmer()
         }
     }
 
@@ -105,5 +124,19 @@ class LearnFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }   
+
+    override fun onResume() {
+        super.onResume()
+        if (_binding != null && binding.learnSkeleton.isVisible) {
+            binding.learnSkeleton.startShimmer()
+        }
+    }
+
+    override fun onPause() {
+        if (_binding != null) {
+            binding.learnSkeleton.stopShimmer()
+        }
+        super.onPause()
     }
 }

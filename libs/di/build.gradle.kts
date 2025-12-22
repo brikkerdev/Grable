@@ -35,6 +35,6 @@ android {
 }
 
 dependencies {
-    implementation(platform(libs.koin.bom))
+    api(platform(libs.koin.bom))
     api(libs.bundles.di)
 }

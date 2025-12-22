@@ -18,7 +18,8 @@ data class Playlist(
 )
 
 data class PlaylistState(
-    val playlists: List<Playlist> = emptyList()
+    val playlists: List<Playlist> = emptyList(),
+    val isLoading: Boolean = true
 )
 
 class PlaylistViewModel(application: Application) : AndroidViewModel(application) {
@@ -32,15 +33,19 @@ class PlaylistViewModel(application: Application) : AndroidViewModel(application
 
     init {
         viewModelScope.launch {
+            _state.value = _state.value.copy(isLoading = true)
             repository.getPlaylists().collectLatest { playlists ->
-                _state.value = PlaylistState(playlists)
+                val loading = playlists.isEmpty()
+                _state.value = PlaylistState(playlists = playlists, isLoading = loading)
             }
         }
     }
 
     fun refresh() = viewModelScope.launch {
+        _state.value = _state.value.copy(isLoading = true)
         repository.getPlaylists().collectLatest { playlists ->
-            _state.value = PlaylistState(playlists)
+            val loading = playlists.isEmpty()
+            _state.value = PlaylistState(playlists = playlists, isLoading = loading)
         }
     }
 }

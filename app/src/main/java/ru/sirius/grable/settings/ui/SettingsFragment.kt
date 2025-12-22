@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -102,13 +103,14 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
     private fun showLanguageSelection(uiState: SettingsUIState) {
         val languages = uiState.availableLanguages
         val languageNames = languages.values.toTypedArray()
+        val languageIds = languages.keys.toTypedArray()
         val currentLanguage = uiState.values[ID_LANGUAGE]?.id ?: 0
         val currentLanguageIndex = languages.keys.indexOfFirst { it == currentLanguage }
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Выберите язык")
             .setSingleChoiceItems(languageNames, currentLanguageIndex) { dialog, which ->
-                val selected = SettingValues.StringValue(ID_LANGUAGE, languageNames[which])
+                val selected = SettingValues.StringValue(ID_LANGUAGE, languageIds[which])
                 viewModel.update(selected)
                 dialog.dismiss()
             }
@@ -121,14 +123,16 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
     private fun showThemeSelection(uiState: SettingsUIState) {
         val themes = uiState.availableThemes
         val themeNames = themes.values.toTypedArray()
-        val currentTheme = uiState.values[ID_THEME]?.id ?: 0
+        val themeIds = themes.keys.toTypedArray()
+        val currentTheme = uiState.values[ID_THEME]?.value ?: -1
         val currentThemeIndex = themes.keys.indexOfFirst { it == currentTheme }
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Выберите тему")
             .setSingleChoiceItems(themeNames, currentThemeIndex) { dialog, which ->
-                val selected = SettingValues.StringValue(ID_THEME, themeNames[which])
+                val selected = SettingValues.StringValue(ID_THEME, themeIds[which])
                 viewModel.update(selected)
+                AppCompatDelegate.setDefaultNightMode(themeIds[which].toInt())
                 dialog.dismiss()
             }
             .setNegativeButton("Отмена") { dialog, _ ->
@@ -140,13 +144,14 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
     private fun showVoiceSelection(uiState: SettingsUIState) {
         val voices = uiState.availableVoices
         val voiceNames = voices.values.toTypedArray()
+        val voiceIds = voices.keys.toTypedArray()
         val currentVoice = uiState.values[ID_VOICE]?.id ?: 0
         val currentVoiceIndex = voices.keys.indexOfFirst { it == currentVoice }
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.settings_dialog_voice_type))
             .setSingleChoiceItems(voiceNames, currentVoiceIndex) { dialog, which ->
-                val selected = SettingValues.StringValue(ID_VOICE, voiceNames[which])
+                val selected = SettingValues.StringValue(ID_VOICE, voiceIds[which])
                 viewModel.update(selected)
                 dialog.dismiss()
             }
@@ -169,7 +174,6 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
 
     private fun showTimePicker(currentTime: String) {
         val (hour, minute) = currentTime.split(":").map { it.toInt() }
-        Log.d("TIMEPICKER", "executed")
         TimePickerDialog(
             requireContext(),
             { _, selectedHour, selectedMinute ->
