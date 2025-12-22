@@ -5,6 +5,9 @@ enum class Screens(
 ) {
     HOME(
         qualifier = ru.sirius.grable.feature.home.api.Constants.HOME_SCREEN
+    ),
+    LEARN(
+        qualifier = ru.sirius.grable.feature.learn.api.Constants.LEARN_SCREEN
     )
 }
 

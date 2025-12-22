@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                         true
                     }
                     R.id.nav_learn -> {
-                        navigationRouter.navigateToScreenByQualifier(LearnConstants.LEARN_SCREEN)
+                        navigationRouter.navigateToScreen(Screens.LEARN)
                         true
                     }
                     R.id.nav_stats -> {
