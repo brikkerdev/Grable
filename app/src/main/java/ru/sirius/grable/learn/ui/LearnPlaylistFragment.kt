@@ -11,8 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import ru.sirius.grable.R
+import ru.sirius.grable.databinding.FragmentLearnPlaylistBinding
+import ru.sirius.grable.databinding.FragmentSettingsBinding
 
 class LearnPlaylistFragment: Fragment() {
+    private var _binding: FragmentLearnPlaylistBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: LearnPlaylistViewModel by viewModels {
         LearnPlaylistViewModel.Factory(requireActivity().application, playlistId)
     }
@@ -36,7 +40,8 @@ class LearnPlaylistFragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_learn_playlist, container, false)
+        _binding = FragmentLearnPlaylistBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,7 +52,7 @@ class LearnPlaylistFragment: Fragment() {
     }
 
     private fun setupRecyclerView(view: View){
-        val recyclerView = view.findViewById<RecyclerView>(R.id.word_items)
+        val recyclerView = binding.wordItems
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }

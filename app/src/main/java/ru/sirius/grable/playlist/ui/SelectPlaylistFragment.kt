@@ -17,12 +17,15 @@ import kotlinx.coroutines.launch
 import com.facebook.shimmer.ShimmerFrameLayout
 import ru.sirius.grable.MainActivity
 import ru.sirius.grable.R
+import ru.sirius.grable.databinding.FragmentSelectPlaylistBinding
 import ru.sirius.grable.learn.ui.LearnPlaylistFragment
 import ru.sirius.grable.main.HomeFragment
 import ru.sirius.grable.main.PlaylistViewModel
 import ru.sirius.grable.main.SelectPlaylistAdapter
 
 class SelectPlaylistFragment : Fragment() {
+    private var _binding: FragmentSelectPlaylistBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: PlaylistViewModel by viewModels {
         object : androidx.lifecycle.ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
@@ -50,7 +53,8 @@ class SelectPlaylistFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_select_playlist, container, false)
+        _binding = FragmentSelectPlaylistBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,7 +62,7 @@ class SelectPlaylistFragment : Fragment() {
 
         setupRecyclerView()
 
-        backButton.setOnClickListener {
+        binding.buttonBack.setOnClickListener {
             (activity as? MainActivity)?.switchFragment(HomeFragment())
         }
 
@@ -66,10 +70,10 @@ class SelectPlaylistFragment : Fragment() {
         observeViewModel()
     }
 
-    private fun setupRecyclerView() {
-        playlistRecyclerView.adapter = adapter
-        playlistRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-    }
+    private fun setupRecyclerView(view: View) {
+        val recyclerView = binding.playlistItems
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
 
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
