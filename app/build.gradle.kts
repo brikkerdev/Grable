@@ -70,6 +70,7 @@ dependencies {
     implementation(project(":navigation:impl"))
     implementation(project(":feature:home:impl"))
     implementation(project(":feature:add_word:api"))
+    implementation(project(":feature:add_word:impl"))
     implementation(project(":feature:learn:api"))
     implementation(project(":feature:learn:impl"))
     implementation(project(":feature:progress:api"))
