@@ -58,6 +58,8 @@
         <item name="itemRippleColor">@color/bottom_nav_ripple</item>
         <item name="android:background">@color/surface</item>
         <item name="itemActiveIndicatorStyle">@style/Widget.Grable.BottomNavigation.ActiveIndicator</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearanceBody2</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearanceBody2</item>
     </style>
 
     <style name="Widget.Grable.BottomNavigation.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">

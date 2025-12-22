@@ -11,6 +11,9 @@ enum class Screens(
     ),
     SETTINGS(
         qualifier = ru.sirius.grable.feature.settings.api.Constants.SETTINGS_SCREEN
+    ),
+    ADD_WORD(
+        qualifier = ru.sirius.grable.feature.add_word.api.Constants.ADD_WORD_SCREEN
     )
 }
 
