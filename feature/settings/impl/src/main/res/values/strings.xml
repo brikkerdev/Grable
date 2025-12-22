@@ -1,0 +1,34 @@
+<resources>
+    <string name="general_settings">Основные настройки</string>
+    <string name="target_language">Язык изучения</string>
+    <string name="english">Английский</string>
+    <string name="daily_goal">Цель на день</string>
+    <string name="notifications">Уведомления</string>
+    <string name="daily_reminders">Ежедневные напоминания</string>
+    <string name="progress_notifications">Уведомления о прогрессе</string>
+    <string name="weekly_progress_reports">Еженедельные отчеты</string>
+    <string name="learning">Обучение</string>
+    <string name="pronunciation">Произношение</string>
+    <string name="native_speaker">Носитель языка</string>
+    <string name="difficulty_level">Уровень сложности</string>
+    <string name="beginner">Начинающий</string>
+    <string name="word_repetition">Повторение слов</string>
+    <string name="repeat_learned_words">Повторять изученные слова</string>
+    <string name="about_app">О приложении</string>
+    <string name="about">О приложении</string>
+    <string name="privacy_policy">Политика конфиденциальности</string>
+    <string name="app_version">Версия 1.0.0</string>
+    <string name="caption_lang_ru">Русский</string>
+    <string name="caption_lang_en">English</string>
+    <string name="settings_general">Основные настройки</string>
+    <string name="theme_layout">Тема</string>
+    <string name="settings_audio">Аудио настройки</string>
+    <string name="voice_type_layout">Голос озвучки</string>
+    <string name="settings_notifications">Уведомления</string>
+    <string name="settings_daily_notifications">Ежедневные напоминания</string>
+    <string name="settings_about">О приложении</string>
+    <string name="settings_about_text">Grable - приложение для изучения языков</string>
+    <string name="settings_dialog_voice_type">Выберите голос диктора</string>
+    <string name="settings_cancel">Отмена</string>
+    <string name="native_language">Родной язык</string>
+</resources>
