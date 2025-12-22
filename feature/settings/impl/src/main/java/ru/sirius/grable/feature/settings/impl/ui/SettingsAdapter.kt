@@ -41,15 +41,15 @@ class SettingsAdapter(
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             TYPE_SECTION_TITLE -> SectionTitleViewHolder(
-                inflater.inflate(R.layout.item_setting, parent, false)
+                inflater.inflate(R.layout.item_title, parent, false)
             )
             TYPE_BASE_SETTING -> BaseSettingViewHolder(
                 clickListener,
-                inflater.inflate(R.layout.item_setting, parent, false)
+                inflater.inflate(R.layout.item_base_setting, parent, false)
             )
             TYPE_SWITCH_SETTING -> SwitchSettingViewHolder(
                 clickListener,
-                inflater.inflate(R.layout.item_setting, parent, false)
+                inflater.inflate(R.layout.item_base_switch, parent, false)
             )
             TYPE_APP_VERSION -> AppVersionViewHolder(
                 inflater.inflate(R.layout.item_app_version, parent, false)
@@ -70,11 +70,9 @@ class SettingsAdapter(
     // ViewHolder для заголовка раздела
     class SectionTitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val sectionTitle: TextView = itemView.findViewById(R.id.tvSectionTitle)
-        private val cardView: MaterialCardView = itemView.findViewById(R.id.cardView)
         fun bind(item: SettingItem.SectionTitle) {
             sectionTitle.text = itemView.context.getString(item.title)
             sectionTitle.visibility = View.VISIBLE
-            cardView.visibility = View.GONE
         }
     }
 
@@ -86,7 +84,6 @@ class SettingsAdapter(
         private val baseSettingLayout: ConstraintLayout = itemView.findViewById(R.id.baseSettingLayout)
         private val settingTitle: TextView = itemView.findViewById(R.id.tvSettingTitle)
         private val settingValue: TextView = itemView.findViewById(R.id.tvSettingValue)
-        private val divider: View = itemView.findViewById(R.id.divider)
         private val cardView: MaterialCardView = itemView.findViewById(R.id.cardView)
 
         fun bind(item: SettingItem.BaseSetting) {
@@ -94,7 +91,6 @@ class SettingsAdapter(
             baseSettingLayout.visibility = View.VISIBLE
             settingTitle.text = itemView.context.getString(item.title)
             settingValue.text = item.value
-            divider.visibility = if (item.showDivider) View.VISIBLE else View.GONE
 
             baseSettingLayout.setOnClickListener {
                 clickListener.onClickListener(item)
@@ -109,7 +105,6 @@ class SettingsAdapter(
         private val switchTitle: TextView = itemView.findViewById(R.id.tvSwitchTitle)
         private val switchSubtitle: TextView = itemView.findViewById(R.id.tvSwitchSubtitle)
         private val switchSetting: Switch = itemView.findViewById(R.id.switchSetting)
-        private val divider: View = itemView.findViewById(R.id.divider)
         private val cardView: MaterialCardView = itemView.findViewById(R.id.cardView)
 
         fun bind(item: SettingItem.SwitchSetting) {
@@ -118,7 +113,6 @@ class SettingsAdapter(
             switchTitle.text = itemView.context.getString(item.title)
             switchSubtitle.text = item.subtitle
             switchSetting.isChecked = item.isChecked
-            divider.visibility = if (item.showDivider) View.VISIBLE else View.GONE
 
             switchSetting.setOnCheckedChangeListener { _, isChecked ->
                 clickListener.onChangeListener(item, isChecked)

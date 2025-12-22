@@ -6,10 +6,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flowOf
-import ru.sirius.grable.feature.settings.api.data.ISettingsRepository
-import ru.sirius.grable.feature.settings.api.data.SettingValues
-import ru.sirius.grable.feature.settings.api.data.SettingValues.StringValue
-import ru.sirius.grable.feature.settings.api.data.SettingValues.BooleanValue
+import ru.sirius.grable.feature.settings.impl.data.SettingValues.StringValue
+import ru.sirius.grable.feature.settings.impl.data.SettingValues.BooleanValue
 
 const val ID_LANGUAGE = "nativeLanguageId"
 const val ID_VOICE = "voiceId"
@@ -21,7 +19,7 @@ const val ID_APP_VERSION = "appVersion"
 
 class SettingsRepository (
     private val context: Context
-) : ISettingsRepository {
+) {
     private val settingsProvider = SettingsProvider(context)
     private val _settingsState by lazy { MutableStateFlow(loadSettings()) }
 
@@ -29,7 +27,7 @@ class SettingsRepository (
         initSettings()
     }
 
-    override fun loadSettings() : Map<String, SettingValues<*>> {
+    fun loadSettings() : Map<String, SettingValues<*>> {
         return mapOf(
             ID_LANGUAGE to stringValue(ID_LANGUAGE),
             ID_VOICE to stringValue(ID_VOICE),
@@ -41,7 +39,7 @@ class SettingsRepository (
         )
     }
 
-    override fun initSettings() {
+    fun initSettings() {
         if (settingsProvider.getStringValue(ID_LANGUAGE) == "NO DATA") {
             settingsProvider.setStringValue(ID_LANGUAGE, "ru")
         }
@@ -63,30 +61,30 @@ class SettingsRepository (
         }
     }
 
-    override fun stringValue(id: String): StringValue {
+    fun stringValue(id: String): StringValue {
         return StringValue(
             id = id,
             value = settingsProvider.getStringValue(id)
         )
     }
 
-    override fun booleanValue(id: String) : BooleanValue {
+    fun booleanValue(id: String) : BooleanValue {
         return BooleanValue(
             id = id,
             value = settingsProvider.getBoolValue(id)
         )
     }
 
-    override fun get() = _settingsState.asStateFlow()
+    fun get() = _settingsState.asStateFlow()
 
-    override fun getAvailableLanguages() : Flow<Map<String, String>> {
+    fun getAvailableLanguages() : Flow<Map<String, String>> {
         return flowOf(mapOf (
             "ru" to "Русский",
             "en" to "English"
         ))
     }
 
-    override fun getAvailableThemes() : Flow<Map<String, String>> {
+    fun getAvailableThemes() : Flow<Map<String, String>> {
         return flowOf(mapOf(
             AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString() to "Системная",
             AppCompatDelegate.MODE_NIGHT_NO.toString() to "Светлая",
@@ -94,14 +92,14 @@ class SettingsRepository (
         ))
     }
 
-    override fun getAvailableVoices() : Flow<Map<String, String>> {
+    fun getAvailableVoices() : Flow<Map<String, String>> {
         return flowOf(mapOf(
             "male" to "Мужской",
             "female" to "Женский"
         ))
     }
 
-    override fun update(value: SettingValues<*>) {
+    fun update(value: SettingValues<*>) {
         when(value) {
             is BooleanValue -> settingsProvider.setBoolValue(value.id, value.value)
             is StringValue -> settingsProvider.setStringValue(value.id, value.value)

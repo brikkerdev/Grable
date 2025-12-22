@@ -1,4 +1,4 @@
-package ru.sirius.grable.feature.settings.api.data
+package ru.sirius.grable.feature.settings.impl.data
 
 data class SettingsState(
     val nativeLanguage: SettingValues.StringValue,

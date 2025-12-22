@@ -12,7 +12,6 @@ sealed interface SettingItem {
         override val id: Int,
         val title: Int,
         val value: String,
-        val showDivider: Boolean = false,
     ) : SettingItem
 
     data class SwitchSetting(
@@ -20,7 +19,6 @@ sealed interface SettingItem {
         val title: Int,
         val subtitle: String,
         val isChecked: Boolean,
-        val showDivider: Boolean = false,
     ) : SettingItem
 
     data class AppVersion(
