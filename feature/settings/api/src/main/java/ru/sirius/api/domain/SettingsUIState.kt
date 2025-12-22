@@ -1,6 +1,6 @@
-package ru.sirius.grable.settings.domain
+package ru.sirius.api.domain
 
-import ru.sirius.grable.settings.data.SettingValues
+import ru.sirius.api.data.SettingValues
 
 data class SettingsUIState(
     val values: Map<String, SettingValues<*>> = emptyMap(),

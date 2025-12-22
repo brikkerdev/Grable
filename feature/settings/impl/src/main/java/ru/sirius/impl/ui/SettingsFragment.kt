@@ -1,10 +1,7 @@
-package ru.sirius.grable.settings.ui
+package ru.sirius.impl.ui
 
 import android.app.TimePickerDialog
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,26 +10,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import ru.sirius.grable.R
-import ru.sirius.grable.databinding.FragmentLearnBinding
-import ru.sirius.grable.databinding.FragmentSettingsBinding
-import ru.sirius.grable.settings.data.ID_DAILY_REMINDER
-import ru.sirius.grable.settings.data.ID_LANGUAGE
-import ru.sirius.grable.settings.data.ID_NOTIFICATION_PROGRESS
-import ru.sirius.grable.settings.data.ID_THEME
-import ru.sirius.grable.settings.data.ID_TIME_REMINDER
-import ru.sirius.grable.settings.data.ID_VOICE
-import ru.sirius.grable.settings.data.SettingValues
-import ru.sirius.grable.settings.data.SettingsProvider
-import ru.sirius.grable.settings.domain.SettingsUIState
-import ru.sirius.grable.settings.ui.SettingsViewModel
+import ru.sirius.impl.R
+import ru.sirius.impl.databinding.FragmentSettingsBinding
+import ru.sirius.impl.data.ID_DAILY_REMINDER
+import ru.sirius.impl.data.ID_LANGUAGE
+import ru.sirius.impl.data.ID_NOTIFICATION_PROGRESS
+import ru.sirius.impl.data.ID_THEME
+import ru.sirius.impl.data.ID_TIME_REMINDER
+import ru.sirius.impl.data.ID_VOICE
+import ru.sirius.api.data.SettingValues
+import ru.sirius.api.domain.SettingsUIState
 import java.util.Locale
+import kotlin.text.get
 
-class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
+class SettingsFragment : androidx.fragment.app.Fragment(), SettingsAdapter.ClickListener {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
     private val viewModel: SettingsViewModel by viewModels { SettingsViewModel.Factory }

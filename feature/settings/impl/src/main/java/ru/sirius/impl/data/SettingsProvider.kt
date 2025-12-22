@@ -1,4 +1,4 @@
-package ru.sirius.grable.settings.data
+package ru.sirius.impl.data
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -10,7 +10,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.sirius.grable.learn.ui.LearnFragment
 import ru.sirius.grable.main.HomeFragment
 import ru.sirius.grable.progress.StatsFragment
-import ru.sirius.grable.settings.ui.SettingsFragment
+import ru.sirius.settings.ui.SettingsFragment
 import ru.sirius.grable.add_word.ui.AddWordFragment
 import ru.sirius.grable.databinding.ActivityMainBinding
 
