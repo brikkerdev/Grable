@@ -1,4 +1,4 @@
-package ru.sirius.impl.ui
+package ru.sirius.grable.settings.ui
 
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -14,16 +14,17 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 import ru.sirius.impl.R
 import ru.sirius.impl.databinding.FragmentSettingsBinding
-import ru.sirius.impl.data.ID_DAILY_REMINDER
-import ru.sirius.impl.data.ID_LANGUAGE
-import ru.sirius.impl.data.ID_NOTIFICATION_PROGRESS
-import ru.sirius.impl.data.ID_THEME
-import ru.sirius.impl.data.ID_TIME_REMINDER
-import ru.sirius.impl.data.ID_VOICE
+import ru.sirius.grable.settings.data.ID_DAILY_REMINDER
+import ru.sirius.grable.settings.data.ID_LANGUAGE
+import ru.sirius.grable.settings.data.ID_NOTIFICATION_PROGRESS
+import ru.sirius.grable.settings.data.ID_THEME
+import ru.sirius.grable.settings.data.ID_TIME_REMINDER
+import ru.sirius.grable.settings.data.ID_VOICE
 import ru.sirius.api.data.SettingValues
 import ru.sirius.api.domain.SettingsUIState
 import java.util.Locale
 import kotlin.text.get
+import kotlin.text.toInt
 
 class SettingsFragment : androidx.fragment.app.Fragment(), SettingsAdapter.ClickListener {
     private var _binding: FragmentSettingsBinding? = null

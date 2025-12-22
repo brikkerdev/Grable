@@ -1,4 +1,4 @@
-package ru.sirius.impl.ui
+package ru.sirius.grable.settings.ui
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -16,7 +16,7 @@ import ru.sirius.grable.R
 class SettingsAdapter(
     private val clickListener: ClickListener,
 ) :
-    ListAdapter<SettingItem, RecyclerView.ViewHolder>(Calculator()) {
+    androidx.recyclerview.widget.ListAdapter<SettingItem, RecyclerView.ViewHolder>(Calculator()) {
     interface ClickListener {
         fun onClickListener(item: SettingItem)
         fun onChangeListener(item: SettingItem, value: Boolean)

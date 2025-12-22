@@ -1,4 +1,4 @@
-package ru.sirius.impl.ui
+package ru.sirius.grable.settings.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 import ru.sirius.api.data.SettingValues
 import ru.sirius.api.domain.ISettingsInteractor
 import ru.sirius.api.domain.SettingsUIState
-import ru.sirius.impl.data.SettingsRepository
-import ru.sirius.impl.domain.SettingsInteractor
+import ru.sirius.grable.settings.data.SettingsRepository
+import ru.sirius.grable.settings.domain.SettingsInteractor
 
 class SettingsViewModel(
     private val settingsInteractor: ISettingsInteractor,

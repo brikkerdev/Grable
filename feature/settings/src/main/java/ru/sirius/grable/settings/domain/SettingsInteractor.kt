@@ -1,4 +1,4 @@
-package ru.sirius.impl.domain
+package ru.sirius.grable.settings.domain
 
 import kotlinx.coroutines.flow.Flow
 import ru.sirius.api.data.SettingValues

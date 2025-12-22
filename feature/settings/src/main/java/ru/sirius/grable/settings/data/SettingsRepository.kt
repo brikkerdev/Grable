@@ -1,4 +1,4 @@
-package ru.sirius.impl.data
+package ru.sirius.grable.settings.data
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
