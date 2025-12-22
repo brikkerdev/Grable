@@ -25,6 +25,7 @@
             <option value="$PROJECT_DIR$/feature/progress/api" />
             <option value="$PROJECT_DIR$/feature/settings" />
             <option value="$PROJECT_DIR$/feature/settings/api" />
+            <option value="$PROJECT_DIR$/feature/settings/impl" />
             <option value="$PROJECT_DIR$/libs" />
             <option value="$PROJECT_DIR$/libs/di" />
             <option value="$PROJECT_DIR$/libs/imageloader" />

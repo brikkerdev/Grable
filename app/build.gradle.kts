@@ -64,7 +64,6 @@ dependencies {
     implementation(project(":libs:di"))
     implementation(project(":libs:imageloader:coil"))
     implementation(project(":libs:tts:embedded"))
-    implementation(project(":feature:settings"))
     implementation(project(":core:design"))
     implementation(project(":navigation:api"))
     implementation(project(":navigation:impl"))
@@ -72,6 +71,6 @@ dependencies {
     implementation(project(":feature:add_word:api"))
     implementation(project(":feature:learn:api"))
     implementation(project(":feature:progress:api"))
-    implementation(project(":feature:settings:api"))
+    implementation(project(":feature:settings:impl"))
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 }
