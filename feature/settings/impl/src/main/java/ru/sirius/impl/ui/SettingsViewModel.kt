@@ -1,4 +1,4 @@
-package ru.sirius.grable.settings.ui
+package ru.sirius.impl.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -11,13 +11,14 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import ru.sirius.grable.settings.data.SettingValues
-import ru.sirius.grable.settings.data.SettingsRepository
-import ru.sirius.grable.settings.domain.SettingsInteractor
-import ru.sirius.grable.settings.domain.SettingsUIState
+import ru.sirius.api.data.SettingValues
+import ru.sirius.api.domain.ISettingsInteractor
+import ru.sirius.api.domain.SettingsUIState
+import ru.sirius.impl.data.SettingsRepository
+import ru.sirius.impl.domain.SettingsInteractor
 
 class SettingsViewModel(
-    private val settingsInteractor: SettingsInteractor,
+    private val settingsInteractor: ISettingsInteractor,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(SettingsUIState())
     val uiState: StateFlow<SettingsUIState> = _uiState.asStateFlow()

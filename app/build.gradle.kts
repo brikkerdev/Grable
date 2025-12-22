@@ -64,6 +64,7 @@ dependencies {
     implementation(project(":libs:di"))
     implementation(project(":libs:imageloader:coil"))
     implementation(project(":libs:tts:embedded"))
+    implementation(project(":feature:settings"))
     implementation(project(":core:design"))
     implementation(project(":navigation:api"))
     implementation(project(":navigation:impl"))

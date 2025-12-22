@@ -1,7 +1,7 @@
-package ru.sirius.grable.settings.data
+package ru.sirius.api.data
 
-import ru.sirius.grable.settings.data.SettingValues.BooleanValue
-import ru.sirius.grable.settings.data.SettingValues.StringValue
+import ru.sirius.api.data.SettingValues.BooleanValue
+import ru.sirius.api.data.SettingValues.StringValue
 
 data class SettingsState(
     val nativeLanguage: StringValue,

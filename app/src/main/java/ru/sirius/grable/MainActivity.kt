@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private val sharedPreferences: SharedPreferences by lazy {
         getSharedPreferences("app_preferences", MODE_PRIVATE)
     }
-    
+
     private val navigationRouter: NavigationRouter by inject {
         parametersOf(supportFragmentManager, R.id.fragment_container)
     }
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(savedThemeMode!!.toInt())
 
         super.onCreate(savedInstanceState)
-        
+
         // Register NavigationRouter as single so fragments can access it
         // Also register non-modularized fragments in Koin
         getKoin().loadModules(listOf(
@@ -50,26 +50,26 @@ class MainActivity : AppCompatActivity() {
                         R.id.fragment_container
                     )
                 }
-                
+
                 // Register non-modularized fragments
                 factory<Class<out Fragment>>(named(AddWordConstants.ADD_WORD_SCREEN)) {
                     AddWordFragment::class.java
                 }
-                
+
                 factory<Class<out Fragment>>(named(LearnConstants.LEARN_SCREEN)) {
                     LearnFragment::class.java
                 }
-                
+
                 factory<Class<out Fragment>>(named(ProgressConstants.STATS_SCREEN)) {
                     StatsFragment::class.java
                 }
-                
+
                 factory<Class<out Fragment>>(named(SettingsConstants.SETTINGS_SCREEN)) {
                     SettingsFragment::class.java
                 }
             }
         ))
-        
+
         ActivityMainBinding.inflate(layoutInflater).run {
             setContentView(root)
 

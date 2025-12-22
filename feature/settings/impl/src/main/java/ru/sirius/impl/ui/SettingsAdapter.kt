@@ -1,7 +1,6 @@
-package ru.sirius.grable.settings.ui
+package ru.sirius.impl.ui
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import ru.sirius.grable.R
-import ru.sirius.grable.databinding.FragmentLearnBinding
 
 class SettingsAdapter(
     private val clickListener: ClickListener,

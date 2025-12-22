@@ -1,17 +1,14 @@
-package ru.sirius.grable.settings.ui
+package ru.sirius.impl.ui
 
-import android.content.res.Resources
-import android.content.res.loader.ResourcesLoader
-import androidx.core.content.ContextCompat.getString
 import ru.sirius.grable.R
-import ru.sirius.grable.settings.data.ID_APP_VERSION
-import ru.sirius.grable.settings.data.ID_DAILY_REMINDER
-import ru.sirius.grable.settings.data.ID_LANGUAGE
-import ru.sirius.grable.settings.data.ID_NOTIFICATION_PROGRESS
-import ru.sirius.grable.settings.data.ID_THEME
-import ru.sirius.grable.settings.data.ID_TIME_REMINDER
-import ru.sirius.grable.settings.data.ID_VOICE
-import ru.sirius.grable.settings.domain.SettingsUIState
+import ru.sirius.impl.data.ID_APP_VERSION
+import ru.sirius.impl.data.ID_DAILY_REMINDER
+import ru.sirius.impl.data.ID_LANGUAGE
+import ru.sirius.impl.data.ID_THEME
+import ru.sirius.impl.data.ID_TIME_REMINDER
+import ru.sirius.impl.data.ID_VOICE
+import ru.sirius.api.domain.SettingsUIState
+import kotlin.text.get
 
 class SettingsItemsFactory {
 
