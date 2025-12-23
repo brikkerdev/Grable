@@ -39,7 +39,12 @@
         <item name="android:textColor">@color/primary</item>
         <item name="android:textAppearance">@style/TextAppearanceBody1</item>
     </style>
-    
+
+    <!-- Text input styles -->
+    <style name="Widget.Grable.TextInput.EditText" parent="android:Widget.EditText">
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
     <!-- Layout container styles -->
     <style name="Widget.Grable.Layout" parent="android:Widget">
         <!-- Base layout style -->

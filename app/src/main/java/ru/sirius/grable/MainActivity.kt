@@ -14,8 +14,6 @@ import org.koin.dsl.module
 import org.koin.java.KoinJavaComponent.get
 import ru.sirius.grable.databinding.ActivityMainBinding
 import ru.sirius.grable.feature.settings.impl.ui.SettingsFragment
-import ru.sirius.grable.feature.add_word.api.Constants as AddWordConstants
-import ru.sirius.grable.feature.add_word.impl.ui.AddWordFragment
 import ru.sirius.grable.feature.learn.api.Constants as LearnConstants
 import ru.sirius.grable.feature.progress.api.Constants as ProgressConstants
 import ru.sirius.grable.feature.settings.api.Constants as SettingsConstants
@@ -56,9 +54,6 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 // Register non-modularized fragments
-                factory<Class<out Fragment>>(named(AddWordConstants.ADD_WORD_SCREEN)) {
-                    AddWordFragment::class.java
-                }                
                 
                 factory<Class<out Fragment>>(named(ProgressConstants.STATS_SCREEN)) {
                     StatsFragment::class.java
