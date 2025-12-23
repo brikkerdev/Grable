@@ -63,10 +63,6 @@ class MainActivity : AppCompatActivity() {
                 factory<Class<out Fragment>>(named(ProgressConstants.STATS_SCREEN)) {
                     StatsFragment::class.java
                 }
-
-                factory<Class<out Fragment>>(named(SettingsConstants.SETTINGS_SCREEN)) {
-                    SettingsFragment::class.java
-                }
             }
         ))
 
