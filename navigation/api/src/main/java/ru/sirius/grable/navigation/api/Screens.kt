@@ -11,6 +11,10 @@ enum class Screens(
     ),
     SETTINGS(
         qualifier = ru.sirius.grable.feature.settings.api.Constants.SETTINGS_SCREEN
+    ),
+
+    STATS(
+        qualifier = ru.sirius.grable.feature.progress.api.Constants.STATS_SCREEN
     )
 }
 
