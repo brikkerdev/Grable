@@ -2,10 +2,12 @@ package ru.sirius.grable.feature.settings.impl.ui
 
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -100,13 +102,17 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
         val currentLanguageIndex = languages.keys.indexOfFirst { it == currentLanguage }
 
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Выберите язык")
+            .setTitle(getString(R.string.settings_choose_language))
             .setSingleChoiceItems(languageNames, currentLanguageIndex) { dialog, which ->
                 val selected = SettingValues.StringValue(ID_LANGUAGE, languageIds[which])
                 viewModel.update(selected)
+                AppCompatDelegate.setApplicationLocales(
+                    LocaleListCompat.create(Locale.forLanguageTag(languageIds[which]))
+                )
+                Log.d("LANG", languageIds[which])
                 dialog.dismiss()
             }
-            .setNegativeButton("Отмена") { dialog, _ ->
+            .setNegativeButton(R.string.settings_cancel) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
@@ -120,14 +126,14 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
         val currentThemeIndex = themes.keys.indexOfFirst { it == currentTheme }
 
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Выберите тему")
+            .setTitle(getString(R.string.settings_choose_theme))
             .setSingleChoiceItems(themeNames, currentThemeIndex) { dialog, which ->
                 val selected = SettingValues.StringValue(ID_THEME, themeIds[which])
                 viewModel.update(selected)
                 AppCompatDelegate.setDefaultNightMode(themeIds[which].toInt())
                 dialog.dismiss()
             }
-            .setNegativeButton("Отмена") { dialog, _ ->
+            .setNegativeButton(R.string.settings_cancel) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
@@ -188,7 +194,7 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.settings_about))
             .setMessage(getString(R.string.settings_about_text))
-            .setPositiveButton("OK") { dialog, _ ->
+            .setPositiveButton(getString(R.string.settings_ok)) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()

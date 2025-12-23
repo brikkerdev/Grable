@@ -1,7 +1,6 @@
 <resources>
     <string name="general_settings">Основные настройки</string>
     <string name="target_language">Язык изучения</string>
-    <string name="english">Английский</string>
     <string name="daily_goal">Цель на день</string>
     <string name="notifications">Уведомления</string>
     <string name="daily_reminders">Ежедневные напоминания</string>
@@ -31,4 +30,12 @@
     <string name="settings_dialog_voice_type">Выберите голос диктора</string>
     <string name="settings_cancel">Отмена</string>
     <string name="native_language">Родной язык</string>
+    <string name="settings_choose_language">Выберите язык</string>
+    <string name="settings_choose_theme">Выберите тему</string>
+    <string name="settings_ok">OK</string>
+    <string name="settings_theme_system">Системная</string>
+    <string name="settings_theme_light">Светлая</string>
+    <string name="settings_theme_dark">Темная</string>
+    <string name="settings_voice_male">Мужской</string>
+    <string name="settings_voice_female">Женский</string>
 </resources>
