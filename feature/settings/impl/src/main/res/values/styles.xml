@@ -23,18 +23,19 @@
         <item name="android:layout_marginBottom">16dp</item>
     </style>
 
+    <style name="SettingsTitle">
+        <item name="android:layout_marginTop">@dimen/spacing_md</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_md</item>
+    </style>
+
     <!-- Section title -->
     <style name="SectionTitle" parent="@style/TextAppearanceHeadline3">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/spacing_sm</item>
-        <item name="android:layout_marginBottom">@dimen/spacing_base</item>
+        <item name="android:layout_marginTop">@dimen/spacing_md</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_md</item>
     </style>
 
     <style name="SettingsCard" parent="@style/Widget.Grable.Card.Small">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">@dimen/spacing_xl</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_md</item>
     </style>
 
     <style name="SettingRow">

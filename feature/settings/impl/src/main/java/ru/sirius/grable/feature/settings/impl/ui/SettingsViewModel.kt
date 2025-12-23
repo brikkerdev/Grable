@@ -11,14 +11,13 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import ru.sirius.grable.feature.settings.api.data.SettingValues
-import ru.sirius.grable.feature.settings.api.domain.ISettingsInteractor
-import ru.sirius.grable.feature.settings.api.domain.SettingsUIState
+import ru.sirius.grable.feature.settings.impl.data.SettingValues
+import ru.sirius.grable.feature.settings.impl.domain.SettingsUIState
 import ru.sirius.grable.feature.settings.impl.data.SettingsRepository
 import ru.sirius.grable.feature.settings.impl.domain.SettingsInteractor
 
 class SettingsViewModel(
-    private val settingsInteractor: ISettingsInteractor,
+    private val settingsInteractor: SettingsInteractor,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(SettingsUIState())
     val uiState: StateFlow<SettingsUIState> = _uiState.asStateFlow()

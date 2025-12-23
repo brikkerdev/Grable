@@ -1,22 +1,21 @@
 package ru.sirius.grable.feature.settings.impl.domain
 
 import kotlinx.coroutines.flow.Flow
-import ru.sirius.grable.feature.settings.api.data.SettingValues
-import ru.sirius.grable.feature.settings.api.data.ISettingsRepository
-import ru.sirius.grable.feature.settings.api.domain.ISettingsInteractor
+import ru.sirius.grable.feature.settings.impl.data.SettingValues
+import ru.sirius.grable.feature.settings.impl.data.SettingsRepository
 
 class SettingsInteractor(
-    private val settingsRepository: ISettingsRepository,
-) : ISettingsInteractor {
+    private val settingsRepository: SettingsRepository,
+) {
 
-    override fun getSettings(): Flow<Map<String, SettingValues<*>>> = settingsRepository.get()
+    fun getSettings(): Flow<Map<String, SettingValues<*>>> = settingsRepository.get()
 
-    override fun getAvailableLanguages() = settingsRepository.getAvailableLanguages()
+    fun getAvailableLanguages() = settingsRepository.getAvailableLanguages()
 
-    override fun getAvailableVoices() = settingsRepository.getAvailableVoices()
-    override fun getAvailableThemes() = settingsRepository.getAvailableThemes()
+    fun getAvailableVoices() = settingsRepository.getAvailableVoices()
+    fun getAvailableThemes() = settingsRepository.getAvailableThemes()
 
-    override fun updateValue(value: SettingValues<*>) {
+    fun updateValue(value: SettingValues<*>) {
         settingsRepository.update(value)
     }
 }

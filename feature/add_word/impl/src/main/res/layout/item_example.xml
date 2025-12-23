@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/spacing_md"
+    style="@style/Widget.Grable.Card.Base">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_base">
+
+        <TextView
+            android:id="@+id/tvExampleEn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Example text"
+            android:textSize="@dimen/text_lg"
+            android:textAppearance="@style/TextAppearanceBody1" />
+
+        <TextView
+            android:id="@+id/tvExampleRu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Перевод"
+            android:textSize="@dimen/text_sm"
+            android:textColor="@color/primary"
+            android:layout_marginTop="@dimen/spacing_xs" />
+
+        <ImageView
+            android:id="@+id/btnEditExample"
+            android:layout_width="@dimen/icon_md"
+            android:layout_height="@dimen/icon_md"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_edit_example"
+            app:tint="@color/primary"
+            android:contentDescription="Редактировать пример"
+            android:padding="@dimen/spacing_xs" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
+

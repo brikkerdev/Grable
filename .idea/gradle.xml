@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/add_word" />
             <option value="$PROJECT_DIR$/feature/add_word/api" />
+            <option value="$PROJECT_DIR$/feature/add_word/impl" />
             <option value="$PROJECT_DIR$/feature/home" />
             <option value="$PROJECT_DIR$/feature/home/api" />
             <option value="$PROJECT_DIR$/feature/home/impl" />

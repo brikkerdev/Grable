@@ -27,6 +27,7 @@ dependencies {
     api(project(":feature:learn:api"))
     api(project(":feature:settings:api"))
     api(project(":feature:progress:api"))
+    api(project(":feature:add_word:api"))
     implementation("androidx.fragment:fragment-ktx:1.8.9")
 }
 

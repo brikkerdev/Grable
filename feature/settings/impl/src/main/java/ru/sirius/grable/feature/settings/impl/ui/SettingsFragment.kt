@@ -20,8 +20,8 @@ import ru.sirius.grable.feature.settings.impl.data.ID_NOTIFICATION_PROGRESS
 import ru.sirius.grable.feature.settings.impl.data.ID_THEME
 import ru.sirius.grable.feature.settings.impl.data.ID_TIME_REMINDER
 import ru.sirius.grable.feature.settings.impl.data.ID_VOICE
-import ru.sirius.grable.feature.settings.api.data.SettingValues
-import ru.sirius.grable.feature.settings.api.domain.SettingsUIState
+import ru.sirius.grable.feature.settings.impl.data.SettingValues
+import ru.sirius.grable.feature.settings.impl.domain.SettingsUIState
 import java.util.Locale
 
 class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {

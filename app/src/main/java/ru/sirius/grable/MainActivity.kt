@@ -12,12 +12,10 @@ import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import org.koin.java.KoinJavaComponent.get
-import ru.sirius.grable.add_word.ui.AddWordFragment
 import ru.sirius.grable.databinding.ActivityMainBinding
 import ru.sirius.grable.feature.add_word.api.Constants as AddWordConstants
-import ru.sirius.grable.feature.learn.api.Constants as LearnConstants
+import ru.sirius.grable.feature.add_word.impl.ui.AddWordFragment
 import ru.sirius.grable.feature.progress.api.Constants as ProgressConstants
-import ru.sirius.grable.feature.settings.api.Constants as SettingsConstants
 import ru.sirius.grable.navigation.api.NavigationRouter
 import ru.sirius.grable.navigation.api.Screens
 
@@ -31,9 +29,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val savedThemeMode =
-            sharedPreferences.getString("themeId", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString())
-        AppCompatDelegate.setDefaultNightMode(savedThemeMode!!.toInt())
+        val savedThemeMode = sharedPreferences.getString("themeId", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString())
+        val themeMode = try {
+            savedThemeMode?.toInt() ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        } catch (e: NumberFormatException) {
+            // Если сохранено строковое значение (например, "light", "dark"), используем значение по умолчанию
+            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        }
+        AppCompatDelegate.setDefaultNightMode(themeMode)
 
         super.onCreate(savedInstanceState)
 
@@ -51,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 // Register non-modularized fragments
                 factory<Class<out Fragment>>(named(AddWordConstants.ADD_WORD_SCREEN)) {
                     AddWordFragment::class.java
-                }                
+                }
 
 
             }
@@ -67,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                         true
                     }
                     R.id.nav_add_word -> {
-                        navigateToFragment(AddWordConstants.ADD_WORD_SCREEN)
+                        navigationRouter.navigateToScreen(Screens.ADD_WORD)
                         true
                     }
                     R.id.nav_learn -> {
