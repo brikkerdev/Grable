@@ -58,7 +58,6 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.12.0")
     implementation("androidx.fragment:fragment-ktx:1.8.9")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation(libs.bundles.room)
     ksp(libs.androidx.room.compiler)
     implementation(project(":libs:di"))
@@ -75,5 +74,6 @@ dependencies {
     implementation(project(":feature:learn:impl"))
     implementation(project(":feature:progress:api"))
     implementation(project(":feature:settings:impl"))
+    implementation(project(":feature:progress:impl"))
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 }

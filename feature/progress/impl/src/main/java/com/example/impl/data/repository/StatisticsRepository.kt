@@ -4,8 +4,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import ru.sirius.grable.common.StatisticsDao
-import ru.sirius.grable.common.StatisticsEntity
+import ru.sirius.grable.core.database.StatisticsDao
+import ru.sirius.grable.core.database.StatisticsEntity
 import ru.sirius.grable.progress.data.DayStat
 import ru.sirius.grable.progress.data.StatisticItem
 import ru.sirius.grable.progress.data.StatisticsData
@@ -94,7 +94,7 @@ class StatisticsRepositoryImpl(
         existingStat?.let {
             statisticsDao.update(it.copy(isKnown = true))
         } ?: run {
-            var calendar = Calendar.getInstance()
+            val calendar = Calendar.getInstance()
             val newStat = StatisticsEntity(
                 wordId = wordId,
                 date = Timestamp(calendar.time.time),
@@ -107,7 +107,7 @@ class StatisticsRepositoryImpl(
     }
 
     override suspend fun addWordRepetition(wordId: Long) {
-        var calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance()
         val repetitionStat = StatisticsEntity(
             wordId = wordId,
             date = Timestamp(calendar.time.time),
@@ -125,12 +125,12 @@ class StatisticsRepositoryImpl(
         return statisticsDao.getLearningWordsCount(startDate)
     }
 
-    private fun ru.sirius.grable.common.DailyStat.toDomain(): DayStat {
+    private fun ru.sirius.grable.core.database.DailyStat.toDomain(): DayStat {
         return try {
             val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val displayFormat = SimpleDateFormat("d MMM", Locale.getDefault())
             val date = dateFormat.parse(this.day)
-            var calendar = Calendar.getInstance()
+            val calendar = Calendar.getInstance()
 
             DayStat(
                 date = displayFormat.format(date ?: Timestamp(calendar.time.time)),

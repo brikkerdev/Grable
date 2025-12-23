@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.sirius.grable.progress.data.StatisticItem
-import ru.sirius.grable.R
+import ru.sirius.feature.progress.impl.R
 
 class StatisticsAdapter(private val statistics: List<StatisticItem>) :
     RecyclerView.Adapter<StatisticsAdapter.StatisticViewHolder>() {
