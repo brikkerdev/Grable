@@ -1,4 +1,4 @@
-package ru.sirius.grable.main
+package ru.sirius.grable.feature.playlist.impl.ui
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,7 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.sirius.grable.R
+import ru.sirius.grable.feature.playlist.impl.R
+import ru.sirius.grable.feature.playlist.api.Playlist
+import ru.sirius.grable.feature.playlist.impl.databinding.ItemPlaylistBinding
 
 class SelectPlaylistAdapter(
     private val onItemClick: (Playlist) -> Unit
@@ -26,13 +28,17 @@ class SelectPlaylistAdapter(
         }
     }
 
-    class PlaylistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nameText: TextView = itemView.findViewById(R.id.playlist_name)
-        val descText: TextView = itemView.findViewById(R.id.playlist_description)
+    class PlaylistViewHolder(binding: ItemPlaylistBinding) : RecyclerView.ViewHolder(binding.root) {
+        val nameText: TextView = binding.playlistName
+        val descText: TextView = binding.playlistDescription
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_playlist, parent, false)
+        val view = ItemPlaylistBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return PlaylistViewHolder(view)
     }
 

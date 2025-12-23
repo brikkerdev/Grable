@@ -43,7 +43,9 @@ class HomeFragment : Fragment() {
         binding.buttonCategories.setOnClickListener {
             // TODO: Replace with proper qualifier once SelectPlaylistFragment is modularized
             // For now, use reflection to create fragment and navigate via router
-            navigateToFragmentByReflection("ru.sirius.grable.playlist.ui.SelectPlaylistFragment")
+            navigationRouter.navigateToScreenByQualifier(
+                ru.sirius.grable.feature.playlist.api.Constants.SELECT_PLAYLIST_SCREEN
+            )
         }
     }
 

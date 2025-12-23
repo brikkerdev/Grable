@@ -1,4 +1,4 @@
-package ru.sirius.grable.playlist.ui
+package ru.sirius.grable.feature.playlist.impl.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,26 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
-import com.facebook.shimmer.ShimmerFrameLayout
 import org.koin.android.ext.android.inject
-import ru.sirius.grable.R
-import ru.sirius.grable.databinding.FragmentSelectPlaylistBinding
-import ru.sirius.grable.main.PlaylistViewModel
-import ru.sirius.grable.main.SelectPlaylistAdapter
+import ru.sirius.grable.feature.playlist.impl.databinding.FragmentSelectPlaylistBinding
 import ru.sirius.grable.navigation.api.NavigationRouter
 import ru.sirius.grable.navigation.api.Screens
 
+
 class SelectPlaylistFragment : Fragment() {
-    private val viewModel: PlaylistViewModel by viewModels {
-        object : androidx.lifecycle.ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
-                return PlaylistViewModel(requireActivity().application) as T
-            }
-        }
-    }
+    private val viewModel: SelectPlaylistViewModel by viewModels()
 
     private val adapter: SelectPlaylistAdapter by lazy {
         SelectPlaylistAdapter { playlist ->

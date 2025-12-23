@@ -1,10 +1,10 @@
-package ru.sirius.grable.playlist.domain
+package ru.sirius.grable.feature.playlist.impl.domain
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import ru.sirius.grable.common.PlaylistDao
-import ru.sirius.grable.common.PlaylistEntity
-import ru.sirius.grable.main.Playlist
+import ru.sirius.grable.core.database.PlaylistDao
+import ru.sirius.grable.core.database.PlaylistEntity
+import ru.sirius.grable.feature.playlist.api.Playlist
 
 interface SelectPlaylistRepository {
     fun getPlaylists(): Flow<List<Playlist>>
