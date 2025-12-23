@@ -15,6 +15,10 @@ import org.koin.java.KoinJavaComponent.get
 import ru.sirius.grable.databinding.ActivityMainBinding
 import ru.sirius.grable.feature.add_word.api.Constants as AddWordConstants
 import ru.sirius.grable.feature.add_word.impl.ui.AddWordFragment
+import ru.sirius.grable.feature.settings.impl.ui.SettingsFragment
+import ru.sirius.grable.feature.learn.api.Constants as LearnConstants
+import ru.sirius.grable.feature.progress.api.Constants as ProgressConstants
+import ru.sirius.grable.feature.settings.api.Constants as SettingsConstants
 import ru.sirius.grable.navigation.api.NavigationRouter
 import ru.sirius.grable.navigation.api.Screens
 
