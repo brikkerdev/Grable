@@ -2,7 +2,6 @@
 <resources>
     <string name="general_settings">General Settings</string>
     <string name="target_language">Target Language</string>
-    <string name="english">English</string>
     <string name="daily_goal">Daily goal</string>
     <string name="notifications">Notifications</string>
     <string name="daily_reminders">Daily reminders</string>
@@ -31,5 +30,13 @@
     <string name="settings_about_text">Grable - app for learning languages</string>
     <string name="settings_dialog_voice_type">Choose voice type</string>
     <string name="settings_cancel">Cancel</string>
-    <string name="native_language">Nativa language</string>
+    <string name="native_language">Native language</string>
+    <string name="settings_choose_theme">Choose theme</string>
+    <string name="settings_ok">OK</string>
+    <string name="settings_choose_language">Choose language</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_theme_system">System</string>
+    <string name="settings_voice_male">Male</string>
+    <string name="settings_voice_female">Female</string>
 </resources>

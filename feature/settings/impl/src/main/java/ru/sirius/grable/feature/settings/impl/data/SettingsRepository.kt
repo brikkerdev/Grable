@@ -2,10 +2,12 @@ package ru.sirius.grable.feature.settings.impl.data
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat.getString
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flowOf
+import ru.sirius.feature.settings.impl.R
 import ru.sirius.grable.feature.settings.impl.data.SettingValues.StringValue
 import ru.sirius.grable.feature.settings.impl.data.SettingValues.BooleanValue
 
@@ -79,23 +81,23 @@ class SettingsRepository (
 
     fun getAvailableLanguages() : Flow<Map<String, String>> {
         return flowOf(mapOf (
-            "ru" to "Русский",
-            "en" to "English"
+            "ru" to context.getString(R.string.caption_lang_ru),
+            "en" to context.getString(R.string.caption_lang_en)
         ))
     }
 
     fun getAvailableThemes() : Flow<Map<String, String>> {
         return flowOf(mapOf(
-            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString() to "Системная",
-            AppCompatDelegate.MODE_NIGHT_NO.toString() to "Светлая",
-            AppCompatDelegate.MODE_NIGHT_YES.toString() to "Темная"
+            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString() to context.getString(R.string.settings_theme_system),
+            AppCompatDelegate.MODE_NIGHT_NO.toString() to context.getString(R.string.settings_theme_light),
+            AppCompatDelegate.MODE_NIGHT_YES.toString() to context.getString(R.string.settings_theme_dark)
         ))
     }
 
     fun getAvailableVoices() : Flow<Map<String, String>> {
         return flowOf(mapOf(
-            "male" to "Мужской",
-            "female" to "Женский"
+            "male" to context.getString(R.string.settings_voice_male),
+            "female" to context.getString(R.string.settings_voice_female)
         ))
     }
 

@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.android.getKoin
@@ -21,6 +22,7 @@ import ru.sirius.grable.feature.progress.api.Constants as ProgressConstants
 import ru.sirius.grable.feature.settings.api.Constants as SettingsConstants
 import ru.sirius.grable.navigation.api.NavigationRouter
 import ru.sirius.grable.navigation.api.Screens
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private val sharedPreferences: SharedPreferences by lazy {
@@ -39,7 +41,13 @@ class MainActivity : AppCompatActivity() {
             // Если сохранено строковое значение (например, "light", "dark"), используем значение по умолчанию
             AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         }
+
+        val savedLang = sharedPreferences.getString("nativeLanguageId", "en")
+
         AppCompatDelegate.setDefaultNightMode(themeMode)
+        AppCompatDelegate.setApplicationLocales(
+            LocaleListCompat.create(Locale.forLanguageTag(savedLang))
+        )
 
         super.onCreate(savedInstanceState)
 

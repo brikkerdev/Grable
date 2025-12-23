@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="general_settings">Основные настройки</string>
+    <string name="target_language">Язык изучения</string>
+    <string name="daily_goal">Цель на день</string>
+    <string name="difficulty_level">Уровень сложности</string>
+    <string name="progress_notifications">Уведомления о прогрессе</string>
+    <string name="notifications">Уведомления</string>
+    <string name="settings_notifications">Уведомления</string>
+    <string name="theme_layout">Тема</string>
+    <string name="caption_lang_ru">Русский</string>
+    <string name="native_language">Родной язык</string>
+    <string name="pronunciation">Произношение</string>
+    <string name="privacy_policy">Политика конфиденциальности</string>
+    <string name="repeat_learned_words">Повторять изученные слова</string>
+    <string name="word_repetition">Повторение слов</string>
+    <string name="settings_cancel">Отмена</string>
+    <string name="settings_general">Основные настройки</string>
+    <string name="about_app">О приложении</string>
+    <string name="about">О приложении</string>
+    <string name="settings_about">О приложении</string>
+    <string name="learning">Обучение</string>
+    <string name="native_speaker">Носитель языка</string>
+    <string name="beginner">Начинающий</string>
+    <string name="weekly_progress_reports">Еженедельные отчеты</string>
+    <string name="daily_reminders">Ежедневные напоминания</string>
+    <string name="settings_daily_notifications">Ежедневные напоминания</string>
+    <string name="voice_type_layout">Голос озвучки</string>
+    <string name="settings_dialog_voice_type">Выберите голос диктора</string>
+    <string name="app_version">Версия 1.0.0</string>
+    <string name="settings_audio">Аудио настройки</string>
+    <string name="settings_about_text">Grable - приложение для изучения языков</string>
+    <string name="caption_lang_en">Английский</string>
+    <string name="settings_choose_language">Выберите язык</string>
+    <string name="settings_choose_theme">Выберите тему</string>
+    <string name="settings_ok">OK</string>
+    <string name="settings_theme_system">Системная</string>
+    <string name="settings_theme_light">Светлая</string>
+    <string name="settings_theme_dark">Темная</string>
+    <string name="settings_voice_male">Мужской</string>
+    <string name="settings_voice_female">Женский</string>
+</resources>
