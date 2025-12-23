@@ -24,6 +24,9 @@
             <option value="$PROJECT_DIR$/feature/learn" />
             <option value="$PROJECT_DIR$/feature/learn/api" />
             <option value="$PROJECT_DIR$/feature/learn/impl" />
+            <option value="$PROJECT_DIR$/feature/playlist" />
+            <option value="$PROJECT_DIR$/feature/playlist/api" />
+            <option value="$PROJECT_DIR$/feature/playlist/impl" />
             <option value="$PROJECT_DIR$/feature/progress" />
             <option value="$PROJECT_DIR$/feature/progress/api" />
             <option value="$PROJECT_DIR$/feature/settings" />

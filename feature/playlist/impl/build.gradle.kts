@@ -4,12 +4,20 @@ plugins {
 }
 
 android {
-    namespace = "ru.sirius.grable.feature.home.impl"
-    compileSdk = 36
+    namespace = "ru.sirius.grable.feature.playlist.impl"
+    compileSdk {
+        version = release(36)
+    }
 
     defaultConfig {
-        minSdk = 26
+        minSdk = 24
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 
     buildTypes {
@@ -21,16 +29,10 @@ android {
             )
         }
     }
-
-    buildFeatures {
-        viewBinding = true
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-
     kotlinOptions {
         jvmTarget = "11"
     }
@@ -41,13 +43,13 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.8.9")
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.constraintlayout)
-    
-    api(project(":feature:home:api"))
-    api(project(":feature:learn:api"))
-    api(project(":feature:playlist:api"))
-    implementation(project(":libs:di"))
-    implementation(project(":navigation:api"))
-    implementation(project(":core:design"))
-}
+    implementation(libs.androidx.gridlayout)
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
 
+    api(project(":feature:playlist:api"))
+    implementation(project(":navigation:api"))
+    implementation(project(":libs:di"))
+    implementation(project(":core:design"))
+    implementation(project(":core:database"))
+}
