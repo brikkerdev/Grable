@@ -77,5 +77,6 @@ dependencies {
     implementation(project(":feature:settings:impl"))
     implementation(project(":feature:playlist:api"))
     implementation(project(":feature:playlist:impl"))
+    implementation(project(":feature:progress:impl"))
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 }

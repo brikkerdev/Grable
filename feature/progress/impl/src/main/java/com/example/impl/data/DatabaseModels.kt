@@ -1,6 +1,6 @@
 package ru.sirius.grable.statistics.data.model
 
-import ru.sirius.grable.common.DailyStat
+import ru.sirius.grable.core.database.DailyStat
 
 // Data Transfer Objects для работы с БД
 data class DailyStatsResult(

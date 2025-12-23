@@ -9,7 +9,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.mikephil.charting.charts.BarChart
-import ru.sirius.grable.R
+import ru.sirius.feature.progress.impl.R
 
 class FragmentStatisticsBinding(rootView: View) {
     val root: View = rootView

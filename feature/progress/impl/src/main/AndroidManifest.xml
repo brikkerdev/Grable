@@ -6,8 +6,10 @@
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false">
             <meta-data
-                android:name="ru.sirius.grable.feature.add_word.impl.ModuleInitializer"
+                android:name="ru.sirius.grable.feature.progress.impl.ModuleInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>
 </manifest>
+
+

@@ -21,11 +21,12 @@ class SelectPlaylistFragment : Fragment() {
 
     private val adapter: SelectPlaylistAdapter by lazy {
         SelectPlaylistAdapter { playlist ->
-            // TODO: navigate via DI once learn playlist is modularized
-            navigateToFragmentReflective(
-                className = "ru.sirius.grable.learn.ui.LearnPlaylistFragment",
-                args = arrayOf(playlist.id),
-                parameterTypes = arrayOf(Long::class.java)
+            val args = Bundle().apply {
+                putLong(ru.sirius.grable.feature.learn.api.LearnArgs.PLAYLIST_ID, playlist.id)
+            }
+            navigationRouter.navigateToScreenByQualifier(
+                ru.sirius.grable.feature.learn.api.Constants.LEARN_PLAYLIST_SCREEN,
+                args
             )
         }
     }

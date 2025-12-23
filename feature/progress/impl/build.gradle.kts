@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "ru.sirius.feature.settings.impl"
+    namespace = "ru.sirius.feature.progress.impl"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 21
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -32,6 +32,10 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -41,9 +45,13 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(project(":feature:progress:api"))
+    implementation("androidx.room:room-runtime:2.6.0")
+    implementation("androidx.room:room-ktx:2.6.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation(project(":libs:di"))
-    api(project(":feature:settings:api"))
-    implementation(project(":core:design"))
     implementation(project(":navigation:api"))
-    implementation("androidx.fragment:fragment-ktx:1.8.9")
+    implementation(project(":core:design"))
+    implementation(project(":core:database"))
 }

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.sirius.grable.progress.data.DayStat
-import ru.sirius.grable.R
+import ru.sirius.feature.progress.impl.R
 
 class DaysAdapter(private val days: List<DayStat>) :
     RecyclerView.Adapter<DaysAdapter.DayViewHolder>() {

@@ -35,10 +35,8 @@ class HomeFragment : Fragment() {
         }
 
         binding.buttonCollection.setOnClickListener {
-            // TODO: Replace with proper qualifier once LearnPlaylistFragment is modularized
-            // For now, use LearnFragment qualifier as placeholder
             navigationRouter.navigateToScreenByQualifier(
-                ru.sirius.grable.feature.learn.api.Constants.LEARN_SCREEN
+                ru.sirius.grable.feature.learn.api.Constants.LEARN_PLAYLIST_SCREEN
             )
         }
 

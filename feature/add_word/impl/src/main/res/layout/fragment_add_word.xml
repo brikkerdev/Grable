@@ -2,114 +2,143 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/spacing_base"
-    android:id="@+id/scrollView"
     android:fillViewport="true"
-    android:paddingTop="@dimen/spacing_xl"
-    android:background="@color/background"
-    android:clipToPadding="false">
+    android:clipToPadding="false"
+    style="@style/Widget.Grable.AddWord.ScrollView">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:paddingTop="@dimen/spacing_xl"
+        android:paddingBottom="@dimen/spacing_base"
+        android:paddingStart="@dimen/spacing_base"
+        android:paddingEnd="@dimen/spacing_base">
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Нашли новое слово? Добавьте его в свой словарь для заучивания!"
-            android:textAlignment="center"
-            android:gravity="center"
-            style="@style/TextAppearanceHeadline3"
-            android:textColor="@color/text_primary"
-            android:layout_marginBottom="@dimen/spacing_lg" />
+            style="@style/Widget.Grable.AddWord.Title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
+            android:id="@+id/cardWord"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_base"
-            style="@style/Widget.Grable.Card.Base">
+            style="@style/Widget.Grable.AddWord.Card"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/spacing_lg">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/card_padding">
+                style="@style/Widget.Grable.AddWord.Card.Content">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/inputLayoutWord"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Слово на иностранном">
+                    android:hint="Слово на иностранном"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/inputLayoutTranscription">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/inputWord"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_primary"/>
+                        style="@style/Widget.Grable.TextInput.EditText" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/inputLayoutTranscription"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_md"
-                    android:hint="Транскрипция (не обязательно)">
+                    android:hint="Транскрипция (не обязательно)"
+                    app:layout_constraintTop_toBottomOf="@id/inputLayoutWord"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/inputLayoutTranslation">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/inputTranscription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_primary"/>
+                        style="@style/Widget.Grable.TextInput.EditText" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/inputLayoutTranslation"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_md"
-                    android:hint="Перевод">
+                    android:hint="Перевод"
+                    app:layout_constraintTop_toBottomOf="@id/inputLayoutTranscription"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/inputTranslation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_primary"/>
+                        style="@style/Widget.Grable.TextInput.EditText" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <ImageView
             android:id="@+id/imageExample"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="300dp"
             android:scaleType="centerCrop"
-            android:layout_marginTop="@dimen/spacing_base"
-            />
+            style="@style/Widget.Grable.AddWord.Image"
+            app:layout_constraintTop_toBottomOf="@id/cardWord"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/spacing_base" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvExample"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_base"/>
+            style="@style/Widget.Grable.AddWord.RecyclerView"
+            app:layout_constraintTop_toBottomOf="@id/imageExample"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/spacing_base" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAddExample"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_md"
             android:text="+ Добавить пример использования"
-            style="@style/Widget.Grable.Button.Secondary" />
+            style="@style/Widget.Grable.AddWord.Button.AddExample"
+            app:layout_constraintTop_toBottomOf="@id/rvExample"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/spacing_md" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAdd"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xl"
-            android:padding="@dimen/spacing_md"
             android:text="ДОБАВИТЬ СЛОВО"
-            style="@style/Widget.Grable.Button.Primary" />
+            style="@style/Widget.Grable.AddWord.Button.Add"
+            app:layout_constraintTop_toBottomOf="@id/btnAddExample"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/spacing_xl" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
-
