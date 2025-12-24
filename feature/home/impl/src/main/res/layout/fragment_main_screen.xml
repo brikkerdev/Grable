@@ -26,7 +26,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
-        <!-- Повторение изученных слов -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/review_container"
             android:layout_width="0dp"
@@ -78,7 +77,6 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Выбор подборки для изучения -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/collection_container"
             android:layout_width="0dp"
@@ -129,7 +127,6 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Добавить новое слово -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/add_word_container"
             android:layout_width="0dp"

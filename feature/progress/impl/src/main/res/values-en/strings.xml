@@ -9,9 +9,7 @@
     <string name="stats_total_period">Total for period</string>
     <string name="stats_error">An error occurred</string>
     <string name="stats_retry">Retry</string>
-    <string name="stats_add_word">+ New word</string>
-    <string name="stats_mark_known">✓ Learned</string>
-    <string name="stats_add_repeat">↻ Repeat</string>
+    <string name="stats_generate_mock_data">Generate test data</string>
 </resources>
 
 

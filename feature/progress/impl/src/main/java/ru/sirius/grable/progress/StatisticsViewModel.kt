@@ -101,4 +101,18 @@ class StatisticsViewModel(
             }
         }
     }
+
+    fun generateMockData() {
+        viewModelScope.launch {
+            try {
+                _isLoading.value = true
+                interactor.generateMockData()
+                loadLearningWordsCount()
+            } catch (e: Exception) {
+                _errorMessage.value = "Ошибка генерации данных: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
 }

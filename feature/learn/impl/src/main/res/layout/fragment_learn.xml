@@ -58,50 +58,11 @@
                 android:id="@+id/skeletonHint"
                 android:layout_width="0dp"
                 style="@style/Widget.Grable.Skeleton.Hint"
-                android:layout_marginBottom="@dimen/spacing_2xl"
-                app:layout_constraintBottom_toTopOf="@+id/skeletonButtons"
+                android:layout_marginBottom="@dimen/spacing_base"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <!-- Skeleton buttons -->
-            <View
-                android:id="@+id/skeletonButton1"
-                android:layout_width="0dp"
-                style="@style/Widget.Grable.Skeleton.Button"
-                android:layout_marginEnd="@dimen/spacing_sm"
-                app:layout_constraintEnd_toStartOf="@+id/skeletonButton2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/skeletonButtons"
-                app:layout_constraintBottom_toBottomOf="@+id/skeletonButtons" />
-
-            <View
-                android:id="@+id/skeletonButton2"
-                android:layout_width="0dp"
-                style="@style/Widget.Grable.Skeleton.Button"
-                android:layout_marginStart="@dimen/spacing_sm"
-                android:layout_marginEnd="@dimen/spacing_sm"
-                app:layout_constraintEnd_toStartOf="@+id/skeletonButton3"
-                app:layout_constraintStart_toEndOf="@+id/skeletonButton1"
-                app:layout_constraintTop_toTopOf="@+id/skeletonButtons"
-                app:layout_constraintBottom_toBottomOf="@+id/skeletonButtons"
-                app:layout_constraintWidth_percent="0.35" />
-
-            <View
-                android:id="@+id/skeletonButton3"
-                android:layout_width="0dp"
-                style="@style/Widget.Grable.Skeleton.Button"
-                android:layout_marginStart="@dimen/spacing_sm"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/skeletonButton2"
-                app:layout_constraintTop_toTopOf="@+id/skeletonButtons"
-                app:layout_constraintBottom_toBottomOf="@+id/skeletonButtons" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/skeletonButtons"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.85" />
+                app:layout_constraintTop_toBottomOf="@+id/skeletonCard" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -134,7 +95,6 @@
             android:id="@+id/tvProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1/10"
             android:textAppearance="@style/TextAppearanceBody2"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -146,10 +106,12 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             style="@style/Widget.Grable.Card.Word"
+            android:layout_marginTop="@dimen/spacing_base"
             app:layout_constraintBottom_toTopOf="@+id/tvHint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvProgressLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/tvProgressLabel"
+            app:layout_constraintHeight_default="spread" />
 
         <!-- Подсказка -->
         <TextView
@@ -158,46 +120,12 @@
             android:layout_height="wrap_content"
             android:text="@string/learn_tap_to_card"
             style="@style/Widget.Grable.TextView.Hint"
-            app:layout_constraintBottom_toTopOf="@+id/btnPrevious"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <!-- Кнопки навигации -->
-        <Button
-            android:id="@+id/btnPrevious"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/learn_previous"
-            style="@style/Widget.Grable.Button.Secondary"
-            app:layout_constraintEnd_toStartOf="@+id/btnKnow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnKnow"
-            app:layout_constraintBottom_toBottomOf="@+id/btnKnow"
-            app:layout_constraintWidth_percent="0.3" />
-
-        <Button
-            android:id="@+id/btnKnow"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/learn_know"
-            style="@style/Widget.Grable.Button.Primary"
-            app:layout_constraintEnd_toStartOf="@+id/btnNext"
-            app:layout_constraintStart_toEndOf="@+id/btnPrevious"
-            app:layout_constraintTop_toBottomOf="@+id/tvHint"
+            android:layout_marginTop="@dimen/spacing_base"
+            android:layout_marginBottom="@dimen/spacing_base"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintWidth_percent="0.25" />
-
-        <Button
-            android:id="@+id/btnNext"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/learn_next"
-            style="@style/Widget.Grable.Button.Secondary"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnKnow"
-            app:layout_constraintTop_toTopOf="@+id/btnKnow"
-            app:layout_constraintBottom_toBottomOf="@+id/btnKnow"
-            app:layout_constraintWidth_percent="0.3" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardPager" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

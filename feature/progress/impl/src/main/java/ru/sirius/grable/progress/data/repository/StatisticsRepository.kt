@@ -4,8 +4,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 import ru.sirius.grable.core.database.StatisticsDao
 import ru.sirius.grable.core.database.StatisticsEntity
+import ru.sirius.grable.core.database.WordDao
 import ru.sirius.grable.progress.data.DayStat
 import ru.sirius.grable.progress.data.StatisticItem
 import ru.sirius.grable.progress.data.StatisticsData
@@ -14,6 +16,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.sql.Timestamp
 import java.util.Locale
+import kotlin.random.Random
 
 interface StatisticsRepository {
     fun getStatistics(period: Int): Flow<StatisticsData>
@@ -21,10 +24,12 @@ interface StatisticsRepository {
     suspend fun markWordAsKnown(wordId: Long)
     suspend fun addWordRepetition(wordId: Long)
     suspend fun getLearningWordsCount(periodDays: Int): Int
+    suspend fun generateMockData()
 }
 
 class StatisticsRepositoryImpl(
-    private val statisticsDao: StatisticsDao
+    private val statisticsDao: StatisticsDao,
+    private val wordDao: WordDao
 ) : StatisticsRepository {
 
     override fun getStatistics(period: Int): Flow<StatisticsData> = flow {
@@ -123,6 +128,40 @@ class StatisticsRepositoryImpl(
         calendar.add(Calendar.DAY_OF_YEAR, -periodDays)
         val startDate = Timestamp(calendar.time.time)
         return statisticsDao.getLearningWordsCount(startDate)
+    }
+
+    override suspend fun generateMockData() = withContext(Dispatchers.IO) {
+        val words = wordDao.getAll()
+        if (words.isEmpty()) return@withContext
+
+        val calendar = Calendar.getInstance()
+        val statistics = mutableListOf<StatisticsEntity>()
+
+        for (dayOffset in 0 until 30) {
+            calendar.timeInMillis = System.currentTimeMillis()
+            calendar.add(Calendar.DAY_OF_YEAR, -dayOffset)
+            
+            val wordsForDay = words.shuffled().take(Random.nextInt(1, minOf(5, words.size + 1)))
+            
+            wordsForDay.forEach { word ->
+                val isNewWord = Random.nextBoolean()
+                val isKnown = if (isNewWord) Random.nextBoolean() else true
+                val isRepeated = if (isKnown && !isNewWord) Random.nextBoolean() else false
+                
+                val date = Timestamp(calendar.timeInMillis)
+                statistics.add(
+                    StatisticsEntity(
+                        wordId = word.id,
+                        date = date,
+                        isKnown = isKnown,
+                        isRepeated = isRepeated,
+                        isNewWord = isNewWord
+                    )
+                )
+            }
+        }
+
+        statistics.forEach { statisticsDao.insert(it) }
     }
 
     private fun ru.sirius.grable.core.database.DailyStat.toDomain(): DayStat {

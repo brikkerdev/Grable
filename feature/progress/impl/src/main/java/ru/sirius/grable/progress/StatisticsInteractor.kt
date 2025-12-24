@@ -35,4 +35,8 @@ class StatisticsInteractor(
     suspend fun getWordProgress(wordId: Long): Map<String, Any> {
         return emptyMap()
     }
+
+    suspend fun generateMockData() {
+        repository.generateMockData()
+    }
 }

@@ -9,9 +9,9 @@
     <string name="stats_total_period">Всего за период</string>
     <string name="stats_error">Произошла ошибка</string>
     <string name="stats_retry">Повторить</string>
-    <string name="stats_add_word">+ Новое слово</string>
-    <string name="stats_mark_known">✓ Выучено</string>
-    <string name="stats_add_repeat">↻ Повторить</string>
+    <string name="stats_generate_mock_data">Сгенерировать тестовые данные</string>
+    <string name="_3">3 мар</string>
+    <string name="_0">0</string>
 </resources>
 
 

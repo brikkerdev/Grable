@@ -55,7 +55,7 @@ class StatsFragment : Fragment() {
         setupSpinner()
         setupChart()
         setupRecyclerViews()
-        setupTestButtons()
+        setupMockDataButton()
         setupErrorHandling()
     }
 
@@ -195,21 +195,9 @@ class StatsFragment : Fragment() {
         binding.rvStatistics.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    private fun setupTestButtons() {
-        // Тестовые кнопки для демонстрации
-        binding.buttonAddWord.setOnClickListener {
-            val testWordId = System.currentTimeMillis() % 1000
-            viewModel.addNewWord(testWordId)
-        }
-
-        binding.buttonMarkKnown.setOnClickListener {
-            val testWordId = (System.currentTimeMillis() % 1000).toLong()
-            viewModel.markWordAsKnown(testWordId)
-        }
-
-        binding.buttonAddRepeat.setOnClickListener {
-            val testWordId = (System.currentTimeMillis() % 1000).toLong()
-            viewModel.addWordRepetition(testWordId)
+    private fun setupMockDataButton() {
+        binding.buttonGenerateMockData.setOnClickListener {
+            viewModel.generateMockData()
         }
     }
 
@@ -225,11 +213,17 @@ class StatsFragment : Fragment() {
         if (days.isEmpty()) {
             binding.barChart.visibility = View.GONE
             binding.emptyChartText.visibility = View.VISIBLE
+            binding.tvDaysTitle.visibility = View.GONE
+            binding.rvDays.visibility = View.GONE
+            binding.divider.visibility = View.GONE
             return
         }
 
         binding.barChart.visibility = View.VISIBLE
         binding.emptyChartText.visibility = View.GONE
+        binding.tvDaysTitle.visibility = View.VISIBLE
+        binding.rvDays.visibility = View.VISIBLE
+        binding.divider.visibility = View.VISIBLE
 
         val entries = ArrayList<BarEntry>()
         val labels = ArrayList<String>()

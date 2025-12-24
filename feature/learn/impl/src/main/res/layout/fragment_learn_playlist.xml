@@ -35,7 +35,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/learn_add_word"
-        android:icon="@drawable/ic_add_word"
         style="@style/Widget.Grable.ExtendedFloatingActionButton.Primary"
         android:layout_margin="@dimen/spacing_base"
         app:layout_constraintBottom_toBottomOf="parent"

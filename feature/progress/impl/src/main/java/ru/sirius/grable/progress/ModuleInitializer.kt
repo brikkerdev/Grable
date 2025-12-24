@@ -35,7 +35,7 @@ val statisticModule = module {
 
     factory<Class<out Fragment>>(named(Constants.STATS_SCREEN)) { StatsFragment::class.java }
 
-    factory<StatisticsRepository> { StatisticsRepositoryImpl(get()) }
+    factory<StatisticsRepository> { StatisticsRepositoryImpl(get(), get()) }
     factory { StatisticsInteractor(get()) }
     viewModel { StatisticsViewModel(get()) }
 }
