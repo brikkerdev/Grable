@@ -79,27 +79,17 @@ class SettingsRepository (
 
     fun get() = _settingsState.asStateFlow()
 
-    fun getAvailableLanguages() : Flow<Map<String, String>> {
-        return flowOf(mapOf (
-            "ru" to context.getString(R.string.caption_lang_ru),
-            "en" to context.getString(R.string.caption_lang_en)
-        ))
-    }
+    fun getAvailableLanguages(): Flow<List<String>> = flowOf(listOf("ru", "en"))
 
-    fun getAvailableThemes() : Flow<Map<String, String>> {
-        return flowOf(mapOf(
-            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString() to context.getString(R.string.settings_theme_system),
-            AppCompatDelegate.MODE_NIGHT_NO.toString() to context.getString(R.string.settings_theme_light),
-            AppCompatDelegate.MODE_NIGHT_YES.toString() to context.getString(R.string.settings_theme_dark)
-        ))
-    }
+    fun getAvailableVoices(): Flow<List<String>> = flowOf(listOf("male", "female"))
 
-    fun getAvailableVoices() : Flow<Map<String, String>> {
-        return flowOf(mapOf(
-            "male" to context.getString(R.string.settings_voice_male),
-            "female" to context.getString(R.string.settings_voice_female)
-        ))
-    }
+    fun getAvailableThemes(): Flow<List<String>> = flowOf(
+        listOf(
+            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString(),
+            AppCompatDelegate.MODE_NIGHT_NO.toString(),
+            AppCompatDelegate.MODE_NIGHT_YES.toString()
+        )
+    )
 
     fun update(value: SettingValues<*>) {
         when(value) {

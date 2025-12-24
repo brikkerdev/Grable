@@ -35,24 +35,18 @@ class SettingsViewModel(
         ) { values, languages, voices, themes ->
             SettingsUIState(
                 values = values,
-                availableLanguages = languages,
-                availableVoices = voices,
-                availableThemes = themes,
+                availableLanguageIds = languages,
+                availableVoiceIds = voices,
+                availableThemeIds = themes,
             )
-        }.onEach { newState ->
-            _uiState.value = newState
-        }.launchIn(viewModelScope)
+        }.onEach { _uiState.value = it }
+            .launchIn(viewModelScope)
     }
 
     fun update(value: SettingValues<*>) {
         viewModelScope.launch {
             settingsInteractor.updateValue(value)
         }
-    }
-
-    private fun applyTheme() {
-        // Логика применения темы
-        // AppCompatDelegate.setDefaultNightMode(...)
     }
 
     companion object {
