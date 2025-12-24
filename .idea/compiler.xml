@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="21">
+    <bytecodeTargetLevel target="11">
       <module name="Grable.feature.text_to_speech.embedded" target="21" />
+      <module name="Grable.navigation.api" target="21" />
+      <module name="Grable.navigation.impl" target="21" />
+      <module name="Grable.network" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>

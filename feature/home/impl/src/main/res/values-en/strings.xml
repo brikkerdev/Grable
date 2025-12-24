@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="button_categories_text">Categories</string>
+    <string name="app_name">Grable</string>
+    <string name="home_title">Main Page</string>
+    <string name="main_title">Hello!</string>
+    <string name="main_subtitle">Time to improve your vocabulary</string>
+    <string name="action_repeat_title">Repeat words</string>
+    <string name="action_repeat_desc">Repeat learned words quickly</string>
+    <string name="action_repeat_cta">Start repeating</string>
+    <string name="action_collection_title">Learn collection</string>
+    <string name="action_collection_desc">Make your words collection and learn</string>
+    <string name="action_collection_cta">Choose collection</string>
+    <string name="action_add_word_title">Add word</string>
+    <string name="action_add_word_desc">Found a new word? Add it to your dictionary.</string>
+    <string name="action_add_word_cta">Add word</string>
+</resources>

@@ -1,128 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     style="@style/Widget.Grable.Card.Base">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:paddingVertical="@dimen/footer_padding_vertical_small">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingVertical="@dimen/footer_padding_vertical_small">
+        <ImageView
+            android:id="@+id/footerHome"
+            android:layout_width="@dimen/icon_md"
+            android:layout_height="@dimen/icon_md"
+            android:src="@drawable/ic_home"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:paddingVertical="@dimen/footer_padding_vertical"
+            app:tint="@color/on_background"
+            app:layout_constraintEnd_toStartOf="@+id/footerAddWord"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintWidth_percent="0.2" />
 
-            <LinearLayout
-                android:id="@+id/footerHome"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingVertical="@dimen/footer_padding_vertical"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground"
-                >
+        <ImageView
+            android:id="@+id/footerAddWord"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_add_word"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:paddingVertical="@dimen/footer_padding_vertical"
+            app:tint="@color/on_background"
+            app:layout_constraintEnd_toStartOf="@+id/footerLearn"
+            app:layout_constraintStart_toEndOf="@+id/footerHome"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintWidth_percent="0.2" />
 
-                <ImageView
-                    android:layout_width="@dimen/icon_md"
-                    android:layout_height="@dimen/icon_md"
-                    android:src="@drawable/ic_home"
-                    app:tint="@color/on_background"
-                    />
+        <ImageView
+            android:id="@+id/footerLearn"
+            android:layout_width="@dimen/icon_md"
+            android:layout_height="@dimen/icon_md"
+            android:src="@drawable/ic_learn"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:paddingVertical="@dimen/footer_padding_vertical"
+            app:tint="@color/on_background"
+            app:layout_constraintEnd_toStartOf="@+id/footerStats"
+            app:layout_constraintStart_toEndOf="@+id/footerAddWord"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintWidth_percent="0.2" />
 
-            </LinearLayout>
+        <ImageView
+            android:id="@+id/footerStats"
+            android:layout_width="@dimen/icon_md"
+            android:layout_height="@dimen/icon_md"
+            android:src="@drawable/ic_stats"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:paddingVertical="@dimen/footer_padding_vertical"
+            app:tint="@color/on_background"
+            app:layout_constraintEnd_toStartOf="@+id/footerSettings"
+            app:layout_constraintStart_toEndOf="@+id/footerLearn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintWidth_percent="0.2" />
 
-            <LinearLayout
-                android:id="@+id/footerAddWord"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingVertical="@dimen/footer_padding_vertical"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground">
+        <ImageView
+            android:id="@+id/footerSettings"
+            android:layout_width="@dimen/icon_md"
+            android:layout_height="@dimen/icon_md"
+            android:src="@drawable/ic_settings"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:paddingVertical="@dimen/footer_padding_vertical"
+            app:tint="@color/on_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/footerStats"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintWidth_percent="0.2" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_add_word"
-                    app:tint="@color/on_background"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/footerLearn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingVertical="@dimen/footer_padding_vertical"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="@dimen/icon_md"
-                    android:layout_height="@dimen/icon_md"
-                    android:src="@drawable/ic_learn"
-                    app:tint="@color/on_background" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/footerStats"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingVertical="@dimen/footer_padding_vertical"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="@dimen/icon_md"
-                    android:layout_height="@dimen/icon_md"
-                    android:src="@drawable/ic_stats"
-                    app:tint="@color/on_background"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/footerSettings"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingVertical="@dimen/footer_padding_vertical"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="@dimen/icon_md"
-                    android:layout_height="@dimen/icon_md"
-                    android:src="@drawable/ic_settings"
-                    app:tint="@color/on_background"
-                    />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

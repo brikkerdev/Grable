@@ -7,7 +7,7 @@
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
             tools:node="merge">
-            <meta-data  android:name="com.example.di.KoinInitializer"
+            <meta-data  android:name="ru.sirius.di.KoinInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>
