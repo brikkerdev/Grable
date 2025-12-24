@@ -15,6 +15,7 @@ import ru.sirius.grable.feature.add_word.impl.R
 import ru.sirius.grable.feature.add_word.api.data.Example
 import ru.sirius.api.ImageLoader
 import org.koin.java.KoinJavaComponent.inject
+import ru.sirius.grable.feature.add_word.impl.databinding.FragmentAddWordBinding
 
 class AddWordFragment : Fragment() {
 
@@ -22,7 +23,7 @@ class AddWordFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: AddWordViewModel by viewModels()
-
+    private val imageLoader: ImageLoader<android.widget.ImageView> by inject(ImageLoader::class.java)
     private val adapter by lazy {
         ExampleAdapter { position, example ->
             showEditExampleDialog(position, example)
@@ -65,20 +66,10 @@ class AddWordFragment : Fragment() {
     }
 
     private fun showAddExampleDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_add_example, null)
-        val inputEn = dialogView.findViewById<TextInputEditText>(R.id.inputExampleEn)
-        val inputRu = dialogView.findViewById<TextInputEditText>(R.id.inputExampleRu)
-
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Добавить пример")
-            .setView(dialogView)
-            .setPositiveButton("Добавить") { dialog, _ ->
-                val en = inputEn.text.toString().trim()
-                val ru = inputRu.text.toString().trim()
-                if (en.isNotEmpty()) {
-                    viewModel.addExample(Example(idCounter++, en, ru))
-                }
-                dialog.dismiss()
+        val dialog = AddExampleDialogFragment.newInstance()
+        dialog.setOnExampleSavedListener(object : AddExampleDialogFragment.OnExampleSavedListener {
+            override fun onExampleSaved(example: Example) {
+                viewModel.addExample(example)
             }
 
             override fun onExampleUpdated(example: Example) {
@@ -93,18 +84,11 @@ class AddWordFragment : Fragment() {
             override fun onExampleSaved(example: Example) {
             }
 
-        inputEn.setText(oldExample.english)
-        inputRu.setText(oldExample.russian)
-
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Редактировать пример")
-            .setView(dialogView)
-            .setPositiveButton("Сохранить") { dialog, _ ->
-                val en = inputEn.text.toString().trim()
-                val ru = inputRu.text.toString().trim()
-                if (en.isNotEmpty()) {
-                    val list = viewModel.state.value.examples.toMutableList()
-                    list[index] = Example(oldExample.id, en, ru)
+            override fun onExampleUpdated(example: Example) {
+                val list = viewModel.state.value.examples.toMutableList()
+                val updatedIndex = list.indexOfFirst { it.id == oldExample.id }
+                if (updatedIndex != -1) {
+                    list[updatedIndex] = example
                     viewModel.updateExamples(list)
                 }
             }

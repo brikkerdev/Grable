@@ -1,4 +1,4 @@
-package ru.sirius.grable.add_word.ui
+package ru.sirius.grable.feature.add_word.impl.ui
 
 import android.app.Dialog
 import android.os.Bundle
@@ -7,8 +7,8 @@ import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
-import ru.sirius.grable.R
-import ru.sirius.grable.add_word.data.Example
+import ru.sirius.grable.feature.add_word.impl.R
+import ru.sirius.grable.feature.add_word.api.data.Example
 import java.util.Random
 
 class AddExampleDialogFragment : DialogFragment() {
@@ -30,7 +30,7 @@ class AddExampleDialogFragment : DialogFragment() {
             return AddExampleDialogFragment().apply {
                 arguments = Bundle().apply {
                     example?.let {
-                        putParcelable(ARG_EXAMPLE, it)
+                        getSerializable(ARG_EXAMPLE, it::class.java)
                         putBoolean(ARG_IS_EDIT, true)
                     } ?: putBoolean(ARG_IS_EDIT, false)
                 }
@@ -41,7 +41,7 @@ class AddExampleDialogFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            example = it.getParcelable(ARG_EXAMPLE)
+            example = it.getSerializable(ARG_EXAMPLE, Example::class.java)
         }
     }
 
