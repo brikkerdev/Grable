@@ -11,6 +11,7 @@
     <string name="action_collection_title">Учить подборку</string>
     <string name="action_collection_desc">Собери набор слов по теме и проходи курс.</string>
     <string name="action_collection_cta">Выбрать подборку</string>
-    <string name="categories_title">Добавь слова по категориям</string>
-    <string name="categories_hint">Собери новую подборку из любимых тем.</string>
+    <string name="action_add_word_title">Добавить слово</string>
+    <string name="action_add_word_desc">Нашли новое слово? Добавьте его в свой словарь.</string>
+    <string name="action_add_word_cta">Добавить слово</string>
 </resources>

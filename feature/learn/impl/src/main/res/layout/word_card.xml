@@ -1,32 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/spacing_2xl">
+    android:padding="@dimen/spacing_2xl"
+    android:background="@color/card_surface">
 
     <!-- Front side -->
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frontGroup"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@color/card_surface"
-        android:orientation="vertical">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:id="@+id/frontWord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearanceHeadline1"
-            android:layout_marginBottom="@dimen/spacing_base" />
+            android:layout_marginBottom="@dimen/spacing_base"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/frontTranscription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearanceBody1"
-            android:layout_marginBottom="@dimen/spacing_2xl" />
+            android:layout_marginBottom="@dimen/spacing_2xl"
+            app:layout_constraintTop_toBottomOf="@+id/frontWord"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageButton
             android:id="@+id/btnAudio"
@@ -35,18 +45,25 @@
             android:contentDescription="@string/learn_play_sound"
             android:background="@color/card_surface"
             app:srcCompat="@drawable/ic_play_audio_word"
-            app:tint="@color/primary" />
-    </LinearLayout>
+            app:tint="@color/primary"
+            app:layout_constraintTop_toBottomOf="@+id/frontTranscription"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Back side -->
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/backGroup"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@color/card_surface"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:id="@+id/backTranslation"
@@ -54,13 +71,22 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearanceHeadline2"
             android:textColor="@color/primary"
-            android:layout_marginBottom="@dimen/spacing_base" />
+            android:layout_marginBottom="@dimen/spacing_base"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/backExample"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearanceBody1"
-            android:gravity="center" />
-    </LinearLayout>
-</FrameLayout>
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/backTranslation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

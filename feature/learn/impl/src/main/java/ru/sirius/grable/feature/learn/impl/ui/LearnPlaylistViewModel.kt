@@ -35,11 +35,10 @@ class LearnPlaylistViewModel(
             _state.value = _state.value.copy(isLoading = true)
             interactor.getWordsById(playlistId)
                 .catch {
-                    _state.value = _state.value.copy(words = emptyList(), isLoading = true)
+                    _state.value = _state.value.copy(words = emptyList(), isLoading = false)
                 }
                 .collectLatest { words ->
-                    val loading = words.isEmpty()
-                    _state.value = WordState(words = words, isLoading = loading)
+                    _state.value = WordState(words = words, isLoading = false)
                 }
         }
     }

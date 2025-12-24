@@ -1,7 +1,7 @@
 package ru.sirius.grable.core.database
 
 import android.content.Context
-import com.example.di.AbstractInitializer
+import ru.sirius.di.AbstractInitializer
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 
@@ -20,5 +20,8 @@ val databaseModule = module {
     factory { get<AppDatabase>().wordDao() }
     factory { get<AppDatabase>().playlistDao() }
     factory { get<AppDatabase>().statisticsDao() }
+    
+    // Data sync service
+    single { DataSyncService(get<AppDatabase>()) }
 }
 

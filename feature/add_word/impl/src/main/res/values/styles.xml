@@ -20,8 +20,15 @@
         <item name="android:padding">@dimen/card_padding</item>
     </style>
 
+    <style name="Widget.Grable.AddWord.ContentContainer" parent="Widget.Grable.Layout">
+        <item name="android:paddingTop">@dimen/spacing_xl</item>
+        <item name="android:paddingBottom">@dimen/spacing_base</item>
+        <item name="android:paddingStart">@dimen/spacing_base</item>
+        <item name="android:paddingEnd">@dimen/spacing_base</item>
+    </style>
+
     <style name="Widget.Grable.AddWord.Image" parent="android:Widget">
-        <item name="android:layout_height">300dp</item>
+        <item name="android:layout_height">@dimen/image_example_height</item>
         <item name="android:scaleType">centerCrop</item>
     </style>
 
@@ -59,8 +66,8 @@
 
     <!-- Dialog Add Example Styles -->
     <style name="Widget.Grable.Dialog.AddExample.Card" parent="Widget.MaterialComponents.CardView">
-        <item name="cardCornerRadius">14dp</item>
-        <item name="cardElevation">4dp</item>
+        <item name="cardCornerRadius">@dimen/radius_lg</item>
+        <item name="cardElevation">@dimen/card_elevation_sm</item>
     </style>
 
     <style name="Widget.Grable.Dialog.AddExample.Content" parent="Widget.Grable.Layout">

@@ -49,7 +49,6 @@ class LearnFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupPager()
-        setupButtons()
         renderLoading(viewModel.state.value.isLoading)
         observeState()
     }
@@ -71,20 +70,6 @@ class LearnFragment : Fragment() {
         }
     }
 
-    private fun setupButtons() {
-        binding.btnNext.setOnClickListener {
-            val next = binding.cardPager.currentItem + 1
-            if (next < pagerAdapter.itemCount) {
-                binding.cardPager.currentItem = next
-            }
-        }
-        binding.btnPrevious.setOnClickListener {
-            val prev = binding.cardPager.currentItem - 1
-            if (prev >= 0) {
-                binding.cardPager.currentItem = prev
-            }
-        }
-    }
 
     private fun observeState() {
         viewLifecycleOwner.lifecycleScope.launch {

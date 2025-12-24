@@ -42,12 +42,9 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
-    
-    api(project(":feature:home:api"))
-    api(project(":feature:learn:api"))
-    api(project(":feature:playlist:api"))
+
     implementation(project(":libs:di"))
-    implementation(project(":navigation:api"))
+    implementation(project(":core:navigation:api"))
     implementation(project(":core:design"))
 }
 

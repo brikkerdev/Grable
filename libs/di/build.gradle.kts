@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.di"
+    namespace = "ru.sirius.di"
     compileSdk {
         version = release(36)
     }

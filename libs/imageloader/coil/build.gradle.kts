@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.coil"
+    namespace = "ru.sirius.coil"
     compileSdk {
         version = release(36)
     }

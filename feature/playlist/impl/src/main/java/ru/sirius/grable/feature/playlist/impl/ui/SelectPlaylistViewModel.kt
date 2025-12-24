@@ -22,8 +22,7 @@ class SelectPlaylistViewModel() : ViewModel(), KoinComponent {
         viewModelScope.launch {
             _state.value = _state.value.copy(isLoading = true)
             interactor.invoke().collectLatest { playlists ->
-                val loading = playlists.isEmpty()
-                _state.value = PlaylistState(playlists = playlists, isLoading = loading)
+                _state.value = PlaylistState(playlists = playlists, isLoading = false)
             }
         }
     }
@@ -31,8 +30,7 @@ class SelectPlaylistViewModel() : ViewModel(), KoinComponent {
     fun refresh() = viewModelScope.launch {
         _state.value = _state.value.copy(isLoading = true)
         interactor.invoke().collectLatest { playlists ->
-            val loading = playlists.isEmpty()
-            _state.value = PlaylistState(playlists = playlists, isLoading = loading)
+            _state.value = PlaylistState(playlists = playlists, isLoading = false)
         }
     }
 }

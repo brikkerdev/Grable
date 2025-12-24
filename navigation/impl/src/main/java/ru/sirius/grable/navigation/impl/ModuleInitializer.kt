@@ -2,7 +2,7 @@ package ru.sirius.grable.navigation.impl
 
 import android.content.Context
 import androidx.fragment.app.FragmentManager
-import com.example.di.AbstractInitializer
+import ru.sirius.di.AbstractInitializer
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 import ru.sirius.grable.navigation.api.NavigationRouter

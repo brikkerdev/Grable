@@ -254,6 +254,16 @@ class TTSImpl(
         initTTS()
     }
 
+    override fun setVoice(voiceType: String) {
+        val pitch = when (voiceType.lowercase()) {
+            "male" -> 0.8f  // Более низкий голос
+            "female" -> 1.2f  // Более высокий голос
+            else -> 1.0f  // По умолчанию
+        }
+        setPitch(pitch)
+        Log.d("TTS", "Voice set to: $voiceType with pitch: $pitch")
+    }
+
     interface OnUtteranceListener {
         fun onStart(utteranceId: String?)
         fun onDone(utteranceId: String?)

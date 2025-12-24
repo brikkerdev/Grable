@@ -41,8 +41,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(project(":libs:di"))
+    api(project(":libs:tts:api"))
     api(project(":feature:settings:api"))
     implementation(project(":core:design"))
-    implementation(project(":navigation:api"))
+    implementation(project(":core:navigation:api"))
     implementation("androidx.fragment:fragment-ktx:1.8.9")
 }

@@ -58,4 +58,7 @@
     <!-- Skeleton / shimmer -->
     <color name="skeleton_base">#D8DCE8</color>
     <color name="skeleton_highlight">#EAECF4</color>
+    
+    <!-- Ripple -->
+    <color name="ripple">#1F000000</color>
 </resources>
