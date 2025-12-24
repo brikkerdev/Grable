@@ -49,7 +49,7 @@ dependencies {
     implementation(project(":libs:di"))
     implementation(project(":libs:imageloader:coil"))
     implementation(project(":core:design"))
-    implementation(project(":navigation:api"))
+    implementation(project(":core:navigation:api"))
     
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

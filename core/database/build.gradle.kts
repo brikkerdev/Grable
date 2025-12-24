@@ -24,6 +24,7 @@ android {
 
 dependencies {
     implementation(project(":libs:di"))
+    implementation(project(":libs:network"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.bundles.room)
     ksp(libs.androidx.room.compiler)

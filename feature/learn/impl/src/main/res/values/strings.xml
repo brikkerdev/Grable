@@ -5,5 +5,8 @@
     <string name="learn_previous">Предыдущее</string>
     <string name="learn_tap_to_card">Нажмите на карточку, чтобы увидеть перевод</string>
     <string name="learn_play_sound">Воспроизвести произношение</string>
+    <string name="learn_progress">Прогресс:</string>
+    <string name="learn_add_word">Добавить слово</string>
+    <string name="learn_playlist_title">Слова в подборке</string>
 </resources>
 

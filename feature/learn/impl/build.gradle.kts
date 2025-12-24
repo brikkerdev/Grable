@@ -48,7 +48,7 @@ dependencies {
     
     api(project(":feature:learn:api"))
     implementation(project(":libs:di"))
-    implementation(project(":navigation:api"))
+    implementation(project(":core:navigation:api"))
     implementation(project(":core:design"))
     implementation(project(":core:database"))
     implementation(project(":libs:network"))

@@ -3,7 +3,7 @@ package ru.sirius.grable.feature.playlist.impl
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.example.di.AbstractInitializer
+import ru.sirius.di.AbstractInitializer
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.core.qualifier.named
@@ -15,7 +15,7 @@ import ru.sirius.grable.feature.playlist.impl.domain.SelectPlaylistInteractor
 import ru.sirius.grable.feature.playlist.impl.domain.SelectPlaylistRepository
 import ru.sirius.grable.feature.playlist.impl.domain.SelectPlaylistRepositoryImpl
 import ru.sirius.grable.feature.playlist.impl.ui.SelectPlaylistFragment
-import ru.sirius.grable.navigation.api.FragmentProvider
+import ru.sirius.grable.core.navigation.api.FragmentProvider
 
 internal class ModuleInitializer : AbstractInitializer<Unit>() {
     override fun create(context: Context) {

@@ -11,6 +11,7 @@
     <string name="action_collection_title">Learn collection</string>
     <string name="action_collection_desc">Make your words collection and learn</string>
     <string name="action_collection_cta">Choose collection</string>
-    <string name="categories_title">Add words by categories</string>
-    <string name="categories_hint">Create new collection of your topics</string>
+    <string name="action_add_word_title">Add word</string>
+    <string name="action_add_word_desc">Found a new word? Add it to your dictionary.</string>
+    <string name="action_add_word_cta">Add word</string>
 </resources>

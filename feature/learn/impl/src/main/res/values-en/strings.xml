@@ -5,4 +5,7 @@
     <string name="learn_previous">Previous</string>
     <string name="learn_tap_to_card">Tap to card to see translation</string>
     <string name="learn_play_sound">Play audio</string>
+    <string name="learn_progress">Progress:</string>
+    <string name="learn_add_word">Add word</string>
+    <string name="learn_playlist_title">Words in playlist</string>
 </resources>

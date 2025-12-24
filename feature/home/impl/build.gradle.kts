@@ -44,7 +44,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
 
     implementation(project(":libs:di"))
-    implementation(project(":navigation:api"))
+    implementation(project(":core:navigation:api"))
     implementation(project(":core:design"))
 }
 

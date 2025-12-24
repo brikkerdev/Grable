@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stats_title">Статистика</string>
+    <string name="stats_period">Период: %1$s</string>
+    <string name="stats_period_days">%1$d дней</string>
+    <string name="stats_no_data">Нет данных для отображения</string>
+    <string name="stats_days_details">Детали по дням:</string>
+    <string name="stats_learning_now">Заучивается сейчас: %1$d</string>
+    <string name="stats_total_period">Всего за период</string>
+    <string name="stats_error">Произошла ошибка</string>
+    <string name="stats_retry">Повторить</string>
+    <string name="stats_add_word">+ Новое слово</string>
+    <string name="stats_mark_known">✓ Выучено</string>
+    <string name="stats_add_repeat">↻ Повторить</string>
+</resources>
+
+

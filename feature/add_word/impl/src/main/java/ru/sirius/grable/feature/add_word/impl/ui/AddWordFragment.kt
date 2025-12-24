@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.sirius.grable.feature.add_word.impl.R
 import ru.sirius.grable.feature.add_word.api.data.Example
-import com.example.api.ImageLoader
+import ru.sirius.api.ImageLoader
 import org.koin.java.KoinJavaComponent.inject
 
 class AddWordFragment : Fragment() {

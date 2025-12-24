@@ -14,6 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
+import ru.sirius.api.ITTS
 import ru.sirius.feature.settings.impl.R
 import ru.sirius.grable.feature.settings.impl.databinding.FragmentSettingsBinding
 import ru.sirius.grable.feature.settings.impl.data.ID_DAILY_REMINDER
@@ -34,6 +36,7 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
         SettingsAdapter(this)
     }
     private val settingsItemsFactory = SettingsItemsFactory()
+    private val tts: ITTS by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSettingsBinding.Companion.inflate(inflater, container, false)
@@ -49,7 +52,12 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
         recyclerView.itemAnimator = null
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.uiState.collect(::updateUI)
+            viewModel.uiState.collect { uiState ->
+                updateUI(uiState)
+                // Применяем текущий голос при загрузке настроек
+                val voiceId = uiState.values[ID_VOICE]?.stringValue() ?: "female"
+                tts.setVoice(voiceId)
+            }
         }
     }
 
@@ -156,6 +164,8 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
             .setSingleChoiceItems(names, checked) { dialog, which ->
                 val voice = ids[which]
                 viewModel.update(SettingValues.StringValue(ID_VOICE, voice))
+                // Обновляем голос TTS
+                tts.setVoice(voice)
                 dialog.dismiss()
             }
             .setNegativeButton(R.string.settings_cancel) { d, _ -> d.dismiss() }

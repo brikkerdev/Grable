@@ -9,7 +9,7 @@
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
             tools:node="merge">
-            <meta-data  android:name="com.example.coil.ModuleInitializer"
+            <meta-data  android:name="ru.sirius.coil.ModuleInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>

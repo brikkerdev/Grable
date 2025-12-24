@@ -1,36 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="80dp"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="@dimen/spacing_sm">
+    android:padding="@dimen/spacing_sm"
+    android:gravity="center">
 
-    <!-- Столбец графика -->
     <View
         android:id="@+id/vBar"
         android:layout_width="20dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:background="@color/primary"
-        android:layout_marginBottom="@dimen/spacing_xs" />
+        android:layout_marginBottom="@dimen/spacing_xs"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tvWordsCount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Количество слов -->
     <TextView
         android:id="@+id/tvWordsCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
-        style="@style/TextAppearanceBody2"
-        android:textStyle="bold" />
+        android:textAppearance="@style/TextAppearanceBody2"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/vBar"
+        app:layout_constraintBottom_toTopOf="@+id/tvDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Дата -->
     <TextView
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="3 мар"
-        style="@style/TextAppearanceCaption"
-        android:textColor="@color/text_secondary" />
+        android:textAppearance="@style/TextAppearanceCaption"
+        android:textColor="@color/text_secondary"
+        app:layout_constraintTop_toBottomOf="@+id/tvWordsCount"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

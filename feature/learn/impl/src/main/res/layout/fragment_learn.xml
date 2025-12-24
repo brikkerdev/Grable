@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
@@ -8,184 +10,203 @@
     <!-- Shimmer skeleton -->
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/learnSkeleton"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:padding="@dimen/spacing_base">
 
             <!-- Skeleton progress -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="@dimen/spacing_xl">
+            <View
+                android:id="@+id/skeletonProgress1"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:background="@drawable/bg_skeleton_rounded"
+                app:layout_constraintEnd_toStartOf="@+id/skeletonProgress2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/skeletonCard" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_skeleton_rounded" />
-
-                <View
-                    android:layout_width="60dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="@dimen/spacing_base"
-                    android:background="@drawable/bg_skeleton_rounded" />
-
-            </LinearLayout>
+            <View
+                android:id="@+id/skeletonProgress2"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="@dimen/spacing_base"
+                android:background="@drawable/bg_skeleton_rounded"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/skeletonCard" />
 
             <!-- Skeleton card -->
             <View
-                android:layout_width="match_parent"
+                android:id="@+id/skeletonCard"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:layout_marginBottom="@dimen/spacing_xl"
                 android:background="@drawable/bg_skeleton_rounded"
-                android:minHeight="200dp" />
+                android:minHeight="200dp"
+                app:layout_constraintBottom_toTopOf="@+id/skeletonHint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/skeletonProgress1" />
 
             <!-- Skeleton hint -->
             <View
-                android:layout_width="match_parent"
+                android:id="@+id/skeletonHint"
+                android:layout_width="0dp"
                 android:layout_height="16dp"
                 android:layout_marginBottom="@dimen/spacing_2xl"
-                android:background="@drawable/bg_skeleton_rounded" />
+                android:background="@drawable/bg_skeleton_rounded"
+                app:layout_constraintBottom_toTopOf="@+id/skeletonButtons"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <!-- Skeleton buttons -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <View
+                android:id="@+id/skeletonButton1"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="@dimen/spacing_sm"
+                android:background="@drawable/bg_skeleton_rounded"
+                app:layout_constraintEnd_toStartOf="@+id/skeletonButton2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/skeletonButtons"
+                app:layout_constraintBottom_toBottomOf="@+id/skeletonButtons" />
+
+            <View
+                android:id="@+id/skeletonButton2"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="@dimen/spacing_sm"
+                android:layout_marginEnd="@dimen/spacing_sm"
+                android:background="@drawable/bg_skeleton_rounded"
+                app:layout_constraintEnd_toStartOf="@+id/skeletonButton3"
+                app:layout_constraintStart_toEndOf="@+id/skeletonButton1"
+                app:layout_constraintTop_toTopOf="@+id/skeletonButtons"
+                app:layout_constraintBottom_toBottomOf="@+id/skeletonButtons"
+                app:layout_constraintWidth_percent="0.35" />
+
+            <View
+                android:id="@+id/skeletonButton3"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="@dimen/spacing_sm"
+                android:background="@drawable/bg_skeleton_rounded"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/skeletonButton2"
+                app:layout_constraintTop_toTopOf="@+id/skeletonButtons"
+                app:layout_constraintBottom_toBottomOf="@+id/skeletonButtons" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/skeletonButtons"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center">
+                app:layout_constraintGuide_percent="0.85" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="@dimen/spacing_sm"
-                    android:background="@drawable/bg_skeleton_rounded" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="0.65"
-                    android:layout_marginStart="@dimen/spacing_sm"
-                    android:layout_marginEnd="@dimen/spacing_sm"
-                    android:background="@drawable/bg_skeleton_rounded" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="@dimen/spacing_sm"
-                    android:background="@drawable/bg_skeleton_rounded" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
     <!-- Content group -->
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/contentGroup"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/spacing_base"
-        android:background="@color/background">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        style="@style/Widget.Grable.Layout.ContentContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <!-- Прогресс изучения -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvProgressLabel"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="@dimen/spacing_xl">
+            android:text="@string/learn_progress"
+            android:textAppearance="@style/TextAppearanceBody2"
+            app:layout_constraintEnd_toStartOf="@+id/tvProgress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/cardPager" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Прогресс:"
-                android:textAppearance="@style/TextAppearanceBody2" />
-
-            <TextView
-                android:id="@+id/tvProgress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1/10"
-                android:textAppearance="@style/TextAppearanceBody2"
-                android:textStyle="bold" />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tvProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1/10"
+            android:textAppearance="@style/TextAppearanceBody2"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/cardPager" />
 
         <androidx.viewpager2.widget.ViewPager2
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginBottom="@dimen/spacing_xl"
-            android:clickable="true"
-            android:focusable="true"
             android:id="@+id/cardPager"
-            android:gravity="center"
-            style="@style/Widget.Grable.Card.Word">
-        </androidx.viewpager2.widget.ViewPager2>
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            style="@style/Widget.Grable.Card.Word"
+            app:layout_constraintBottom_toTopOf="@+id/tvHint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvProgressLabel" />
 
         <!-- Подсказка -->
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/tvHint"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/learn_tap_to_card"
-            android:textAppearance="@style/TextAppearanceBody2Secondary"
-            android:gravity="center"
-            android:layout_marginBottom="@dimen/spacing_2xl" />
+            style="@style/Widget.Grable.TextView.Hint"
+            app:layout_constraintBottom_toTopOf="@+id/btnPrevious"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <!-- Кнопки навигации -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btnPrevious"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:text="@string/learn_previous"
+            style="@style/Widget.Grable.Button.Secondary"
+            app:layout_constraintEnd_toStartOf="@+id/btnKnow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnKnow"
+            app:layout_constraintBottom_toBottomOf="@+id/btnKnow"
+            app:layout_constraintWidth_percent="0.3" />
 
-            <!-- Кнопка "Предыдущее" -->
-            <Button
-                android:id="@+id/btnPrevious"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="@dimen/spacing_sm"
-                android:text="@string/learn_previous"
-                style="@style/Widget.Grable.Button.Secondary" />
+        <Button
+            android:id="@+id/btnKnow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/learn_know"
+            style="@style/Widget.Grable.Button.Primary"
+            app:layout_constraintEnd_toStartOf="@+id/btnNext"
+            app:layout_constraintStart_toEndOf="@+id/btnPrevious"
+            app:layout_constraintTop_toBottomOf="@+id/tvHint"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintWidth_percent="0.25" />
 
-            <!-- Кнопка "Знаю/Не знаю" -->
-            <Button
-                android:id="@+id/btnKnow"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.65"
-                android:layout_marginStart="@dimen/spacing_sm"
-                android:layout_marginEnd="@dimen/spacing_sm"
-                android:text="@string/learn_know"
-                style="@style/Widget.Grable.Button.Primary" />
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/learn_next"
+            style="@style/Widget.Grable.Button.Secondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnKnow"
+            app:layout_constraintTop_toTopOf="@+id/btnKnow"
+            app:layout_constraintBottom_toBottomOf="@+id/btnKnow"
+            app:layout_constraintWidth_percent="0.3" />
 
-            <!-- Кнопка "Следующее" -->
-            <Button
-                android:id="@+id/btnNext"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="@dimen/spacing_sm"
-                android:text="@string/learn_next"
-                style="@style/Widget.Grable.Button.Secondary" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
-
-    </LinearLayout>
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

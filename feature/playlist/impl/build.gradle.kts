@@ -48,7 +48,7 @@ dependencies {
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 
     api(project(":feature:playlist:api"))
-    implementation(project(":navigation:api"))
+    implementation(project(":core:navigation:api"))
     implementation(project(":libs:di"))
     implementation(project(":core:design"))
     implementation(project(":core:database"))

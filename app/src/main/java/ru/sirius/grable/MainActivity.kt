@@ -6,13 +6,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
+import android.util.Log
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 import ru.sirius.grable.databinding.ActivityMainBinding
-import ru.sirius.grable.navigation.api.NavigationRouter
-import ru.sirius.grable.navigation.api.Screens
+import ru.sirius.grable.core.navigation.api.NavigationRouter
+import ru.sirius.grable.core.navigation.api.Screens
+import ru.sirius.grable.core.database.DataSyncService
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +29,10 @@ class MainActivity : AppCompatActivity() {
     private val navigationRouter: NavigationRouter by inject {
         parametersOf(supportFragmentManager, R.id.fragment_container)
     }
+
+    private val dataSyncService: DataSyncService by inject()
+    
+    private val activityScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val savedThemeMode = sharedPreferences.getString(
@@ -52,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             listOf(
             module {
                 single<NavigationRouter> {
-                    ru.sirius.grable.navigation.impl.NavigationRouter(
+                    ru.sirius.grable.core.navigation.impl.NavigationRouter(
                         supportFragmentManager,
                         R.id.fragment_container
                     )
@@ -99,6 +109,24 @@ class MainActivity : AppCompatActivity() {
             if (savedInstanceState == null) {
                 navigationRouter.navigateToScreen(Screens.HOME)
                 bottomNav.selectedItemId = R.id.nav_home
+            }
+        }
+        
+        // Синхронизируем данные из API при первом запуске
+        syncDataIfNeeded()
+    }
+    
+    private fun syncDataIfNeeded() {
+        activityScope.launch(Dispatchers.IO) {
+            try {
+                if (!dataSyncService.hasData()) {
+                    Log.d("MainActivity", "No data in database, syncing from API")
+                    dataSyncService.syncDataFromApi()
+                } else {
+                    Log.d("MainActivity", "Data already exists in database")
+                }
+            } catch (e: Exception) {
+                Log.e("MainActivity", "Error syncing data", e)
             }
         }
     }
