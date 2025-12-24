@@ -43,5 +43,28 @@
     <dimen name="header_padding">8dp</dimen>
     <dimen name="footer_padding_vertical">12dp</dimen>
     <dimen name="footer_padding_vertical_small">4dp</dimen>
+    
+    <!-- Skeleton dimensions -->
+    <dimen name="skeleton_progress_height">20dp</dimen>
+    <dimen name="skeleton_progress_width_small">60dp</dimen>
+    <dimen name="skeleton_hint_height">16dp</dimen>
+    <dimen name="skeleton_button_height">48dp</dimen>
+    <dimen name="skeleton_card_min_height">200dp</dimen>
+    <dimen name="skeleton_header_height">32dp</dimen>
+    <dimen name="skeleton_item_height">80dp</dimen>
+    
+    <!-- Image dimensions -->
+    <dimen name="image_example_height">300dp</dimen>
+    
+    <!-- Chart dimensions -->
+    <dimen name="chart_height">220dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="chart_margin_vertical">32dp</dimen>
+    
+    <!-- Toolbar dimensions -->
+    <dimen name="action_bar_height">56dp</dimen>
+    
+    <!-- Navigation dimensions -->
+    <dimen name="bottom_nav_height">64dp</dimen>
 </resources>
 

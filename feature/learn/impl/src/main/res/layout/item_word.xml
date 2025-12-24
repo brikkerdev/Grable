@@ -6,9 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/spacing_sm"
-    app:cardCornerRadius="@dimen/radius_md"
-    app:cardBackgroundColor="@color/surface"
-    app:cardElevation="5dp">
+    style="@style/Widget.Grable.Card.ListItem"
+    app:cardBackgroundColor="@color/surface">
 
     <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"

@@ -8,7 +8,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.XAxis
@@ -17,10 +16,9 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import kotlinx.coroutines.launch
-import ru.sirius.grable.core.database.AppDatabase
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.sirius.grable.progress.data.DayStat
 import ru.sirius.grable.progress.data.StatisticsData
-import ru.sirius.grable.progress.data.repository.StatisticsRepositoryImpl
 import ru.sirius.grable.core.design.R
 import ru.sirius.feature.progress.impl.R as ProgressR
 
@@ -29,16 +27,8 @@ class StatsFragment : Fragment() {
     private var _binding: FragmentStatisticsBinding? = null
     private val binding get() = _binding!!
 
-    // Используем viewModels delegate с кастомной фабрикой
-    private val viewModel: StatisticsViewModel by viewModels {
-        val database = AppDatabase.getDatabase(requireContext())
-        val statisticsDao = database.statisticsDao()
-
-        val repository = StatisticsRepositoryImpl(statisticsDao)
-        val interactor = StatisticsInteractor(repository)
-
-        StatisticsViewModelFactory(interactor)
-    }
+    // Используем Koin для получения ViewModel
+    private val viewModel: StatisticsViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

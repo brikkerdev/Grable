@@ -24,5 +24,10 @@ interface NavigationRouter {
      * Useful for navigating to non-modularized fragments that are not registered in Koin.
      */
     fun navigateToFragment(fragment: Fragment)
+    
+    /**
+     * Set callback for navigation events
+     */
+    fun setNavigationListener(listener: ((Screens) -> Unit)?)
 }
 

@@ -8,6 +8,9 @@
 
     <style name="Widget.Grable.Card.Word" parent="Widget.Grable.Card.Base">
         <item name="cardBackgroundColor">@color/card_surface</item>
+        <item name="android:layout_marginHorizontal">@dimen/spacing_xl</item>
+        <item name="android:layout_marginTop">@dimen/spacing_base</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_base</item>
     </style>
     
     <!-- Card variants -->
@@ -21,9 +24,40 @@
         <item name="cardElevation">2dp</item>
     </style>
 
+    <!-- Action card styles -->
+    <style name="Widget.Grable.Card.Action" parent="Widget.Grable.Card.Base">
+        <item name="android:layout_marginTop">@dimen/spacing_base</item>
+        <item name="android:layout_marginHorizontal">@dimen/spacing_xl</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">@drawable/selectable_item_background</item>
+    </style>
+
+    <style name="Widget.Grable.Card.Action.Content" parent="Widget.Grable.Layout">
+        <item name="android:padding">@dimen/spacing_xl</item>
+    </style>
+
+    <style name="Widget.Grable.Card.Action.First" parent="Widget.Grable.Card.Action">
+        <item name="android:layout_marginTop">@dimen/spacing_2xl</item>
+    </style>
+
+    <style name="Widget.Grable.Card.Action.Last" parent="Widget.Grable.Card.Action">
+        <!-- marginBottom задается в layout для учета bottom navigation -->
+    </style>
+
+    <style name="Widget.Grable.Card.Action.Title" parent="TextAppearanceHeadline3" />
+
+    <style name="Widget.Grable.Card.Action.Description" parent="TextAppearanceBody2Secondary">
+        <item name="android:layout_marginTop">@dimen/spacing_sm</item>
+    </style>
+
+    <style name="Widget.Grable.Card.Action.Button" parent="Widget.Grable.Button.Primary">
+        <item name="android:layout_marginTop">@dimen/spacing_base</item>
+    </style>
+
     <!-- Icon button styles -->
     <style name="Widget.Grable.IconButton.Secondary" parent="Widget.Material3.Button.IconButton">
-        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:background">@drawable/selectable_item_background</item>
     </style>
     
     <!-- Button styles -->
@@ -232,12 +266,86 @@
 
     <style name="Widget.Grable.ScrollView" parent="Widget.Grable.ScrollView.Content" />
 
+    <style name="Widget.Grable.ScrollView.Main" parent="Widget.Grable.ScrollView">
+        <item name="android:background">@color/background</item>
+        <item name="android:fillViewport">true</item>
+    </style>
+
     <style name="Widget.Grable.TextView" parent="android:Widget.TextView">
         <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="Widget.Grable.TextView.MainTitle" parent="TextAppearanceHeadline2">
+        <item name="android:paddingHorizontal">@dimen/spacing_xl</item>
+        <item name="android:paddingTop">@dimen/spacing_base</item>
+    </style>
+
+    <style name="Widget.Grable.TextView.MainSubtitle" parent="TextAppearanceBody1Secondary">
+        <item name="android:layout_marginTop">@dimen/spacing_xs</item>
+        <item name="android:paddingHorizontal">@dimen/spacing_xl</item>
+    </style>
+
+    <!-- Toolbar styles -->
+    <style name="Widget.Grable.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/surface</item>
     </style>
 
     <style name="Widget.Grable.TextView.WithMarginBottom" parent="Widget.Grable.TextView.WithMarginBottom.Base" />
 
     <style name="Widget.Grable.ViewPager2" parent="Widget.Grable.ViewPager2.Card" />
+
+    <style name="Widget.Grable.Layout.ErrorContainer">
+        <item name="android:padding">@dimen/spacing_2xl</item>
+    </style>
+
+    <style name="Widget.Grable.TextView.Error">
+        <item name="android:layout_marginBottom">@dimen/spacing_base</item>
+    </style>
+
+    <style name="Widget.Grable.TextView.PeriodBadge">
+        <item name="android:minWidth">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/period_background</item>
+        <item name="android:paddingHorizontal">@dimen/spacing_xs</item>
+        <item name="android:paddingVertical">2dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!-- Skeleton styles -->
+    <style name="Widget.Grable.Skeleton.Progress" parent="android:Widget">
+        <item name="android:layout_height">@dimen/skeleton_progress_height</item>
+        <item name="android:background">@drawable/bg_skeleton_rounded</item>
+    </style>
+
+    <style name="Widget.Grable.Skeleton.Progress.Small" parent="android:Widget">
+        <item name="android:layout_width">@dimen/skeleton_progress_width_small</item>
+        <item name="android:layout_height">@dimen/skeleton_progress_height</item>
+        <item name="android:background">@drawable/bg_skeleton_rounded</item>
+    </style>
+
+    <style name="Widget.Grable.Skeleton.Hint" parent="android:Widget">
+        <item name="android:layout_height">@dimen/skeleton_hint_height</item>
+        <item name="android:background">@drawable/bg_skeleton_rounded</item>
+    </style>
+
+    <style name="Widget.Grable.Skeleton.Button" parent="android:Widget">
+        <item name="android:layout_height">@dimen/skeleton_button_height</item>
+        <item name="android:background">@drawable/bg_skeleton_rounded</item>
+    </style>
+
+    <style name="Widget.Grable.Skeleton.Card" parent="android:Widget">
+        <item name="android:minHeight">@dimen/skeleton_card_min_height</item>
+        <item name="android:background">@drawable/bg_skeleton_rounded</item>
+    </style>
+
+    <style name="Widget.Grable.Skeleton.Header" parent="android:Widget">
+        <item name="android:layout_height">@dimen/skeleton_header_height</item>
+        <item name="android:background">@drawable/bg_skeleton_rounded</item>
+    </style>
+
+    <style name="Widget.Grable.Skeleton.Item" parent="android:Widget">
+        <item name="android:layout_height">@dimen/skeleton_item_height</item>
+        <item name="android:background">@drawable/bg_skeleton_rounded</item>
+    </style>
 </resources>
 

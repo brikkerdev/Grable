@@ -10,9 +10,9 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/surface"
-        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:layout_height="@dimen/action_bar_height"
+        style="@style/Widget.Grable.Toolbar"
+        app:navigationIcon="@drawable/ic_arrow_back"
         app:title="@string/learn_playlist_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

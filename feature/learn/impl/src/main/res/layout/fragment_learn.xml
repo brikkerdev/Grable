@@ -27,8 +27,7 @@
             <View
                 android:id="@+id/skeletonProgress1"
                 android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:background="@drawable/bg_skeleton_rounded"
+                style="@style/Widget.Grable.Skeleton.Progress"
                 app:layout_constraintEnd_toStartOf="@+id/skeletonProgress2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -36,10 +35,8 @@
 
             <View
                 android:id="@+id/skeletonProgress2"
-                android:layout_width="60dp"
-                android:layout_height="20dp"
+                style="@style/Widget.Grable.Skeleton.Progress.Small"
                 android:layout_marginStart="@dimen/spacing_base"
-                android:background="@drawable/bg_skeleton_rounded"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/skeletonCard" />
@@ -50,8 +47,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginBottom="@dimen/spacing_xl"
-                android:background="@drawable/bg_skeleton_rounded"
-                android:minHeight="200dp"
+                style="@style/Widget.Grable.Skeleton.Card"
                 app:layout_constraintBottom_toTopOf="@+id/skeletonHint"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -61,9 +57,8 @@
             <View
                 android:id="@+id/skeletonHint"
                 android:layout_width="0dp"
-                android:layout_height="16dp"
+                style="@style/Widget.Grable.Skeleton.Hint"
                 android:layout_marginBottom="@dimen/spacing_2xl"
-                android:background="@drawable/bg_skeleton_rounded"
                 app:layout_constraintBottom_toTopOf="@+id/skeletonButtons"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -72,9 +67,8 @@
             <View
                 android:id="@+id/skeletonButton1"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                style="@style/Widget.Grable.Skeleton.Button"
                 android:layout_marginEnd="@dimen/spacing_sm"
-                android:background="@drawable/bg_skeleton_rounded"
                 app:layout_constraintEnd_toStartOf="@+id/skeletonButton2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/skeletonButtons"
@@ -83,10 +77,9 @@
             <View
                 android:id="@+id/skeletonButton2"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                style="@style/Widget.Grable.Skeleton.Button"
                 android:layout_marginStart="@dimen/spacing_sm"
                 android:layout_marginEnd="@dimen/spacing_sm"
-                android:background="@drawable/bg_skeleton_rounded"
                 app:layout_constraintEnd_toStartOf="@+id/skeletonButton3"
                 app:layout_constraintStart_toEndOf="@+id/skeletonButton1"
                 app:layout_constraintTop_toTopOf="@+id/skeletonButtons"
@@ -96,9 +89,8 @@
             <View
                 android:id="@+id/skeletonButton3"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                style="@style/Widget.Grable.Skeleton.Button"
                 android:layout_marginStart="@dimen/spacing_sm"
-                android:background="@drawable/bg_skeleton_rounded"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/skeletonButton2"
                 app:layout_constraintTop_toTopOf="@+id/skeletonButtons"

@@ -1,46 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_screen_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:fillViewport="true">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include
-            android:id="@+id/header"
-            layout="@layout/layout_header"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    android:background="@color/background">
 
         <TextView
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/main_title"
-            android:textAppearance="@style/TextAppearanceHeadline2"
-            android:paddingHorizontal="@dimen/spacing_xl"
-            android:paddingTop="@dimen/spacing_2xl"
+            style="@style/Widget.Grable.TextView.MainTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/subtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/main_subtitle"
-            android:textAppearance="@style/TextAppearanceBody1Secondary"
-            android:layout_marginTop="@dimen/spacing_xs"
-            android:paddingHorizontal="@dimen/spacing_xl"
+            style="@style/Widget.Grable.TextView.MainSubtitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -50,29 +31,25 @@
             android:id="@+id/review_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/Widget.Grable.Card.Base"
-            android:layout_marginTop="@dimen/spacing_2xl"
-            android:layout_marginHorizontal="@dimen/spacing_xl"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?attr/selectableItemBackground"
-            app:cardCornerRadius="@dimen/radius_md"
-            app:cardElevation="@dimen/card_elevation_sm"
+            style="@style/Widget.Grable.Card.Action.First"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/subtitle">
+            app:layout_constraintTop_toBottomOf="@+id/subtitle"
+            app:layout_constraintBottom_toTopOf="@+id/collection_container"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_bias="0.0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/spacing_xl">
+                style="@style/Widget.Grable.Card.Action.Content">
 
                 <TextView
                     android:id="@+id/repeat_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/action_repeat_title"
-                    android:textAppearance="@style/TextAppearanceHeadline3"
+                    style="@style/Widget.Grable.Card.Action.Title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -82,8 +59,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/action_repeat_desc"
-                    android:textAppearance="@style/TextAppearanceBody2Secondary"
-                    android:layout_marginTop="@dimen/spacing_sm"
+                    style="@style/Widget.Grable.Card.Action.Description"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/repeat_title" />
@@ -93,8 +69,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/action_repeat_cta"
-                    style="@style/Widget.Grable.Button.Primary"
-                    android:layout_marginTop="@dimen/spacing_base"
+                    style="@style/Widget.Grable.Card.Action.Button"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/repeat_desc" />
@@ -108,29 +83,24 @@
             android:id="@+id/collection_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/Widget.Grable.Card.Base"
-            android:layout_marginTop="@dimen/spacing_base"
-            android:layout_marginHorizontal="@dimen/spacing_xl"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?attr/selectableItemBackground"
-            app:cardCornerRadius="@dimen/radius_md"
-            app:cardElevation="@dimen/card_elevation_sm"
+            style="@style/Widget.Grable.Card.Action"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/review_container">
+            app:layout_constraintTop_toBottomOf="@+id/review_container"
+            app:layout_constraintBottom_toTopOf="@+id/add_word_container"
+            app:layout_constraintVertical_bias="0.0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/spacing_xl">
+                style="@style/Widget.Grable.Card.Action.Content">
 
                 <TextView
                     android:id="@+id/collection_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/action_collection_title"
-                    android:textAppearance="@style/TextAppearanceHeadline3"
+                    style="@style/Widget.Grable.Card.Action.Title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -140,8 +110,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/action_collection_desc"
-                    android:textAppearance="@style/TextAppearanceBody2Secondary"
-                    android:layout_marginTop="@dimen/spacing_sm"
+                    style="@style/Widget.Grable.Card.Action.Description"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/collection_title" />
@@ -151,8 +120,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/action_collection_cta"
-                    style="@style/Widget.Grable.Button.Primary"
-                    android:layout_marginTop="@dimen/spacing_base"
+                    style="@style/Widget.Grable.Card.Action.Button"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/collection_desc" />
@@ -166,30 +134,26 @@
             android:id="@+id/add_word_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/Widget.Grable.Card.Base"
-            android:layout_marginTop="@dimen/spacing_base"
-            android:layout_marginHorizontal="@dimen/spacing_xl"
-            android:layout_marginBottom="@dimen/spacing_3xl"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?attr/selectableItemBackground"
-            app:cardCornerRadius="@dimen/radius_md"
-            app:cardElevation="@dimen/card_elevation_sm"
+            style="@style/Widget.Grable.Card.Action.Last"
+            android:layout_marginBottom="@dimen/bottom_nav_height"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/collection_container">
+            app:layout_constraintTop_toBottomOf="@+id/collection_container"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="1.0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/spacing_xl">
+                android:layout_gravity="center_vertical"
+                style="@style/Widget.Grable.Card.Action.Content">
 
                 <TextView
                     android:id="@+id/add_word_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/action_add_word_title"
-                    android:textAppearance="@style/TextAppearanceHeadline3"
+                    style="@style/Widget.Grable.Card.Action.Title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -199,8 +163,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/action_add_word_desc"
-                    android:textAppearance="@style/TextAppearanceBody2Secondary"
-                    android:layout_marginTop="@dimen/spacing_sm"
+                    style="@style/Widget.Grable.Card.Action.Description"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/add_word_title" />
@@ -210,8 +173,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/action_add_word_cta"
-                    style="@style/Widget.Grable.Button.Primary"
-                    android:layout_marginTop="@dimen/spacing_base"
+                    style="@style/Widget.Grable.Card.Action.Button"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/add_word_desc" />
@@ -220,6 +182,4 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

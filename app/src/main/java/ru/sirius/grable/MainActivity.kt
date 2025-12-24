@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater).run {
             setContentView(root)
 
-            bottomNav.setOnItemSelectedListener { menuItem ->
+            val itemSelectedListener = com.google.android.material.navigation.NavigationBarView.OnItemSelectedListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.nav_home -> {
                         navigationRouter.navigateToScreen(Screens.HOME)
@@ -105,10 +105,33 @@ class MainActivity : AppCompatActivity() {
                     else -> false
                 }
             }
+            
+            bottomNav.setOnItemSelectedListener(itemSelectedListener)
+
+            navigationRouter.setNavigationListener { screen ->
+                val menuItemId = when (screen) {
+                    Screens.HOME -> R.id.nav_home
+                    Screens.ADD_WORD -> R.id.nav_add_word
+                    Screens.LEARN -> R.id.nav_learn
+                    Screens.STATS -> R.id.nav_stats
+                    Screens.SETTINGS -> R.id.nav_settings
+                    else -> null
+                }
+                menuItemId?.let {
+                    if (bottomNav.selectedItemId != it) {
+                        bottomNav.setOnItemSelectedListener(null)
+                        bottomNav.selectedItemId = it
+                        bottomNav.setOnItemSelectedListener(itemSelectedListener)
+                    }
+                }
+            }
 
             if (savedInstanceState == null) {
-                navigationRouter.navigateToScreen(Screens.HOME)
+                // Устанавливаем selectedItemId перед навигацией, отключая listener, чтобы избежать двойного вызова
+                bottomNav.setOnItemSelectedListener(null)
                 bottomNav.selectedItemId = R.id.nav_home
+                bottomNav.setOnItemSelectedListener(itemSelectedListener)
+                navigationRouter.navigateToScreen(Screens.HOME)
             }
         }
         

@@ -13,7 +13,15 @@ class NavigationRouter(
     private val fragmentManager: FragmentManager,
     private val containerId: Int
 ) : NavigationRouterApi {
+    
+    private var navigationListener: ((Screens) -> Unit)? = null
+    
+    override fun setNavigationListener(listener: ((Screens) -> Unit)?) {
+        navigationListener = listener
+    }
+    
     override fun navigateToScreen(screen: Screens) {
+        navigationListener?.invoke(screen)
         navigateToScreenByQualifier(screen.qualifier, null)
     }
     

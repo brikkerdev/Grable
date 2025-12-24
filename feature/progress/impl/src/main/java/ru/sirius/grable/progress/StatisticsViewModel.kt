@@ -1,7 +1,6 @@
 package ru.sirius.grable.progress
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -101,16 +100,5 @@ class StatisticsViewModel(
                 _errorMessage.value = "Ошибка загрузки статистики: ${e.message}"
             }
         }
-    }
-}
-
-// Исправленный Factory
-class StatisticsViewModelFactory(
-    private val interactor: StatisticsInteractor
-) : ViewModelProvider.Factory {
-
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return StatisticsViewModel(interactor) as T
     }
 }
