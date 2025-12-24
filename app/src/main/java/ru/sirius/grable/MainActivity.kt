@@ -62,11 +62,6 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
 
-                // Register non-modularized fragments
-                factory<Class<out Fragment>>(named(AddWordConstants.ADD_WORD_SCREEN)) {
-                    AddWordFragment::class.java
-                }
-
 
             }
         ))
