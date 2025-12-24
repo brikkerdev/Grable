@@ -10,10 +10,9 @@ class SettingsInteractor(
 
     fun getSettings(): Flow<Map<String, SettingValues<*>>> = settingsRepository.get()
 
-    fun getAvailableLanguages() = settingsRepository.getAvailableLanguages()
-
-    fun getAvailableVoices() = settingsRepository.getAvailableVoices()
-    fun getAvailableThemes() = settingsRepository.getAvailableThemes()
+    fun getAvailableLanguages(): Flow<List<String>> = settingsRepository.getAvailableLanguages()
+    fun getAvailableVoices(): Flow<List<String>> = settingsRepository.getAvailableVoices()
+    fun getAvailableThemes(): Flow<List<String>> = settingsRepository.getAvailableThemes()
 
     fun updateValue(value: SettingValues<*>) {
         settingsRepository.update(value)

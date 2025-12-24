@@ -86,7 +86,17 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
     }
 
     private fun updateUI(uiState: SettingsUIState) {
-        val settingsItems = settingsItemsFactory.createSettingsItems(uiState)
+        val langId = uiState.values[ID_LANGUAGE]?.stringValue() ?: "ru"
+        val voiceId = uiState.values[ID_VOICE]?.stringValue() ?: "female"
+        val themeId = uiState.values[ID_THEME]?.stringValue()
+            ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString()
+
+        val settingsItems = settingsItemsFactory.createSettingsItems(
+            uiState = uiState,
+            languageValue = languageLabel(langId),
+            voiceValue = voiceLabel(voiceId),
+            themeValue = themeLabel(themeId),
+        )
         adapter.submitList(settingsItems)
     }
 
@@ -94,68 +104,61 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
         val selected = SettingValues.BooleanValue(ID_NOTIFICATION_PROGRESS, value)
         viewModel.update(selected)
     }
+
     private fun showLanguageSelection(uiState: SettingsUIState) {
-        val languages = uiState.availableLanguages
-        val languageNames = languages.values.toTypedArray()
-        val languageIds = languages.keys.toTypedArray()
-        val currentLanguage = uiState.values[ID_LANGUAGE]?.id ?: 0
-        val currentLanguageIndex = languages.keys.indexOfFirst { it == currentLanguage }
+        val ids = uiState.availableLanguageIds.toTypedArray()
+        val names = ids.map(::languageLabel).toTypedArray()
+
+        val current = uiState.values[ID_LANGUAGE]?.stringValue() ?: "ru"
+        val checked = ids.indexOfFirst { it == current }
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.settings_choose_language))
-            .setSingleChoiceItems(languageNames, currentLanguageIndex) { dialog, which ->
-                val selected = SettingValues.StringValue(ID_LANGUAGE, languageIds[which])
-                viewModel.update(selected)
-                AppCompatDelegate.setApplicationLocales(
-                    LocaleListCompat.create(Locale.forLanguageTag(languageIds[which]))
-                )
-                Log.d("LANG", languageIds[which])
+            .setSingleChoiceItems(names, checked) { dialog, which ->
+                val lang = ids[which]
+                viewModel.update(SettingValues.StringValue(ID_LANGUAGE, lang))
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(lang))
                 dialog.dismiss()
             }
-            .setNegativeButton(R.string.settings_cancel) { dialog, _ ->
-                dialog.dismiss()
-            }
+            .setNegativeButton(R.string.settings_cancel) { d, _ -> d.dismiss() }
             .show()
     }
 
     private fun showThemeSelection(uiState: SettingsUIState) {
-        val themes = uiState.availableThemes
-        val themeNames = themes.values.toTypedArray()
-        val themeIds = themes.keys.toTypedArray()
-        val currentTheme = uiState.values[ID_THEME]?.value ?: -1
-        val currentThemeIndex = themes.keys.indexOfFirst { it == currentTheme }
+        val ids = uiState.availableThemeIds.toTypedArray()
+        val names = ids.map(::themeLabel).toTypedArray()
+
+        val current = uiState.values[ID_THEME]?.stringValue()
+            ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString()
+        val checked = ids.indexOfFirst { it == current }
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.settings_choose_theme))
-            .setSingleChoiceItems(themeNames, currentThemeIndex) { dialog, which ->
-                val selected = SettingValues.StringValue(ID_THEME, themeIds[which])
-                viewModel.update(selected)
-                AppCompatDelegate.setDefaultNightMode(themeIds[which].toInt())
+            .setSingleChoiceItems(names, checked) { dialog, which ->
+                val mode = ids[which]
+                viewModel.update(SettingValues.StringValue(ID_THEME, mode))
+                AppCompatDelegate.setDefaultNightMode(mode.toInt())
                 dialog.dismiss()
             }
-            .setNegativeButton(R.string.settings_cancel) { dialog, _ ->
-                dialog.dismiss()
-            }
+            .setNegativeButton(R.string.settings_cancel) { d, _ -> d.dismiss() }
             .show()
     }
 
     private fun showVoiceSelection(uiState: SettingsUIState) {
-        val voices = uiState.availableVoices
-        val voiceNames = voices.values.toTypedArray()
-        val voiceIds = voices.keys.toTypedArray()
-        val currentVoice = uiState.values[ID_VOICE]?.id ?: 0
-        val currentVoiceIndex = voices.keys.indexOfFirst { it == currentVoice }
+        val ids = uiState.availableVoiceIds.toTypedArray()
+        val names = ids.map(::voiceLabel).toTypedArray()
+
+        val current = uiState.values[ID_VOICE]?.stringValue() ?: "female"
+        val checked = ids.indexOfFirst { it == current }
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.settings_dialog_voice_type))
-            .setSingleChoiceItems(voiceNames, currentVoiceIndex) { dialog, which ->
-                val selected = SettingValues.StringValue(ID_VOICE, voiceIds[which])
-                viewModel.update(selected)
+            .setSingleChoiceItems(names, checked) { dialog, which ->
+                val voice = ids[which]
+                viewModel.update(SettingValues.StringValue(ID_VOICE, voice))
                 dialog.dismiss()
             }
-            .setNegativeButton(getString(R.string.settings_cancel)) { dialog, _ ->
-                dialog.dismiss()
-            }
+            .setNegativeButton(R.string.settings_cancel) { d, _ -> d.dismiss() }
             .show()
     }
 
@@ -198,5 +201,24 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
                 dialog.dismiss()
             }
             .show()
+    }
+
+    private fun languageLabel(id: String) = when (id) {
+        "ru" -> getString(R.string.caption_lang_ru)
+        "en" -> getString(R.string.caption_lang_en)
+        else -> id
+    }
+
+    private fun voiceLabel(id: String) = when (id) {
+        "male" -> getString(R.string.settings_voice_male)
+        "female" -> getString(R.string.settings_voice_female)
+        else -> id
+    }
+
+    private fun themeLabel(id: String) = when (id) {
+        AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString() -> getString(R.string.settings_theme_system)
+        AppCompatDelegate.MODE_NIGHT_NO.toString() -> getString(R.string.settings_theme_light)
+        AppCompatDelegate.MODE_NIGHT_YES.toString() -> getString(R.string.settings_theme_dark)
+        else -> id
     }
 }

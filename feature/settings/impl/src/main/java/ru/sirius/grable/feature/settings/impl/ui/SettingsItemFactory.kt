@@ -12,11 +12,14 @@ import kotlin.collections.get
 
 class SettingsItemsFactory {
 
-    fun createSettingsItems(uiState: SettingsUIState): List<SettingItem> {
+    fun createSettingsItems(
+        uiState: SettingsUIState,
+        languageValue: String,
+        voiceValue: String,
+        themeValue: String,
+    ): List<SettingItem> {
+
         val values = uiState.values
-        val langs = uiState.availableLanguages
-        val voices = uiState.availableVoices
-        val themes = uiState.availableThemes
 
         return listOf(
             // Основные настройки
@@ -27,12 +30,12 @@ class SettingsItemsFactory {
             SettingItem.BaseSetting(
                 id = R.id.native_language_layout,
                 title = R.string.native_language,
-                value =  langs[values[ID_LANGUAGE]?.stringValue()].orEmpty(),
+                value =  languageValue,
             ),
             SettingItem.BaseSetting(
                 id = R.id.theme_layout,
                 title = R.string.theme_layout,
-                value = themes[values[ID_THEME]?.stringValue()].orEmpty(),
+                value = themeValue,
             ),
             // Аудио настройки
             SettingItem.SectionTitle(
@@ -42,7 +45,7 @@ class SettingsItemsFactory {
             SettingItem.BaseSetting(
                 id = R.id.voice_type_layout,
                 title = R.string.voice_type_layout,
-                value = voices[values[ID_VOICE]?.stringValue()].orEmpty(),
+                value = voiceValue,
             ),
             // Уведомления
             SettingItem.SectionTitle(
