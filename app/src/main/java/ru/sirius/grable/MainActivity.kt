@@ -1,25 +1,16 @@
 package ru.sirius.grable
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
-import org.koin.android.ext.android.inject
 import org.koin.android.ext.android.getKoin
+import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import org.koin.java.KoinJavaComponent.get
 import ru.sirius.grable.databinding.ActivityMainBinding
-import ru.sirius.grable.feature.add_word.api.Constants as AddWordConstants
-import ru.sirius.grable.feature.add_word.impl.ui.AddWordFragment
-import ru.sirius.grable.feature.settings.impl.ui.SettingsFragment
-import ru.sirius.grable.feature.learn.api.Constants as LearnConstants
-import ru.sirius.grable.feature.progress.api.Constants as ProgressConstants
-import ru.sirius.grable.feature.settings.api.Constants as SettingsConstants
 import ru.sirius.grable.navigation.api.NavigationRouter
 import ru.sirius.grable.navigation.api.Screens
 import java.util.Locale
@@ -34,7 +25,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val savedThemeMode = sharedPreferences.getString("themeId", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString())
+        val savedThemeMode = sharedPreferences.getString(
+            "themeId",
+            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString()
+        )
         val themeMode = try {
             savedThemeMode?.toInt() ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         } catch (e: NumberFormatException) {
@@ -42,7 +36,10 @@ class MainActivity : AppCompatActivity() {
             AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         }
 
-        val savedLang = sharedPreferences.getString("nativeLanguageId", "en")
+        val savedLang =
+            sharedPreferences.getString(
+                "nativeLanguageId", "en"
+            ) ?: "en"
 
         AppCompatDelegate.setDefaultNightMode(themeMode)
         AppCompatDelegate.setApplicationLocales(
@@ -51,9 +48,8 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
-        // Register NavigationRouter as single so fragments can access it
-        // Also register non-modularized fragments in Koin
-        getKoin().loadModules(listOf(
+        getKoin().loadModules(
+            listOf(
             module {
                 single<NavigationRouter> {
                     ru.sirius.grable.navigation.impl.NavigationRouter(
@@ -75,22 +71,27 @@ class MainActivity : AppCompatActivity() {
                         navigationRouter.navigateToScreen(Screens.HOME)
                         true
                     }
+
                     R.id.nav_add_word -> {
                         navigationRouter.navigateToScreen(Screens.ADD_WORD)
                         true
                     }
+
                     R.id.nav_learn -> {
                         navigationRouter.navigateToScreen(Screens.LEARN)
                         true
                     }
+
                     R.id.nav_stats -> {
                         navigationRouter.navigateToScreen(Screens.STATS)
                         true
                     }
+
                     R.id.nav_settings -> {
                         navigationRouter.navigateToScreen(Screens.SETTINGS)
                         true
                     }
+
                     else -> false
                 }
             }
@@ -99,20 +100,6 @@ class MainActivity : AppCompatActivity() {
                 navigationRouter.navigateToScreen(Screens.HOME)
                 bottomNav.selectedItemId = R.id.nav_home
             }
-        }
-    }
-
-    fun switchFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null)
-            .commit()
-    }
-
-    private fun navigateToFragment(qualifier: String) {
-        val fragmentType = get(Class::class.java, named(qualifier)) as? Class<out Fragment>
-        fragmentType?.let {
-            switchFragment(it.newInstance())
         }
     }
 }

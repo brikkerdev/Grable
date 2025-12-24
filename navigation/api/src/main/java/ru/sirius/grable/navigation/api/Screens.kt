@@ -9,6 +9,11 @@ enum class Screens(
     LEARN(
         qualifier = ru.sirius.grable.feature.learn.api.Constants.LEARN_SCREEN
     ),
+
+    LEARN_PLAYLIST(
+        qualifier = ru.sirius.grable.feature.learn.api.Constants.LEARN_PLAYLIST_SCREEN
+    ),
+
     SETTINGS(
         qualifier = ru.sirius.grable.feature.settings.api.Constants.SETTINGS_SCREEN
     ),
@@ -19,6 +24,7 @@ enum class Screens(
     ADD_WORD(
         qualifier = ru.sirius.grable.feature.add_word.api.Constants.ADD_WORD_SCREEN
     ),
+
     SELECT_PLAYLIST(
         qualifier = ru.sirius.grable.feature.playlist.api.Constants.SELECT_PLAYLIST_SCREEN
     ),
