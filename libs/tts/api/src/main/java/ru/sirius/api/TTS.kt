@@ -5,4 +5,5 @@ interface ITTS {
     fun stopPlayback()
     fun shutdownTTS()
     fun speak(text: String, utteranceId: String? = null)
+    fun setVoice(voiceType: String) // "male" or "female"
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stats_title">Statistics</string>
+    <string name="stats_period">Period: %1$s</string>
+    <string name="stats_period_days">%1$d days</string>
+    <string name="stats_no_data">No data to display</string>
+    <string name="stats_days_details">Details by days:</string>
+    <string name="stats_learning_now">Learning now: %1$d</string>
+    <string name="stats_total_period">Total for period</string>
+    <string name="stats_error">An error occurred</string>
+    <string name="stats_retry">Retry</string>
+    <string name="stats_generate_mock_data">Generate test data</string>
+</resources>
+
+

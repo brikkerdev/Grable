@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/main_title"
+            style="@style/Widget.Grable.TextView.MainTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/main_subtitle"
+            style="@style/Widget.Grable.TextView.MainSubtitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/review_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Grable.Card.Action.First"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/subtitle"
+            app:layout_constraintBottom_toTopOf="@+id/collection_container"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_bias="0.0">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Grable.Card.Action.Content">
+
+                <TextView
+                    android:id="@+id/repeat_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_repeat_title"
+                    style="@style/Widget.Grable.Card.Action.Title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/repeat_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_repeat_desc"
+                    style="@style/Widget.Grable.Card.Action.Description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/repeat_title" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_repeat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_repeat_cta"
+                    style="@style/Widget.Grable.Card.Action.Button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/repeat_desc" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/collection_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Grable.Card.Action"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/review_container"
+            app:layout_constraintBottom_toTopOf="@+id/add_word_container"
+            app:layout_constraintVertical_bias="0.0">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Grable.Card.Action.Content">
+
+                <TextView
+                    android:id="@+id/collection_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_collection_title"
+                    style="@style/Widget.Grable.Card.Action.Title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/collection_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_collection_desc"
+                    style="@style/Widget.Grable.Card.Action.Description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/collection_title" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_collection"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_collection_cta"
+                    style="@style/Widget.Grable.Card.Action.Button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/collection_desc" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/add_word_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Grable.Card.Action.Last"
+            android:layout_marginBottom="@dimen/bottom_nav_height"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/collection_container"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="1.0">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                style="@style/Widget.Grable.Card.Action.Content">
+
+                <TextView
+                    android:id="@+id/add_word_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_add_word_title"
+                    style="@style/Widget.Grable.Card.Action.Title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/add_word_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_add_word_desc"
+                    style="@style/Widget.Grable.Card.Action.Description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/add_word_title" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_add_word"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_add_word_cta"
+                    style="@style/Widget.Grable.Card.Action.Button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/add_word_desc" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,7 +20,7 @@ class TTSImpl(
     private val pendingUtterances = mutableMapOf<String, String>()
     private var onInitListener: ((Boolean) -> Unit)? = null
     private var onUtteranceListener: OnUtteranceListener? = null
-    private var defaultLocale: Locale = Locale.getDefault()
+    private var defaultLocale: Locale = Locale.ENGLISH
 
     init {
         initTTS()
@@ -252,6 +252,16 @@ class TTSImpl(
     fun reinitialize() {
         shutdownTTS()
         initTTS()
+    }
+
+    override fun setVoice(voiceType: String) {
+        val pitch = when (voiceType.lowercase()) {
+            "male" -> 0.8f  // Более низкий голос
+            "female" -> 1.2f  // Более высокий голос
+            else -> 1.0f  // По умолчанию
+        }
+        setPitch(pitch)
+        Log.d("TTS", "Voice set to: $voiceType with pitch: $pitch")
     }
 
     interface OnUtteranceListener {

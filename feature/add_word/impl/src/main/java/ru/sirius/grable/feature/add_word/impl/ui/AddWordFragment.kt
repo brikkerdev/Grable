@@ -1,0 +1,120 @@
+package ru.sirius.grable.feature.add_word.impl.ui
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import ru.sirius.grable.feature.add_word.impl.R
+import ru.sirius.grable.feature.add_word.api.data.Example
+import ru.sirius.api.ImageLoader
+import org.koin.java.KoinJavaComponent.inject
+
+class AddWordFragment : Fragment() {
+
+    private var _binding: FragmentAddWordBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel: AddWordViewModel by viewModels()
+
+    private val adapter by lazy {
+        ExampleAdapter { position, example ->
+            showEditExampleDialog(position, example)
+        }
+    }
+
+    private var idCounter = 1000
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentAddWordBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        imageLoader.load(
+            binding.imageExample,
+            "https://sun9-48.userapi.com/s/v1/ig2/ImtKfLVzCA809SBorvbrXFcuIEqeuCkgNrllHf1X-AC5lmPKwCKAgnoQADvGDf0D2rhMUKlNqsu0SZCoOlXkYWp1.jpg?quality=95&as=32x26,48x39,72x58,108x87,160x129,240x193,250x201&from=bu&cs=250x0",
+            crossfade = true
+        )
+
+        binding.rvExample.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvExample.adapter = adapter
+
+        binding.btnAddExample.setOnClickListener { showAddExampleDialog() }
+
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.state.collectLatest { state ->
+                adapter.submitList(state.examples)
+            }
+        }
+    }
+
+    private fun showAddExampleDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_add_example, null)
+        val inputEn = dialogView.findViewById<TextInputEditText>(R.id.inputExampleEn)
+        val inputRu = dialogView.findViewById<TextInputEditText>(R.id.inputExampleRu)
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Добавить пример")
+            .setView(dialogView)
+            .setPositiveButton("Добавить") { dialog, _ ->
+                val en = inputEn.text.toString().trim()
+                val ru = inputRu.text.toString().trim()
+                if (en.isNotEmpty()) {
+                    viewModel.addExample(Example(idCounter++, en, ru))
+                }
+                dialog.dismiss()
+            }
+
+            override fun onExampleUpdated(example: Example) {
+            }
+        })
+        dialog.show(childFragmentManager, "AddExampleDialog")
+    }
+
+    private fun showEditExampleDialog(index: Int, oldExample: Example) {
+        val dialog = AddExampleDialogFragment.newInstance(oldExample)
+        dialog.setOnExampleSavedListener(object : AddExampleDialogFragment.OnExampleSavedListener {
+            override fun onExampleSaved(example: Example) {
+            }
+
+        inputEn.setText(oldExample.english)
+        inputRu.setText(oldExample.russian)
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Редактировать пример")
+            .setView(dialogView)
+            .setPositiveButton("Сохранить") { dialog, _ ->
+                val en = inputEn.text.toString().trim()
+                val ru = inputRu.text.toString().trim()
+                if (en.isNotEmpty()) {
+                    val list = viewModel.state.value.examples.toMutableList()
+                    list[index] = Example(oldExample.id, en, ru)
+                    viewModel.updateExamples(list)
+                }
+            }
+        })
+        dialog.show(childFragmentManager, "EditExampleDialog")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
+
