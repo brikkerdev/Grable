@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <!-- Shimmer skeleton -->
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/playlist_skeleton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/spacing_base">
+
+            <!-- Skeleton header -->
+            <View
+                android:id="@+id/skeletonHeader"
+                android:layout_width="0dp"
+                style="@style/Widget.Grable.Skeleton.Header"
+                android:layout_marginBottom="@dimen/spacing_xl"
+                app:layout_constraintBottom_toTopOf="@+id/skeletonItem1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Skeleton items (single column) -->
+            <View
+                android:id="@+id/skeletonItem1"
+                android:layout_width="0dp"
+                style="@style/Widget.Grable.Skeleton.Item"
+                android:layout_marginBottom="@dimen/spacing_sm"
+                app:layout_constraintBottom_toTopOf="@+id/skeletonItem2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/skeletonHeader" />
+
+            <View
+                android:id="@+id/skeletonItem2"
+                android:layout_width="0dp"
+                style="@style/Widget.Grable.Skeleton.Item"
+                android:layout_marginBottom="@dimen/spacing_sm"
+                app:layout_constraintBottom_toTopOf="@+id/skeletonItem3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/skeletonItem1" />
+
+            <View
+                android:id="@+id/skeletonItem3"
+                android:layout_width="0dp"
+                style="@style/Widget.Grable.Skeleton.Item"
+                android:layout_marginBottom="@dimen/spacing_sm"
+                app:layout_constraintBottom_toTopOf="@+id/skeletonButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/skeletonItem2" />
+
+            <!-- Skeleton button -->
+            <View
+                android:id="@+id/skeletonButton"
+                android:layout_width="0dp"
+                style="@style/Widget.Grable.Skeleton.Button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <!-- Content group -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content_group"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/page_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/categories"
+            android:textAppearance="@style/TextAppearanceHeadline3"
+            android:padding="@dimen/spacing_base"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@+id/playlist_items"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/playlist_items"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="@dimen/spacing_base"
+            tools:listitem="@layout/item_playlist"
+            app:layout_constraintBottom_toTopOf="@+id/button_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/page_name" />
+
+        <Button
+            android:id="@+id/button_back"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/back"
+            style="@style/Widget.Grable.Button.Primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+    id("org.jetbrains.kotlin.plugin.parcelize")
 }
 
 android {
@@ -35,6 +37,11 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -43,7 +50,35 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.gridlayout)
+    implementation(libs.androidx.viewpager2)
+    implementation(project(":libs:network"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("androidx.activity:activity-ktx:1.12.0")
+    implementation("androidx.fragment:fragment-ktx:1.8.9")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation(libs.bundles.room)
+    ksp(libs.androidx.room.compiler)
+    implementation(project(":libs:di"))
+    implementation(project(":libs:imageloader:coil"))
+    implementation(project(":libs:tts:embedded"))
+    implementation(project(":libs:network"))
+    implementation(project(":core:design"))
+    implementation(project(":core:database"))
+    implementation(project(":core:navigation:api"))
+    implementation(project(":core:navigation:impl"))
+    implementation(project(":feature:home:impl"))
+    implementation(project(":feature:add_word:api"))
+    implementation(project(":feature:add_word:impl"))
+    implementation(project(":feature:learn:api"))
+    implementation(project(":feature:learn:impl"))
+    implementation(project(":feature:progress:api"))
+    implementation(project(":feature:settings:impl"))
+    implementation(project(":feature:playlist:api"))
+    implementation(project(":feature:playlist:impl"))
+    implementation(project(":feature:progress:impl"))
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
 }

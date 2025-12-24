@@ -1,0 +1,419 @@
+<resources>
+    <!-- Base card style - переиспользуемый базовый стиль для всех карточек -->
+    <style name="Widget.Grable.Card.Base" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">@dimen/radius_md</item>
+        <item name="cardElevation">@dimen/card_elevation_sm</item>
+        <item name="cardBackgroundColor">@color/surface</item>
+    </style>
+
+    <style name="Widget.Grable.Card.Word" parent="Widget.Grable.Card.Base">
+        <item name="cardBackgroundColor">@color/card_surface</item>
+        <item name="cardCornerRadius">@dimen/radius_lg</item>
+        <item name="android:layout_marginHorizontal">@dimen/spacing_xl</item>
+        <item name="android:layout_marginTop">@dimen/spacing_base</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_base</item>
+    </style>
+    
+    <!-- Card variants -->
+    <style name="Widget.Grable.Card.ListItem" parent="Widget.Grable.Card.Base">
+        <item name="cardCornerRadius">@dimen/card_corner_radius_sm</item>
+        <item name="cardElevation">@dimen/card_elevation_md</item>
+    </style>
+    
+    <style name="Widget.Grable.Card.Small" parent="Widget.Grable.Card.Base">
+        <item name="cardCornerRadius">@dimen/radius_sm</item>
+        <item name="cardElevation">2dp</item>
+    </style>
+
+    <!-- Action card styles -->
+    <style name="Widget.Grable.Card.Action" parent="Widget.Grable.Card.Base">
+        <item name="android:layout_marginTop">@dimen/spacing_base</item>
+        <item name="android:layout_marginHorizontal">@dimen/spacing_xl</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">@drawable/selectable_item_background</item>
+    </style>
+
+    <style name="Widget.Grable.Card.Action.Content" parent="Widget.Grable.Layout">
+        <item name="android:padding">@dimen/spacing_xl</item>
+    </style>
+
+    <style name="Widget.Grable.Card.Action.First" parent="Widget.Grable.Card.Action">
+        <item name="android:layout_marginTop">@dimen/spacing_2xl</item>
+    </style>
+
+    <style name="Widget.Grable.Card.Action.Last" parent="Widget.Grable.Card.Action">
+        <!-- marginBottom задается в layout для учета bottom navigation -->
+    </style>
+
+    <style name="Widget.Grable.Card.Action.Title" parent="TextAppearanceHeadline3" />
+
+    <style name="Widget.Grable.Card.Action.Description" parent="TextAppearanceBody2Secondary">
+        <item name="android:layout_marginTop">@dimen/spacing_sm</item>
+    </style>
+
+    <style name="Widget.Grable.Card.Action.Button" parent="Widget.Grable.Button.Primary">
+        <item name="android:layout_marginTop">@dimen/spacing_base</item>
+    </style>
+
+    <!-- Icon button styles -->
+    <style name="Widget.Grable.IconButton.Secondary" parent="Widget.Material3.Button.IconButton">
+        <item name="android:background">@drawable/selectable_item_background</item>
+    </style>
+    
+    <style name="Widget.Grable.Button.Icon" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/primary_container</item>
+        <item name="iconTint">@color/primary</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:paddingStart">@dimen/spacing_base</item>
+        <item name="android:paddingEnd">@dimen/spacing_base</item>
+        <item name="android:paddingTop">@dimen/spacing_base</item>
+        <item name="android:paddingBottom">@dimen/spacing_base</item>
+    </style>
+    
+    <!-- Button styles -->
+    <style name="Widget.Grable.Button.Primary" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/on_primary</item>
+        <item name="android:textAppearance">@style/TextAppearanceButton</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+    
+    <style name="Widget.Grable.Button.Secondary" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/primary_container</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textAppearance">@style/TextAppearanceBody1</item>
+    </style>
+
+    <!-- Text input styles -->
+    <style name="Widget.Grable.TextInput.EditText" parent="android:Widget.EditText">
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <!-- Layout container styles -->
+    <style name="Widget.Grable.Layout" parent="android:Widget">
+        <!-- Base layout style -->
+    </style>
+
+    <style name="Widget.Grable.Layout.ActionCard" parent="Widget.Grable.Layout">
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@drawable/bg_action_card</item>
+        <item name="android:padding">@dimen/card_padding</item>
+    </style>
+
+    <!-- Bottom navigation -->
+    <style name="Widget.Grable.BottomNavigation" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemIconTint">@color/bottom_nav_item_color</item>
+        <item name="itemTextColor">@color/bottom_nav_item_color</item>
+        <item name="itemRippleColor">@color/bottom_nav_ripple</item>
+        <item name="android:background">@color/surface</item>
+        <item name="itemActiveIndicatorStyle">@style/Widget.Grable.BottomNavigation.ActiveIndicator</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearanceBody2</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearanceBody2</item>
+    </style>
+
+    <style name="Widget.Grable.BottomNavigation.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/primary_container</item>
+        <item name="android:alpha">1</item>
+    </style>
+
+    <!-- Layout container styles -->
+    <style name="Widget.Grable.Layout.ContentContainer">
+        <item name="android:background">@color/background</item>
+        <item name="android:padding">@dimen/spacing_base</item>
+    </style>
+
+    <style name="Widget.Grable.Layout.ProgressContainer">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_xl</item>
+    </style>
+
+    <style name="Widget.Grable.Layout.ButtonsContainer">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- ViewPager2 styles -->
+    <style name="Widget.Grable.ViewPager2.Card">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_xl</item>
+    </style>
+
+    <!-- TextView styles -->
+    <style name="Widget.Grable.TextView.Hint">
+        <item name="android:textAppearance">@style/TextAppearanceBody2Secondary</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_2xl</item>
+    </style>
+
+    <!-- Button with weight styles -->
+    <style name="Widget.Grable.Button.WithWeight">
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="Widget.Grable.Button.WithWeightSmall">
+        <item name="android:layout_weight">0.65</item>
+    </style>
+
+    <!-- Button with margin styles -->
+    <style name="Widget.Grable.Button.WithMargin">
+        <item name="android:layout_margin">@dimen/spacing_base</item>
+    </style>
+
+    <!-- Layout container styles with padding -->
+    <style name="Widget.Grable.Layout.VerticalContainer">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="Widget.Grable.Layout.VerticalContainer.Padded">
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/spacing_base</item>
+    </style>
+
+    <style name="Widget.Grable.Layout.VerticalContainer.PaddedTopBottom">
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingTop">@dimen/spacing_2xl</item>
+        <item name="android:paddingBottom">@dimen/spacing_3xl</item>
+    </style>
+
+    <style name="Widget.Grable.Layout.VerticalContainer.PaddedHorizontal">
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingHorizontal">@dimen/card_padding</item>
+    </style>
+
+    <style name="Widget.Grable.Layout.VerticalContainer.PaddedXL">
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingHorizontal">@dimen/spacing_xl</item>
+        <item name="android:paddingTop">@dimen/spacing_lg</item>
+        <item name="android:paddingBottom">@dimen/spacing_3xl</item>
+    </style>
+
+    <style name="Widget.Grable.Layout.HorizontalContainer">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="Widget.Grable.Layout.HorizontalContainer.Centered">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- TextView styles with margin -->
+    <style name="Widget.Grable.TextView.WithMarginTop">
+        <item name="android:layout_marginTop">@dimen/spacing_xs</item>
+    </style>
+
+    <style name="Widget.Grable.TextView.WithMarginTop.Medium">
+        <item name="android:layout_marginTop">@dimen/spacing_md</item>
+    </style>
+
+    <style name="Widget.Grable.TextView.WithMarginTop.Base">
+        <item name="android:layout_marginTop">@dimen/spacing_base</item>
+    </style>
+
+    <style name="Widget.Grable.TextView.WithMarginTop.XL">
+        <item name="android:layout_marginTop">@dimen/spacing_2xl</item>
+    </style>
+
+    <style name="Widget.Grable.TextView.WithMarginBottom.Small">
+        <item name="android:layout_marginBottom">@dimen/spacing_sm</item>
+    </style>
+
+    <style name="Widget.Grable.TextView.WithMarginBottom.Base">
+        <item name="android:layout_marginBottom">@dimen/spacing_base</item>
+    </style>
+
+    <style name="Widget.Grable.TextView.WithMarginBottom.XL">
+        <item name="android:layout_marginBottom">@dimen/spacing_xl</item>
+    </style>
+
+    <!-- Card styles -->
+    <style name="Widget.Grable.Card.Playlist">
+        <item name="android:layout_margin">@dimen/spacing_sm</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="Widget.Grable.Card.Content">
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/card_padding</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- ScrollView styles -->
+    <style name="Widget.Grable.ScrollView.Content">
+        <item name="android:padding">@dimen/spacing_base</item>
+        <item name="android:background">@color/background</item>
+    </style>
+
+    <!-- ProgressBar styles -->
+    <style name="Widget.Grable.ProgressBar.Centered">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginVertical">32dp</item>
+    </style>
+
+    <!-- ExtendedFloatingActionButton styles -->
+    <style name="Widget.Grable.ExtendedFloatingActionButton.Primary" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/on_primary</item>
+        <item name="android:textAppearance">@style/TextAppearanceButton</item>
+    </style>
+
+    <!-- Base styles for backward compatibility -->
+    <style name="Widget.Grable.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/on_primary</item>
+        <item name="android:textAppearance">@style/TextAppearanceButton</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Widget.Grable.Card" parent="Widget.Grable.Card.Base" />
+
+    <style name="Widget.Grable.ProgressBar" parent="Widget.Grable.ProgressBar.Centered" />
+
+    <style name="Widget.Grable.ScrollView" parent="Widget.Grable.ScrollView.Content" />
+
+    <style name="Widget.Grable.ScrollView.Main" parent="Widget.Grable.ScrollView">
+        <item name="android:background">@color/background</item>
+        <item name="android:fillViewport">true</item>
+    </style>
+
+    <style name="Widget.Grable.TextView" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="Widget.Grable.TextView.MainTitle" parent="TextAppearanceHeadline2">
+        <item name="android:paddingHorizontal">@dimen/spacing_xl</item>
+        <item name="android:paddingTop">@dimen/spacing_base</item>
+    </style>
+
+    <style name="Widget.Grable.TextView.MainSubtitle" parent="TextAppearanceBody1Secondary">
+        <item name="android:layout_marginTop">@dimen/spacing_xs</item>
+        <item name="android:paddingHorizontal">@dimen/spacing_xl</item>
+    </style>
+
+    <!-- Toolbar styles -->
+    <style name="Widget.Grable.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/surface</item>
+    </style>
+
+    <style name="Widget.Grable.TextView.WithMarginBottom" parent="Widget.Grable.TextView.WithMarginBottom.Base" />
+
+    <style name="Widget.Grable.ViewPager2" parent="Widget.Grable.ViewPager2.Card" />
+
+    <style name="Widget.Grable.Layout.ErrorContainer">
+        <item name="android:padding">@dimen/spacing_2xl</item>
+    </style>
+
+    <style name="Widget.Grable.TextView.Error">
+        <item name="android:layout_marginBottom">@dimen/spacing_base</item>
+    </style>
+
+    <style name="Widget.Grable.TextView.PeriodBadge">
+        <item name="android:minWidth">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/period_background</item>
+        <item name="android:paddingHorizontal">@dimen/spacing_xs</item>
+        <item name="android:paddingVertical">2dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!-- Skeleton styles -->
+    <style name="Widget.Grable.Skeleton.Progress" parent="android:Widget">
+        <item name="android:layout_height">@dimen/skeleton_progress_height</item>
+        <item name="android:background">@drawable/bg_skeleton_rounded</item>
+    </style>
+
+    <style name="Widget.Grable.Skeleton.Progress.Small" parent="android:Widget">
+        <item name="android:layout_width">@dimen/skeleton_progress_width_small</item>
+        <item name="android:layout_height">@dimen/skeleton_progress_height</item>
+        <item name="android:background">@drawable/bg_skeleton_rounded</item>
+    </style>
+
+    <style name="Widget.Grable.Skeleton.Hint" parent="android:Widget">
+        <item name="android:layout_height">@dimen/skeleton_hint_height</item>
+        <item name="android:background">@drawable/bg_skeleton_rounded</item>
+    </style>
+
+    <style name="Widget.Grable.Skeleton.Button" parent="android:Widget">
+        <item name="android:layout_height">@dimen/skeleton_button_height</item>
+        <item name="android:background">@drawable/bg_skeleton_rounded</item>
+    </style>
+
+    <style name="Widget.Grable.Skeleton.Card" parent="android:Widget">
+        <item name="android:minHeight">@dimen/skeleton_card_min_height</item>
+        <item name="android:background">@drawable/bg_skeleton_rounded</item>
+    </style>
+
+    <style name="Widget.Grable.Skeleton.Header" parent="android:Widget">
+        <item name="android:layout_height">@dimen/skeleton_header_height</item>
+        <item name="android:background">@drawable/bg_skeleton_rounded</item>
+    </style>
+
+    <style name="Widget.Grable.Skeleton.Item" parent="android:Widget">
+        <item name="android:layout_height">@dimen/skeleton_item_height</item>
+        <item name="android:background">@drawable/bg_skeleton_rounded</item>
+    </style>
+
+    <!-- Statistics styles -->
+    <style name="Widget.Grable.Statistics.Title" parent="TextAppearanceHeadline3">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_base</item>
+    </style>
+
+    <style name="Widget.Grable.Statistics.Period" parent="TextAppearanceBody1">
+        <item name="android:layout_marginTop">@dimen/spacing_base</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_sm</item>
+    </style>
+
+    <style name="Widget.Grable.Statistics.Chart" parent="android:Widget">
+        <item name="android:layout_height">@dimen/chart_height</item>
+        <item name="android:layout_marginTop">@dimen/spacing_sm</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_xl</item>
+    </style>
+
+    <style name="Widget.Grable.Statistics.EmptyChart" parent="TextAppearanceBody2">
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_marginVertical">@dimen/chart_margin_vertical</item>
+    </style>
+
+    <style name="Widget.Grable.Statistics.SectionTitle" parent="TextAppearanceBody1">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/spacing_xl</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_sm</item>
+    </style>
+
+    <style name="Widget.Grable.Statistics.RecyclerView" parent="android:Widget">
+        <item name="android:layout_marginBottom">@dimen/spacing_xl</item>
+    </style>
+
+    <style name="Widget.Grable.Statistics.Divider" parent="android:Widget">
+        <item name="android:layout_height">@dimen/divider_height</item>
+        <item name="android:background">@color/divider</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_xl</item>
+    </style>
+
+    <style name="Widget.Grable.Statistics.LearningNow" parent="TextAppearanceHeadline3">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_base</item>
+    </style>
+
+    <style name="Widget.Grable.Statistics.TotalPeriod" parent="TextAppearanceBody1">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_base</item>
+    </style>
+
+    <style name="Widget.Grable.Statistics.RecyclerView.Statistics" parent="android:Widget">
+        <item name="android:layout_marginTop">@dimen/spacing_base</item>
+    </style>
+
+    <style name="Widget.Grable.Statistics.Button.Generate" parent="Widget.Grable.Button.Secondary">
+        <item name="android:layout_marginTop">@dimen/spacing_xl</item>
+    </style>
+</resources>
+

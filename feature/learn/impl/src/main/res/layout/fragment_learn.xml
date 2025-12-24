@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <!-- Shimmer skeleton -->
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/learnSkeleton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/spacing_base">
+
+            <!-- Skeleton progress -->
+            <View
+                android:id="@+id/skeletonProgress1"
+                android:layout_width="0dp"
+                style="@style/Widget.Grable.Skeleton.Progress"
+                app:layout_constraintEnd_toStartOf="@+id/skeletonProgress2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/skeletonCard" />
+
+            <View
+                android:id="@+id/skeletonProgress2"
+                style="@style/Widget.Grable.Skeleton.Progress.Small"
+                android:layout_marginStart="@dimen/spacing_base"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/skeletonCard" />
+
+            <!-- Skeleton card -->
+            <View
+                android:id="@+id/skeletonCard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="@dimen/spacing_xl"
+                style="@style/Widget.Grable.Skeleton.Card"
+                app:layout_constraintBottom_toTopOf="@+id/skeletonHint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/skeletonProgress1" />
+
+            <!-- Skeleton hint -->
+            <View
+                android:id="@+id/skeletonHint"
+                android:layout_width="0dp"
+                style="@style/Widget.Grable.Skeleton.Hint"
+                android:layout_marginBottom="@dimen/spacing_base"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/skeletonCard" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <!-- Content group -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contentGroup"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        style="@style/Widget.Grable.Layout.ContentContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Прогресс изучения -->
+        <TextView
+            android:id="@+id/tvProgressLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/learn_progress"
+            android:textAppearance="@style/TextAppearanceBody2"
+            app:layout_constraintEnd_toStartOf="@+id/tvProgress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/cardPager" />
+
+        <TextView
+            android:id="@+id/tvProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearanceBody2"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/cardPager" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/cardPager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            style="@style/Widget.Grable.Card.Word"
+            android:layout_marginTop="@dimen/spacing_base"
+            app:layout_constraintBottom_toTopOf="@+id/tvHint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvProgressLabel"
+            app:layout_constraintHeight_default="spread" />
+
+        <!-- Подсказка -->
+        <TextView
+            android:id="@+id/tvHint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/learn_tap_to_card"
+            style="@style/Widget.Grable.TextView.Hint"
+            android:layout_marginTop="@dimen/spacing_base"
+            android:layout_marginBottom="@dimen/spacing_base"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardPager" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

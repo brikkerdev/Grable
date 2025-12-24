@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/Widget.Grable.ScrollView.Content"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Grable.ProgressBar"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/contentLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progressBar">
+
+                <TextView
+                    android:id="@+id/tvPeriodTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stats_title"
+                    style="@style/Widget.Grable.Statistics.Title"
+                    app:layout_constraintEnd_toStartOf="@+id/spinnerPeriod"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Spinner
+                    android:id="@+id/spinnerPeriod"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="@dimen/icon_xl"
+                    android:minHeight="@dimen/icon_xl"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvPeriod"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stats_period"
+                    style="@style/Widget.Grable.Statistics.Period"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPeriodTitle" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barChart"
+                    android:layout_width="0dp"
+                    style="@style/Widget.Grable.Statistics.Chart"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPeriod" />
+
+                <TextView
+                    android:id="@+id/emptyChartText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stats_no_data"
+                    android:visibility="gone"
+                    style="@style/Widget.Grable.Statistics.EmptyChart"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPeriod" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrierChart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:barrierDirection="bottom"
+                    app:constraint_referenced_ids="barChart,emptyChartText" />
+
+                <TextView
+                    android:id="@+id/tvDaysTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stats_days_details"
+                    style="@style/Widget.Grable.Statistics.SectionTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/barrierChart" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvDays"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Grable.Statistics.RecyclerView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDaysTitle" />
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="0dp"
+                    style="@style/Widget.Grable.Statistics.Divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rvDays" />
+
+                <TextView
+                    android:id="@+id/tvLearningNow"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stats_learning_now"
+                    style="@style/Widget.Grable.Statistics.LearningNow"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+                <TextView
+                    android:id="@+id/tvTotalPeriod"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stats_total_period"
+                    style="@style/Widget.Grable.Statistics.TotalPeriod"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvLearningNow" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvStatistics"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Grable.Statistics.RecyclerView.Statistics"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTotalPeriod" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonGenerateMockData"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stats_generate_mock_data"
+                    style="@style/Widget.Grable.Statistics.Button.Generate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rvStatistics" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/errorLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Grable.Layout.ErrorContainer"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:id="@+id/textError"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stats_error"
+                    android:textAlignment="center"
+                    style="@style/Widget.Grable.TextView.Error"
+                    android:textAppearance="@style/TextAppearanceBody1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonRetry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stats_retry"
+                    style="@style/Widget.Grable.Button.Primary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textError" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</layout>

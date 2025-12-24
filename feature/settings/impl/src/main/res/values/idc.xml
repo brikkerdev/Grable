@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="native_language_layout" type="id" />
+    <item name="theme_layout" type='id' />
+    <item name="voice_type_layout" type="id" />
+    <item name="switchReminders" type="id" />
+    <item name="switchProgressNotifications" type="id" />
+    <item name="about_layout" type="id" />
+    <item name="section_title" type="id" />
+    <item name="app_version" type="id" />
+</resources>

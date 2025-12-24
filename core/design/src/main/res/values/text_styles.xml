@@ -1,0 +1,76 @@
+<resources>
+    <!-- Headline styles -->
+    <style name="TextAppearanceHeadline1">
+        <item name="android:textSize">@dimen/text_3xl</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="TextAppearanceHeadline2">
+        <item name="android:textSize">@dimen/text_2xl</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <style name="TextAppearanceHeadline3">
+        <item name="android:textSize">@dimen/text_xl</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <style name="TextAppearanceWordOriginal">
+        <item name="android:textSize">@dimen/text_lg</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <!-- Body styles -->
+    <style name="TextAppearanceBody1">
+        <item name="android:textSize">@dimen/text_base</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    
+    <style name="TextAppearanceBody2">
+        <item name="android:textSize">@dimen/text_sm</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    
+    <style name="TextAppearanceBody2Secondary">
+        <item name="android:textSize">@dimen/text_sm</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    
+    <style name="TextAppearanceBody1Secondary">
+        <item name="android:textSize">@dimen/text_base</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    
+    <!-- Label styles -->
+    <style name="TextAppearanceLabel">
+        <item name="android:textSize">@dimen/text_sm</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <!-- Caption styles -->
+    <style name="TextAppearanceCaption">
+        <item name="android:textSize">@dimen/text_xs</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    
+    <!-- Button text -->
+    <style name="TextAppearanceButton">
+        <item name="android:textSize">@dimen/text_base</item>
+        <item name="android:textColor">@color/on_primary</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>
+

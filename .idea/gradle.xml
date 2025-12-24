@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -10,6 +11,40 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/database" />
+            <option value="$PROJECT_DIR$/core/design" />
+            <option value="$PROJECT_DIR$/core/navigation" />
+            <option value="$PROJECT_DIR$/core/navigation/api" />
+            <option value="$PROJECT_DIR$/core/navigation/impl" />
+            <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/add_word" />
+            <option value="$PROJECT_DIR$/feature/add_word/api" />
+            <option value="$PROJECT_DIR$/feature/add_word/impl" />
+            <option value="$PROJECT_DIR$/feature/home" />
+            <option value="$PROJECT_DIR$/feature/home/api" />
+            <option value="$PROJECT_DIR$/feature/home/impl" />
+            <option value="$PROJECT_DIR$/feature/learn" />
+            <option value="$PROJECT_DIR$/feature/learn/api" />
+            <option value="$PROJECT_DIR$/feature/learn/impl" />
+            <option value="$PROJECT_DIR$/feature/playlist" />
+            <option value="$PROJECT_DIR$/feature/playlist/api" />
+            <option value="$PROJECT_DIR$/feature/playlist/impl" />
+            <option value="$PROJECT_DIR$/feature/progress" />
+            <option value="$PROJECT_DIR$/feature/progress/api" />
+            <option value="$PROJECT_DIR$/feature/progress/impl" />
+            <option value="$PROJECT_DIR$/feature/settings" />
+            <option value="$PROJECT_DIR$/feature/settings/api" />
+            <option value="$PROJECT_DIR$/feature/settings/impl" />
+            <option value="$PROJECT_DIR$/libs" />
+            <option value="$PROJECT_DIR$/libs/di" />
+            <option value="$PROJECT_DIR$/libs/imageloader" />
+            <option value="$PROJECT_DIR$/libs/imageloader/api" />
+            <option value="$PROJECT_DIR$/libs/imageloader/coil" />
+            <option value="$PROJECT_DIR$/libs/network" />
+            <option value="$PROJECT_DIR$/libs/tts" />
+            <option value="$PROJECT_DIR$/libs/tts/api" />
+            <option value="$PROJECT_DIR$/libs/tts/embedded" />
           </set>
         </option>
       </GradleProjectSettings>
