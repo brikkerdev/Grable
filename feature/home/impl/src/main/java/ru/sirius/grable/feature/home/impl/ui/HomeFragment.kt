@@ -5,7 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.sirius.grable.feature.home.impl.R
 import ru.sirius.grable.feature.home.impl.databinding.FragmentMainScreenBinding
 import ru.sirius.grable.core.navigation.api.NavigationRouter
 import ru.sirius.grable.core.navigation.api.Screens
@@ -16,6 +23,22 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val navigationRouter: NavigationRouter by inject()
+    private val viewModel: HomeViewModel by viewModel()
+    
+    private val actionsAdapter by lazy {
+        HomeActionsAdapter { action ->
+            val state = viewModel.uiState.value
+            val sharedPreferences = requireContext().getSharedPreferences("app_preferences", android.content.Context.MODE_PRIVATE)
+            val newWordsPerDay = sharedPreferences.getInt("newWordsPerDay", 10)
+            val isDailyGoalCompleted = state.learnedNewWordsToday >= newWordsPerDay
+
+            if (action.screen == Screens.LEARN && isDailyGoalCompleted) {
+                return@HomeActionsAdapter
+            }
+
+            navigationRouter.navigateToScreen(action.screen)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,30 +50,73 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
+        observeState()
+    }
 
-        // Повторение изученных слов
-        binding.reviewContainer.setOnClickListener {
-            navigationRouter.navigateToScreen(Screens.LEARN)
+    private fun setupRecyclerView() {
+        binding.actionsRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = actionsAdapter
         }
-        binding.buttonRepeat.setOnClickListener {
-            navigationRouter.navigateToScreen(Screens.LEARN)
-        }
+    }
 
-        // Выбор подборки для изучения
-        binding.collectionContainer.setOnClickListener {
-            navigationRouter.navigateToScreen(Screens.SELECT_PLAYLIST)
+    private fun observeState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { state ->
+                    updateActions(state)
+                }
+            }
         }
-        binding.buttonCollection.setOnClickListener {
-            navigationRouter.navigateToScreen(Screens.SELECT_PLAYLIST)
-        }
+    }
 
-        // Добавить новое слово
-        binding.addWordContainer.setOnClickListener {
-            navigationRouter.navigateToScreen(Screens.ADD_WORD)
+    private fun updateActions(state: HomeUiState) {
+        val sharedPreferences = requireContext().getSharedPreferences("app_preferences", android.content.Context.MODE_PRIVATE)
+        val newWordsPerDay = sharedPreferences.getInt("newWordsPerDay", 10)
+        val isDailyGoalCompleted = state.learnedNewWordsToday >= newWordsPerDay
+
+        val actions = buildList {
+            add(
+                HomeAction(
+                    titleRes = R.string.action_repeat_title,
+                    descriptionRes = R.string.action_repeat_desc,
+                    buttonTextRes = if (isDailyGoalCompleted) {
+                        R.string.learn_daily_goal_completed
+                    } else {
+                        R.string.action_repeat_cta
+                    },
+                    screen = Screens.LEARN,
+                    badge = when {
+                        isDailyGoalCompleted -> getString(R.string.learn_daily_goal_completed)
+                        state.dueWordsCount > 0 -> "У вас ${state.dueWordsCount} слов для повторения"
+                        else -> null
+                    }
+                )
+            )
+            add(
+                HomeAction(
+                    titleRes = R.string.action_collection_title,
+                    descriptionRes = R.string.action_collection_desc,
+                    buttonTextRes = R.string.action_collection_cta,
+                    screen = Screens.SELECT_PLAYLIST
+                )
+            )
+            add(
+                HomeAction(
+                    titleRes = R.string.action_add_word_title,
+                    descriptionRes = R.string.action_add_word_desc,
+                    buttonTextRes = R.string.action_add_word_cta,
+                    screen = Screens.ADD_WORD
+                )
+            )
         }
-        binding.buttonAddWord.setOnClickListener {
-            navigationRouter.navigateToScreen(Screens.ADD_WORD)
-        }
+        actionsAdapter.submitList(actions)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshData()
     }
 
     override fun onDestroyView() {

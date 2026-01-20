@@ -12,6 +12,7 @@
     <string name="action_add_word_title">Добавить слово</string>
     <string name="action_add_word_desc">Нашли новое слово? Добавьте его в свой словарь.</string>
     <string name="action_add_word_cta">Добавить слово</string>
+    <string name="learn_daily_goal_completed">Вы уже выучили норму слов на сегодня! Возвращайтесь завтра</string>
     <string name="app_name">Grable</string>
 </resources>
 

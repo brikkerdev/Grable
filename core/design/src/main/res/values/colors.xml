@@ -61,4 +61,9 @@
     
     <!-- Ripple -->
     <color name="ripple">#1F000000</color>
+    
+    <!-- Learn overlay colors -->
+    <color name="overlay_again">#80FF5252</color>
+    <color name="overlay_good">#804CAF50</color>
+    <color name="overlay_hard">#80FFC107</color>
 </resources>

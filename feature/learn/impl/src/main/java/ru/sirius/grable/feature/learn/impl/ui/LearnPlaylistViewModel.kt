@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import ru.sirius.grable.feature.learn.api.Word
 import ru.sirius.grable.feature.learn.impl.domain.LearnPlaylistInteractor
+import ru.sirius.grable.feature.learn.impl.domain.Word
 
 data class WordState(
     val words: List<Word> = emptyList(),

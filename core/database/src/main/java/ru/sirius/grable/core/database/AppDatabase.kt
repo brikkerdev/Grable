@@ -16,7 +16,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
         ExampleEntity::class,
         WordEntity::class,
         PlaylistEntity::class,
-        StatisticsEntity::class
+        StatisticsEntity::class,
+        FSRSStateEntity::class
     ],
     version = 2,
     exportSchema = false
@@ -43,7 +44,6 @@ abstract class AppDatabase : RoomDatabase() {
                 AppDatabase::class.java,
                 "app_database"
             )
-//                .addMigrations(MIGRATION_1_2)
                 .addCallback(DatabaseInitCallback)
                 .build()
         }

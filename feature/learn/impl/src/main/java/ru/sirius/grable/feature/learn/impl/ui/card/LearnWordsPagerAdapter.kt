@@ -3,7 +3,8 @@ package ru.sirius.grable.feature.learn.impl.ui.card
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import ru.sirius.grable.feature.learn.api.Word
+import ru.sirius.grable.feature.learn.impl.domain.Word
+
 
 class LearnWordsPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 

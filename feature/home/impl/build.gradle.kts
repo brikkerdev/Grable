@@ -42,9 +42,12 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
 
     implementation(project(":libs:di"))
     implementation(project(":core:navigation:api"))
     implementation(project(":core:design"))
+    implementation(project(":core:database"))
+    api(project(":feature:home:api"))
 }
 

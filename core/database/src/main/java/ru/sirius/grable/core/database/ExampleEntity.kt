@@ -4,21 +4,18 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity(
-    tableName = "example",
+@Entity(tableName = "word_examples",
     foreignKeys = [
         ForeignKey(
-            WordEntity::class,
-            ["id"],
-            ["wordId"],
-            ForeignKey.CASCADE
+            entity = WordEntity::class,
+            parentColumns = ["id"], childColumns = ["wordId"],
+            onDelete = ForeignKey.CASCADE
         )
     ]
 )
 data class ExampleEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val wordId: Long,
     val text: String,
-    val translatedText: String
+    val translatedText: String?
 )

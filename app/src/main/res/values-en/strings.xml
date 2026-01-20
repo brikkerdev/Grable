@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Grable</string>
+    
+    <string name="notification_review_title">Time to review your words!</string>
+    <plurals name="notification_review_text">
+        <item quantity="one">You have %d word to review</item>
+        <item quantity="other">You have %d words to review</item>
+    </plurals>
+    
+    <string name="notification_channel_name">Review Reminders</string>
+    <string name="notification_channel_description">Notifications about words that are due for review</string>
+</resources>
+

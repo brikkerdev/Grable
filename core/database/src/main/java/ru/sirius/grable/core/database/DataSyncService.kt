@@ -54,8 +54,6 @@ class DataSyncService(
                     original = wordDto.original,
                     translation = wordDto.translation,
                     transcription = wordDto.transcription ?: "",
-                    text = wordDto.original,
-                    isNew = true
                 )
             }
             wordDao.insertAll(wordEntities)

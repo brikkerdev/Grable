@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Grable</string>
+    
+    <string name="notification_review_title">Время повторить слова!</string>
+    <plurals name="notification_review_text">
+        <item quantity="one">У вас %d слово для повторения</item>
+        <item quantity="few">У вас %d слова для повторения</item>
+        <item quantity="many">У вас %d слов для повторения</item>
+        <item quantity="other">У вас %d слов для повторения</item>
+    </plurals>
+    
+    <string name="notification_channel_name">Напоминания о повторении</string>
+    <string name="notification_channel_description">Уведомления о словах, которые пора повторить</string>
 </resources>

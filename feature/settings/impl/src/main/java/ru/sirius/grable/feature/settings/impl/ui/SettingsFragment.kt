@@ -20,6 +20,7 @@ import ru.sirius.feature.settings.impl.R
 import ru.sirius.grable.feature.settings.impl.databinding.FragmentSettingsBinding
 import ru.sirius.grable.feature.settings.impl.data.ID_DAILY_REMINDER
 import ru.sirius.grable.feature.settings.impl.data.ID_LANGUAGE
+import ru.sirius.grable.feature.settings.impl.data.ID_NEW_WORDS_PER_DAY
 import ru.sirius.grable.feature.settings.impl.data.ID_NOTIFICATION_PROGRESS
 import ru.sirius.grable.feature.settings.impl.data.ID_THEME
 import ru.sirius.grable.feature.settings.impl.data.ID_TIME_REMINDER
@@ -76,6 +77,9 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
             }
             R.id.about_layout -> {
                 showAboutApp(uiState)
+            }
+            R.id.new_words_per_day_layout -> {
+                showNewWordsCountSelection(uiState)
             }
         }
     }
@@ -210,6 +214,22 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
             .setPositiveButton(getString(R.string.settings_ok)) { dialog, _ ->
                 dialog.dismiss()
             }
+            .show()
+    }
+
+    private fun showNewWordsCountSelection(uiState: SettingsUIState) {
+        val counts = arrayOf("5", "10", "15", "20", "25", "30")
+        val current = uiState.values[ID_NEW_WORDS_PER_DAY]?.intValue()?.toString() ?: "10"
+        val checked = counts.indexOfFirst { it == current }
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.settings_choose_new_words_count))
+            .setSingleChoiceItems(counts, checked) { dialog, which ->
+                val count = counts[which].toInt()
+                viewModel.update(SettingValues.IntValue(ID_NEW_WORDS_PER_DAY, count))
+                dialog.dismiss()
+            }
+            .setNegativeButton(R.string.settings_cancel) { d, _ -> d.dismiss() }
             .show()
     }
 

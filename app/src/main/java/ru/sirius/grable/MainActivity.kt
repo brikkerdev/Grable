@@ -19,6 +19,7 @@ import ru.sirius.grable.databinding.ActivityMainBinding
 import ru.sirius.grable.core.navigation.api.NavigationRouter
 import ru.sirius.grable.core.navigation.api.Screens
 import ru.sirius.grable.core.database.DataSyncService
+import ru.sirius.grable.worker.ReviewNotificationWorker
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
@@ -87,10 +88,10 @@ class MainActivity : AppCompatActivity() {
                         true
                     }
 
-                    R.id.nav_learn -> {
-                        navigationRouter.navigateToScreen(Screens.LEARN)
-                        true
-                    }
+//                    R.id.nav_learn -> {
+//                        navigationRouter.navigateToScreen(Screens.LEARN)
+//                        true
+//                    }
 
                     R.id.nav_stats -> {
                         navigationRouter.navigateToScreen(Screens.STATS)
@@ -112,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                 val menuItemId = when (screen) {
                     Screens.HOME -> R.id.nav_home
                     Screens.ADD_WORD -> R.id.nav_add_word
-                    Screens.LEARN -> R.id.nav_learn
+//                    Screens.LEARN -> R.id.nav_learn
                     Screens.STATS -> R.id.nav_stats
                     Screens.SETTINGS -> R.id.nav_settings
                     else -> null
@@ -135,8 +136,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
         
-        // Синхронизируем данные из API при первом запуске
+        handleDeepLink()
         syncDataIfNeeded()
+    }
+    
+    private fun handleDeepLink() {
+        val openLearnScreen = intent?.getBooleanExtra(ReviewNotificationWorker.EXTRA_OPEN_LEARN_SCREEN, false) ?: false
+        if (openLearnScreen) {
+            navigationRouter.navigateToScreen(Screens.SELECT_PLAYLIST)
+        }
     }
     
     private fun syncDataIfNeeded() {

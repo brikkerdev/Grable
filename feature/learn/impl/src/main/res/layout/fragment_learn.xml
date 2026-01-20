@@ -2,12 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <!-- Shimmer skeleton -->
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/learnSkeleton"
         android:layout_width="0dp"
@@ -23,7 +21,6 @@
             android:layout_height="match_parent"
             android:padding="@dimen/spacing_base">
 
-            <!-- Skeleton progress -->
             <View
                 android:id="@+id/skeletonProgress1"
                 android:layout_width="0dp"
@@ -41,7 +38,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/skeletonCard" />
 
-            <!-- Skeleton card -->
             <View
                 android:id="@+id/skeletonCard"
                 android:layout_width="0dp"
@@ -53,7 +49,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/skeletonProgress1" />
 
-            <!-- Skeleton hint -->
             <View
                 android:id="@+id/skeletonHint"
                 android:layout_width="0dp"
@@ -68,7 +63,6 @@
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
-    <!-- Content group -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/contentGroup"
         android:layout_width="0dp"
@@ -79,53 +73,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Прогресс изучения -->
-        <TextView
-            android:id="@+id/tvProgressLabel"
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/learn_progress"
-            android:textAppearance="@style/TextAppearanceBody2"
-            app:layout_constraintEnd_toStartOf="@+id/tvProgress"
+            android:layout_height="8dp"
+            android:layout_margin="16dp"
+            android:progressDrawable="@drawable/custom_progress_bar"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/cardPager" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-            android:id="@+id/tvProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearanceBody2"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/cardPager" />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/cardPager"
+        <com.yuyakaido.android.cardstackview.CardStackView
+            android:id="@+id/cardStackView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            style="@style/Widget.Grable.Card.Word"
-            android:layout_marginTop="@dimen/spacing_base"
-            app:layout_constraintBottom_toTopOf="@+id/tvHint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvProgressLabel"
-            app:layout_constraintHeight_default="spread" />
-
-        <!-- Подсказка -->
-        <TextView
-            android:id="@+id/tvHint"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/learn_tap_to_card"
-            style="@style/Widget.Grable.TextView.Hint"
-            android:layout_marginTop="@dimen/spacing_base"
-            android:layout_marginBottom="@dimen/spacing_base"
+            android:clipToPadding="false"
+            android:padding="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardPager" />
+            app:layout_constraintTop_toBottomOf="@id/progressBar" />
+
+        <TextView
+            android:id="@+id/emptyView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/learn_all_words_reviewed"
+            android:visibility="gone"
+            style="@style/TextAppearanceBody1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

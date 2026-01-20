@@ -8,10 +8,8 @@ import org.koin.core.context.loadKoinModules
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import ru.sirius.grable.core.database.WordDao
 import ru.sirius.grable.feature.learn.api.Constants
 import ru.sirius.grable.feature.learn.api.LearnArgs
-import ru.sirius.grable.feature.learn.api.Word
 import ru.sirius.grable.feature.learn.impl.domain.LearnPlaylistInteractor
 import ru.sirius.grable.feature.learn.impl.domain.WordsRepository
 import ru.sirius.grable.feature.learn.impl.ui.LearnFragment
@@ -52,16 +50,34 @@ val learnModule = module {
         LearnPlaylistFragment::class.java
     }
     
-    factory<WordsRepository> {
-        WordsRepository(get<WordDao>())
+    // Data layer
+    factory {
+        WordsRepository(get(), get())
     }
     
-    factory<LearnPlaylistInteractor> {
-        LearnPlaylistInteractor(get<WordsRepository>())
+    // Domain layer
+    factory {
+        ru.sirius.grable.feature.learn.impl.domain.FSRSService()
     }
     
+    factory {
+        ru.sirius.grable.feature.learn.impl.domain.LearnInteractor(
+            repository = get(),
+            fsrsService = get()
+        )
+    }
+    
+    factory {
+        LearnPlaylistInteractor(get())
+    }
+    
+    // UI layer
     viewModel { (playlistId: Long) ->
         LearnPlaylistViewModel(playlistId)
+    }
+    
+    viewModel {
+        ru.sirius.grable.feature.learn.impl.ui.LearnViewModel(get())
     }
 }
 

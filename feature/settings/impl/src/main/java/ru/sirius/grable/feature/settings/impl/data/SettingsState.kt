@@ -22,6 +22,10 @@ sealed interface SettingValues<T> {
         return value.toString().toBoolean()
     }
 
+    fun intValue() : Int? {
+        return value.toString().toIntOrNull()
+    }
+
     data class StringValue(
         override val id: String,
         override val value: String
@@ -31,4 +35,9 @@ sealed interface SettingValues<T> {
         override val id: String,
         override val value: Boolean
     ) : SettingValues<Boolean>
+
+    data class IntValue(
+        override val id: String,
+        override val value: Int
+    ) : SettingValues<Int>
 }

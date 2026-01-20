@@ -18,6 +18,7 @@ const val ID_DAILY_REMINDER = "toggleDailyReminders"
 const val ID_TIME_REMINDER = "reminderTime"
 const val ID_NOTIFICATION_PROGRESS = "progressNotifications"
 const val ID_APP_VERSION = "appVersion"
+const val ID_NEW_WORDS_PER_DAY = "newWordsPerDay"
 
 class SettingsRepository (
     private val context: Context
@@ -37,7 +38,8 @@ class SettingsRepository (
             ID_DAILY_REMINDER to booleanValue(ID_DAILY_REMINDER),
             ID_TIME_REMINDER to stringValue(ID_TIME_REMINDER),
             ID_NOTIFICATION_PROGRESS to booleanValue(ID_NOTIFICATION_PROGRESS),
-            ID_APP_VERSION to stringValue(ID_APP_VERSION)
+            ID_APP_VERSION to stringValue(ID_APP_VERSION),
+            ID_NEW_WORDS_PER_DAY to intValue(ID_NEW_WORDS_PER_DAY)
         )
     }
 
@@ -77,6 +79,17 @@ class SettingsRepository (
         )
     }
 
+    fun intValue(id: String) : SettingValues.IntValue {
+        return SettingValues.IntValue(
+            id = id,
+            value = settingsProvider.getIntValue(id, 10)
+        )
+    }
+
+    fun getNewWordsPerDay(): Int {
+        return settingsProvider.getIntValue(ID_NEW_WORDS_PER_DAY, 10)
+    }
+
     fun get() = _settingsState.asStateFlow()
 
     fun getAvailableLanguages(): Flow<List<String>> = flowOf(listOf("ru", "en"))
@@ -95,6 +108,7 @@ class SettingsRepository (
         when(value) {
             is BooleanValue -> settingsProvider.setBoolValue(value.id, value.value)
             is StringValue -> settingsProvider.setStringValue(value.id, value.value)
+            is SettingValues.IntValue -> settingsProvider.setIntValue(value.id, value.value)
         }
 
         _settingsState.value += value.id to value

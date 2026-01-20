@@ -45,8 +45,10 @@ dependencies {
     implementation(libs.androidx.viewpager2)
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
     implementation("com.facebook.shimmer:shimmer:0.5.0")
-    
+    implementation("com.github.yuyakaido:cardstackview:2.3.4")
+
     api(project(":feature:learn:api"))
+    implementation(project(":libs:fsrs"))
     implementation(project(":libs:di"))
     implementation(project(":core:navigation:api"))
     implementation(project(":core:design"))

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import org.koin.android.ext.android.inject
 import ru.sirius.embedded.TTSImpl
-import ru.sirius.grable.feature.learn.api.Word
+import ru.sirius.grable.feature.learn.impl.domain.Word
 import ru.sirius.grable.feature.learn.impl.databinding.WordCardBinding
 
 class WordFragment : Fragment() {
@@ -60,7 +60,8 @@ class WordFragment : Fragment() {
         binding.frontWord.text = word.original
         binding.frontTranscription.text = word.transcription
         binding.backTranslation.text = word.translation
-        binding.backExample.text = word.example
+        TODO()
+//        binding.backExample.text = word.example
     }
 
     private fun playAudio() {

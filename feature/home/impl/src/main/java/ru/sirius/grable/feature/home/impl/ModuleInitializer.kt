@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import ru.sirius.di.AbstractInitializer
 import org.koin.core.context.loadKoinModules
+import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import ru.sirius.grable.feature.home.api.Constants
@@ -28,6 +29,10 @@ val homeModule = module {
     
     factory<Class<out Fragment>>(named(Constants.HOME_SCREEN)) {
         HomeFragment::class.java
+    }
+    
+    viewModel {
+        ru.sirius.grable.feature.home.impl.ui.HomeViewModel(get(), get(), get())
     }
 }
 

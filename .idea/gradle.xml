@@ -38,6 +38,7 @@
             <option value="$PROJECT_DIR$/feature/settings/impl" />
             <option value="$PROJECT_DIR$/libs" />
             <option value="$PROJECT_DIR$/libs/di" />
+            <option value="$PROJECT_DIR$/libs/fsrs" />
             <option value="$PROJECT_DIR$/libs/imageloader" />
             <option value="$PROJECT_DIR$/libs/imageloader/api" />
             <option value="$PROJECT_DIR$/libs/imageloader/coil" />

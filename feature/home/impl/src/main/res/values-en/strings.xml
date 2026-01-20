@@ -14,4 +14,5 @@
     <string name="action_add_word_title">Add word</string>
     <string name="action_add_word_desc">Found a new word? Add it to your dictionary.</string>
     <string name="action_add_word_cta">Add word</string>
+    <string name="learn_daily_goal_completed">You\'ve already completed your daily goal! Come back tomorrow</string>
 </resources>

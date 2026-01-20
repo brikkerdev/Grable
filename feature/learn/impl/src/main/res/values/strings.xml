@@ -8,5 +8,18 @@
     <string name="learn_progress">Прогресс:</string>
     <string name="learn_add_word">Добавить слово</string>
     <string name="learn_playlist_title">Слова в подборке</string>
+    <string name="learn_all_words_reviewed">Все слова повторены!</string>
+    <string name="learn_swipe_left">Не знаю</string>
+    <string name="learn_swipe_right">Знаю</string>
+    <string name="learn_swipe_up">Повторить</string>
+    <string name="learn_mark_as_known">Уже знаю это слово</string>
+    <string name="learn_completion_icon">Завершено</string>
+    <string name="learn_completion_title">Отлично!</string>
+    <string name="learn_completion_subtitle">Вы выполнили норму изучения новых слов на сегодня</string>
+    <string name="learn_completion_stats_title">Сегодня вы:</string>
+    <string name="learn_completion_stats_learned">Выучили новых слов</string>
+    <string name="learn_completion_stats_reviewed">Повторили слов</string>
+    <string name="learn_completion_button_back">Вернуться на главную</string>
+    <string name="learn_daily_goal_completed">Вы уже выучили норму слов на сегодня! Возвращайтесь завтра</string>
 </resources>
 

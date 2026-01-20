@@ -39,4 +39,7 @@
     <string name="settings_theme_system">System</string>
     <string name="settings_voice_male">Male</string>
     <string name="settings_voice_female">Female</string>
+    <string name="settings_learning">Learning</string>
+    <string name="settings_new_words_per_day">New words per day</string>
+    <string name="settings_choose_new_words_count">Choose number of new words</string>
 </resources>

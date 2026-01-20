@@ -3,12 +3,10 @@ package ru.sirius.grable.feature.learn.impl.ui.playlist
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.sirius.grable.feature.learn.api.Word
-import ru.sirius.grable.feature.learn.impl.R
+import ru.sirius.grable.feature.learn.impl.domain.Word
 import ru.sirius.grable.feature.learn.impl.databinding.ItemWordBinding
 
 class LearnPlaylistAdapter : ListAdapter<Word, LearnPlaylistAdapter.WordsViewHolder>(WordDiffCallback()) {

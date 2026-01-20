@@ -81,4 +81,5 @@ dependencies {
     implementation(project(":feature:playlist:impl"))
     implementation(project(":feature:progress:impl"))
     implementation("com.facebook.shimmer:shimmer:0.5.0")
+    implementation(libs.androidx.work.runtime.ktx)
 }

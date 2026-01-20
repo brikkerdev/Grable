@@ -3,6 +3,7 @@ package ru.sirius.grable.feature.settings.impl.ui
 import ru.sirius.grable.feature.settings.impl.data.ID_APP_VERSION
 import ru.sirius.grable.feature.settings.impl.data.ID_DAILY_REMINDER
 import ru.sirius.grable.feature.settings.impl.data.ID_LANGUAGE
+import ru.sirius.grable.feature.settings.impl.data.ID_NEW_WORDS_PER_DAY
 import ru.sirius.grable.feature.settings.impl.data.ID_THEME
 import ru.sirius.grable.feature.settings.impl.data.ID_TIME_REMINDER
 import ru.sirius.grable.feature.settings.impl.data.ID_VOICE
@@ -47,9 +48,17 @@ class SettingsItemsFactory {
                 title = R.string.voice_type_layout,
                 value = voiceValue,
             ),
-            // Уведомления
             SettingItem.SectionTitle(
-                id = R.id.section_title,
+                id = R.id.section_learning,
+                title = R.string.settings_learning
+            ),
+            SettingItem.BaseSetting(
+                id = R.id.new_words_per_day_layout,
+                title = R.string.settings_new_words_per_day,
+                value = values[ID_NEW_WORDS_PER_DAY]?.intValue()?.toString() ?: "10",
+            ),
+            SettingItem.SectionTitle(
+                id = R.id.section_notifications,
                 title = R.string.settings_notifications
             ),
             SettingItem.SwitchSetting(

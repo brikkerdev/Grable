@@ -54,5 +54,10 @@
     <color name="card_surface_alt">#2C2C2C</color>
     <color name="accent_primary">#9FA8DA</color>
     <color name="accent_secondary">#FFB74D</color>
+    
+    <!-- Learn overlay colors -->
+    <color name="overlay_again">#80EF5350</color>
+    <color name="overlay_good">#8066BB6A</color>
+    <color name="overlay_hard">#80FFCA28</color>
 </resources>
 

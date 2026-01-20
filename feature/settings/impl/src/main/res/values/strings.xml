@@ -38,4 +38,7 @@
     <string name="settings_theme_dark">Темная</string>
     <string name="settings_voice_male">Мужской</string>
     <string name="settings_voice_female">Женский</string>
+    <string name="settings_learning">Обучение</string>
+    <string name="settings_new_words_per_day">Новых слов в день</string>
+    <string name="settings_choose_new_words_count">Выберите количество новых слов</string>
 </resources>

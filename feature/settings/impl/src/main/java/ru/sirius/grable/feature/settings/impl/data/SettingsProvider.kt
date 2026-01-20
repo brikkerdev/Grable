@@ -18,6 +18,11 @@ class SettingsProvider (
     fun getBoolValue(id: String): Boolean {
         return sharedPreferences.getBoolean(id, true)
     }
+
+    fun getIntValue(id: String, defaultValue: Int = 10): Int {
+        return sharedPreferences.getInt(id, defaultValue)
+    }
+
     fun setStringValue(id: String, value: String) {
         sharedPreferences.edit {
             putString(id, value)
@@ -27,6 +32,12 @@ class SettingsProvider (
     fun setBoolValue(id: String, value: Boolean) {
         sharedPreferences.edit {
             putBoolean(id, value)
+        }
+    }
+
+    fun setIntValue(id: String, value: Int) {
+        sharedPreferences.edit {
+            putInt(id, value)
         }
     }
 }

@@ -51,6 +51,16 @@ interface StatisticsDao {
         AND isKnown = 0
     """)
     suspend fun getLearningWordsCount(startDate: Timestamp): Int
+
+    @Query("""
+        SELECT COUNT(DISTINCT wordId) 
+        FROM statistics 
+        WHERE date >= :todayStart 
+        AND date < :todayEnd
+        AND isNewWord = 1 
+        AND isKnown = 1
+    """)
+    suspend fun getLearnedNewWordsToday(todayStart: Long, todayEnd: Long): Int
 }
 
 data class DailyStat(

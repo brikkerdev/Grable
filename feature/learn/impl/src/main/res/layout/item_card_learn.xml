@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/spacing_sm"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp"
+    app:cardBackgroundColor="@color/surface">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/spacing_2xl">
+
+            <LinearLayout
+                android:id="@+id/frontGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/frontWord"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearanceHeadline1"
+                    android:layout_marginBottom="@dimen/spacing_sm"
+                    android:gravity="center"
+                    tools:text="Hello" />
+
+                <TextView
+                    android:id="@+id/frontTranscription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearanceBody1Secondary"
+                    android:layout_marginBottom="@dimen/spacing_2xl"
+                    android:gravity="center"
+                    tools:text="[həˈloʊ]" />
+
+                <ImageButton
+                    android:id="@+id/btnAudio"
+                    android:layout_width="@dimen/icon_xl"
+                    android:layout_height="@dimen/icon_xl"
+                    android:contentDescription="@string/learn_play_sound"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/ic_lock_silent_mode_off"
+                    app:tint="?attr/colorPrimary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/backGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/backTranslation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearanceHeadline2"
+                    android:textColor="?attr/colorPrimary"
+                    android:layout_marginBottom="@dimen/spacing_base"
+                    android:gravity="center"
+                    tools:text="Привет" />
+
+                <TextView
+                    android:id="@+id/backOriginal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearanceBody1Secondary"
+                    android:layout_marginBottom="@dimen/spacing_2xl"
+                    android:gravity="center"
+                    tools:text="Hello" />
+
+                <TextView
+                    android:id="@+id/backExample"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearanceBody1"
+                    android:gravity="center"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    android:layout_marginBottom="@dimen/spacing_xl"
+                    tools:text="Hello! How are you?" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMarkAsKnown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/learn_mark_as_known"
+                    style="@style/Widget.Material3.Button.OutlinedButton" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/overlayLeft"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/overlay_again"
+            android:alpha="0"
+            android:elevation="4dp">
+
+            <ImageView
+                android:layout_width="@dimen/icon_3xl"
+                android:layout_height="@dimen/icon_3xl"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="@dimen/spacing_3xl"
+                android:layout_marginBottom="@dimen/spacing_2xl"
+                android:src="@android:drawable/ic_delete"
+                app:tint="@android:color/white"
+                android:contentDescription="@string/learn_swipe_left" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="@dimen/spacing_3xl"
+                android:layout_marginTop="@dimen/spacing_3xl"
+                android:text="@string/learn_swipe_left"
+                style="@style/TextAppearanceHeadline2"
+                android:textColor="@android:color/white" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/overlayRight"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/overlay_good"
+            android:alpha="0"
+            android:elevation="4dp">
+
+            <ImageView
+                android:layout_width="@dimen/icon_3xl"
+                android:layout_height="@dimen/icon_3xl"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="@dimen/spacing_3xl"
+                android:layout_marginBottom="@dimen/spacing_2xl"
+                android:src="@android:drawable/checkbox_on_background"
+                app:tint="@android:color/white"
+                android:contentDescription="@string/learn_swipe_right" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="@dimen/spacing_3xl"
+                android:layout_marginTop="@dimen/spacing_3xl"
+                android:text="@string/learn_swipe_right"
+                style="@style/TextAppearanceHeadline2"
+                android:textColor="@android:color/white" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/overlayUp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/overlay_hard"
+            android:alpha="0"
+            android:elevation="4dp">
+
+            <ImageView
+                android:layout_width="@dimen/icon_3xl"
+                android:layout_height="@dimen/icon_3xl"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginTop="@dimen/spacing_3xl"
+                android:src="@android:drawable/ic_popup_sync"
+                app:tint="@android:color/white"
+                android:contentDescription="@string/learn_swipe_up" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginTop="120dp"
+                android:text="@string/learn_swipe_up"
+                style="@style/TextAppearanceHeadline2"
+                android:textColor="@android:color/white" />
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+</androidx.cardview.widget.CardView>
