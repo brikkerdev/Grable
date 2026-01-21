@@ -11,6 +11,9 @@ import org.koin.dsl.module
 import ru.sirius.grable.core.database.PlaylistDao
 import ru.sirius.grable.core.database.WordDao
 import ru.sirius.grable.feature.playlist.api.Constants
+import ru.sirius.grable.feature.playlist.impl.domain.CreatePlaylistInteractor
+import ru.sirius.grable.feature.playlist.impl.domain.CreatePlaylistRepository
+import ru.sirius.grable.feature.playlist.impl.domain.CreatePlaylistRepositoryImpl
 import ru.sirius.grable.feature.playlist.impl.domain.SelectPlaylistInteractor
 import ru.sirius.grable.feature.playlist.impl.domain.SelectPlaylistRepository
 import ru.sirius.grable.feature.playlist.impl.domain.SelectPlaylistRepositoryImpl
@@ -42,5 +45,13 @@ val playlistModule = module {
 
     factory<SelectPlaylistInteractor> {
         SelectPlaylistInteractor(get<SelectPlaylistRepository>())
+    }
+
+    factory<CreatePlaylistRepository> {
+        CreatePlaylistRepositoryImpl(get<PlaylistDao>())
+    }
+
+    factory<CreatePlaylistInteractor> {
+        CreatePlaylistInteractor(get<CreatePlaylistRepository>())
     }
 }

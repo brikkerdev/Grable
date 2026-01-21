@@ -7,16 +7,18 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/action_bar_height"
-        style="@style/Widget.Grable.Toolbar"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:title="@string/learn_playlist_title"
-        app:layout_constraintEnd_toEndOf="parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_base"
+        android:layout_marginBottom="@dimen/spacing_base"
+        android:contentDescription="@string/back"
+        app:srcCompat="@drawable/ic_arrow_back"
+        app:tint="@color/on_primary"
+        app:backgroundTint="@color/primary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/word_items"
@@ -24,20 +26,23 @@
         android:layout_height="0dp"
         android:padding="@dimen/spacing_base"
         android:clipToPadding="false"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddWord"
+        app:layout_constraintBottom_toTopOf="@+id/button_back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_word" />
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAddWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/learn_add_word"
-        style="@style/Widget.Grable.ExtendedFloatingActionButton.Primary"
-        android:layout_margin="@dimen/spacing_base"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginStart="@dimen/spacing_base"
+        android:layout_marginBottom="@dimen/spacing_base"
+        android:contentDescription="@string/learn_add_word"
+        app:srcCompat="@drawable/ic_add"
+        app:tint="@color/on_primary"
+        app:backgroundTint="@color/primary"
+        app:layout_constraintStart_toEndOf="@+id/button_back"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

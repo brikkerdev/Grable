@@ -6,6 +6,8 @@
     <string name="action_repeat_title">Повторение слов</string>
     <string name="action_repeat_desc">Закрепи изученные слова быстрой тренировкой.</string>
     <string name="action_repeat_cta">Начать повторение</string>
+    <string name="action_goal_completed_title">Отлично!</string>
+    <string name="action_goal_completed_desc">Вы уже выучили свою норму слов на сегодня. Возвращайтесь завтра для продолжения обучения.</string>
     <string name="action_collection_title">Учить подборку</string>
     <string name="action_collection_desc">Собери набор слов по теме и проходи курс.</string>
     <string name="action_collection_cta">Выбрать подборку</string>

@@ -12,4 +12,11 @@
     
     <string name="notification_channel_name">Напоминания о повторении</string>
     <string name="notification_channel_description">Уведомления о словах, которые пора повторить</string>
+    
+    <string name="nav_home">Главная</string>
+    <string name="nav_add_word">Добавить</string>
+    <string name="nav_stats">Статистика</string>
+    <string name="nav_settings">Настройки</string>
+    
+    <string name="playlist_my_words">Свои слова</string>
 </resources>

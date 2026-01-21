@@ -40,4 +40,20 @@ class SettingsProvider (
             putInt(id, value)
         }
     }
+
+    fun getLongListValue(id: String): List<Long> {
+        val json = sharedPreferences.getString(id, null) ?: return emptyList()
+        return try {
+            json.split(",").mapNotNull { it.trim().toLongOrNull() }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    fun setLongListValue(id: String, value: List<Long>) {
+        val json = value.joinToString(",")
+        sharedPreferences.edit {
+            putString(id, json)
+        }
+    }
 }

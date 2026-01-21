@@ -99,9 +99,10 @@ class LearnViewModel(
             
             learnInteractor.saveProgress(word, rating)
 
-            if (word.fsrsData.reviewCount == 0 && (rating == Rating.Good || rating == Rating.Easy)) {
+            val isNewWord = word.fsrsData.reviewCount == 0
+            if (isNewWord && (rating == Rating.Again || rating == Rating.Hard)) {
                 learnedCount++
-            } else if (word.fsrsData.reviewCount > 0) {
+            } else if (!isNewWord) {
                 reviewedCount++
             }
 
@@ -119,19 +120,9 @@ class LearnViewModel(
             reviewedInSession.add(word.id)
             learnInteractor.markAsKnown(word)
             
-            if (word.fsrsData.reviewCount == 0) {
-                learnedCount++
-            } else {
-                reviewedCount++
-            }
-
             removeCurrentCard()
             updateProgress()
             _events.emit(LearnEvent.CardMarkedAsKnown)
-
-            if (learnedCount >= targetCount) {
-                _events.emit(LearnEvent.DailyGoalCompleted(learnedCount, reviewedCount))
-            }
         }
     }
 

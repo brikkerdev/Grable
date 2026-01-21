@@ -10,6 +10,9 @@
     <string name="stats_error">An error occurred</string>
     <string name="stats_retry">Retry</string>
     <string name="stats_generate_mock_data">Generate test data</string>
+    <string name="stats_item_total">Total: %1$d</string>
+    <string name="stats_item_period">Period: %1$d</string>
+    <string name="stats_all_time">All time</string>
 </resources>
 
 

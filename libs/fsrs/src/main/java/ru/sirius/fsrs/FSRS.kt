@@ -11,11 +11,13 @@
 package ru.sirius.fsrs
 
 import java.lang.Math.min
+import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.exp
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.pow
+import kotlin.math.round
 import kotlin.math.roundToInt
 import kotlin.random.Random
 import kotlin.ranges.coerceIn
@@ -220,13 +222,15 @@ class FSRS(
         val base = params[4]
         val exponent = params[5] * (rating.value - 1)
         val raw = base - exp(exponent) + 1
-        return String.format("%.2f", raw.coerceIn(1.0, 10.0)).toDouble()
+        val coerced = raw.coerceIn(1.0, 10.0)
+        return (round(coerced * 100) / 100.0)
     }
 
     private fun initStability(rating: Rating): Double {
         val index = rating.value - 1
         val value = params.getOrElse(index) { 0.1 }
-        return String.format("%.2f", value.coerceAtMost(0.1)).toDouble()
+        val coerced = value.coerceAtMost(0.1)
+        return (round(coerced * 100) / 100.0)
     }
 
     private fun initState(rating: Rating): InitState {
@@ -259,7 +263,8 @@ class FSRS(
         val damped = linearDamping(deltaD, currentD)
         val nextD = currentD + damped
         val reverted = meanReversion(initDifficulty(Rating.Easy), nextD)
-        return String.format("%.2f", reverted.coerceIn(1.0, 10.0)).toDouble()
+        val coerced = reverted.coerceIn(1.0, 10.0)
+        return (round(coerced * 100) / 100.0)
     }
 
     private fun nextShortTermStability(currentS: Double, rating: Rating): Double {
@@ -267,7 +272,8 @@ class FSRS(
         if (rating.value >= 3) {
             sinc = max(sinc, 1.0)
         }
-        return String.format("%.2f", abs(currentS * sinc)).toDouble()
+        val value = abs(currentS * sinc)
+        return (round(value * 100) / 100.0)
     }
 
     private fun nextForgetStability(
@@ -282,7 +288,8 @@ class FSRS(
                 ((stability + 1).pow(params[13]) - 1) *
                 exp((1 - retrievability) * params[14])
 
-        return "%.2f".format(min(result, sMin)).toDouble()
+        val value = min(result, sMin)
+        return (round(value * 100) / 100.0)
     }
 
     private fun nextRecallStability(d: Double, s: Double, r: Double, rating: Rating): Double {
@@ -297,7 +304,7 @@ class FSRS(
                 easyBonus
 
         val result = s * (1 + factor)
-        return "%.2f".format(result).toDouble()
+        return (round(result * 100) / 100.0)
     }
 }
 

@@ -21,7 +21,8 @@ class SelectPlaylistRepositoryImpl(
                     Playlist(
                         id = entity.id,
                         name = entity.name,
-                        description = entity.description
+                        description = entity.description,
+                        isSystem = entity.isSystem
                     )
                 }
             }

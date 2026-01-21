@@ -8,21 +8,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flowOf
 import ru.sirius.feature.settings.impl.R
+import ru.sirius.grable.feature.settings.api.ISettingsService
+import ru.sirius.grable.feature.settings.api.SettingsKeys
 import ru.sirius.grable.feature.settings.impl.data.SettingValues.StringValue
 import ru.sirius.grable.feature.settings.impl.data.SettingValues.BooleanValue
 
-const val ID_LANGUAGE = "nativeLanguageId"
-const val ID_VOICE = "voiceId"
-const val ID_THEME = "themeId"
-const val ID_DAILY_REMINDER = "toggleDailyReminders"
-const val ID_TIME_REMINDER = "reminderTime"
-const val ID_NOTIFICATION_PROGRESS = "progressNotifications"
-const val ID_APP_VERSION = "appVersion"
-const val ID_NEW_WORDS_PER_DAY = "newWordsPerDay"
-
 class SettingsRepository (
     private val context: Context
-) {
+) : ISettingsService {
     private val settingsProvider = SettingsProvider(context)
     private val _settingsState by lazy { MutableStateFlow(loadSettings()) }
 
@@ -32,36 +25,36 @@ class SettingsRepository (
 
     fun loadSettings() : Map<String, SettingValues<*>> {
         return mapOf(
-            ID_LANGUAGE to stringValue(ID_LANGUAGE),
-            ID_VOICE to stringValue(ID_VOICE),
-            ID_THEME to stringValue(ID_THEME),
-            ID_DAILY_REMINDER to booleanValue(ID_DAILY_REMINDER),
-            ID_TIME_REMINDER to stringValue(ID_TIME_REMINDER),
-            ID_NOTIFICATION_PROGRESS to booleanValue(ID_NOTIFICATION_PROGRESS),
-            ID_APP_VERSION to stringValue(ID_APP_VERSION),
-            ID_NEW_WORDS_PER_DAY to intValue(ID_NEW_WORDS_PER_DAY)
+            SettingsKeys.LANGUAGE to stringValue(SettingsKeys.LANGUAGE),
+            SettingsKeys.VOICE to stringValue(SettingsKeys.VOICE),
+            SettingsKeys.THEME to stringValue(SettingsKeys.THEME),
+            SettingsKeys.DAILY_REMINDER to booleanValue(SettingsKeys.DAILY_REMINDER),
+            SettingsKeys.TIME_REMINDER to stringValue(SettingsKeys.TIME_REMINDER),
+            SettingsKeys.NOTIFICATION_PROGRESS to booleanValue(SettingsKeys.NOTIFICATION_PROGRESS),
+            SettingsKeys.APP_VERSION to stringValue(SettingsKeys.APP_VERSION),
+            SettingsKeys.NEW_WORDS_PER_DAY to intValue(SettingsKeys.NEW_WORDS_PER_DAY)
         )
     }
 
     fun initSettings() {
-        if (settingsProvider.getStringValue(ID_LANGUAGE) == "NO DATA") {
-            settingsProvider.setStringValue(ID_LANGUAGE, "ru")
+        if (settingsProvider.getStringValue(SettingsKeys.LANGUAGE) == "NO DATA") {
+            settingsProvider.setStringValue(SettingsKeys.LANGUAGE, "ru")
         }
 
-        if (settingsProvider.getStringValue(ID_VOICE) == "NO DATA") {
-            settingsProvider.setStringValue(ID_VOICE, "female")
+        if (settingsProvider.getStringValue(SettingsKeys.VOICE) == "NO DATA") {
+            settingsProvider.setStringValue(SettingsKeys.VOICE, "female")
         }
 
-        if (settingsProvider.getStringValue(ID_THEME) == "NO DATA") {
-            settingsProvider.setStringValue(ID_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString())
+        if (settingsProvider.getStringValue(SettingsKeys.THEME) == "NO DATA") {
+            settingsProvider.setStringValue(SettingsKeys.THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString())
         }
 
-        if (settingsProvider.getStringValue(ID_TIME_REMINDER) == "NO DATA") {
-            settingsProvider.setStringValue(ID_TIME_REMINDER, "20:00")
+        if (settingsProvider.getStringValue(SettingsKeys.TIME_REMINDER) == "NO DATA") {
+            settingsProvider.setStringValue(SettingsKeys.TIME_REMINDER, "20:00")
         }
 
-        if (settingsProvider.getStringValue(ID_APP_VERSION) == "NO DATA") {
-            settingsProvider.setStringValue(ID_APP_VERSION, "1.0.0")
+        if (settingsProvider.getStringValue(SettingsKeys.APP_VERSION) == "NO DATA") {
+            settingsProvider.setStringValue(SettingsKeys.APP_VERSION, "1.0.0")
         }
     }
 
@@ -86,8 +79,32 @@ class SettingsRepository (
         )
     }
 
-    fun getNewWordsPerDay(): Int {
-        return settingsProvider.getIntValue(ID_NEW_WORDS_PER_DAY, 10)
+    override fun getNewWordsPerDay(): Int {
+        return settingsProvider.getIntValue(SettingsKeys.NEW_WORDS_PER_DAY, 10)
+    }
+
+    override fun getDailyReminder(): Boolean {
+        return settingsProvider.getBoolValue(SettingsKeys.DAILY_REMINDER)
+    }
+
+    override fun getTimeReminder(): String {
+        return settingsProvider.getStringValue(SettingsKeys.TIME_REMINDER)
+    }
+
+    override fun getLanguage(): String {
+        return settingsProvider.getStringValue(SettingsKeys.LANGUAGE)
+    }
+
+    override fun getTheme(): String {
+        return settingsProvider.getStringValue(SettingsKeys.THEME)
+    }
+
+    override fun getSelectedPlaylistIds(): List<Long> {
+        return settingsProvider.getLongListValue(SettingsKeys.SELECTED_PLAYLIST_IDS)
+    }
+
+    override fun saveSelectedPlaylistIds(ids: List<Long>) {
+        settingsProvider.setLongListValue(SettingsKeys.SELECTED_PLAYLIST_IDS, ids)
     }
 
     fun get() = _settingsState.asStateFlow()

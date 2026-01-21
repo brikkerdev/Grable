@@ -24,12 +24,15 @@ interface WordDao {
     @Query("DELETE FROM words")
     suspend fun clearAll()
 
+    @Query("DELETE FROM words WHERE id = :wordId")
+    suspend fun deleteWord(wordId: Long)
+
     @Transaction
     @Query("SELECT * FROM words WHERE playlistId IN (:playlistIds) AND id NOT IN (SELECT wordId FROM word_fsrs_states)")
     suspend fun getNewWords(playlistIds: List<Long>): List<FullWordCardPOJO>
 
     @Transaction
-    @Query("SELECT * FROM words JOIN word_fsrs_states ON words.id = word_fsrs_states.wordId WHERE words.playlistId IN (:playlistIds) AND word_fsrs_states.dueDateMillis <= :now")
+    @Query("SELECT * FROM words JOIN word_fsrs_states ON words.id = word_fsrs_states.wordId WHERE words.playlistId IN (:playlistIds) AND word_fsrs_states.dueDateMillis <= :now AND (word_fsrs_states.reviewCount = 0 OR word_fsrs_states.stability <= 5.0)")
     suspend fun getDueWords(playlistIds: List<Long>, now: Long): List<FullWordCardPOJO>
 
     @Upsert
@@ -37,6 +40,12 @@ interface WordDao {
 
     @Update
     suspend fun updateWord(word: WordEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(word: WordEntity): Long
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertExamples(examples: List<ExampleEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(words: List<WordEntity>)

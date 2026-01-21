@@ -40,13 +40,14 @@ class DataSyncService(
             playlistEntity = PlaylistEntity(
                 id = 0,
                 name = playlistDto.name,
-                description = playlistDto.name
+                description = playlistDto.name,
+                isSystem = true
             )
             val playlistId = playlistDao.insert(playlistEntity)
             playlistEntity = playlistEntity.copy(id = playlistId)
         }
 
-        if (playlistDto.words.isNotEmpty()) {
+        if (playlistDto.words.isNotEmpty() && playlistEntity.isSystem) {
             val wordEntities = playlistDto.words.map { wordDto ->
                 WordEntity(
                     id = 0,

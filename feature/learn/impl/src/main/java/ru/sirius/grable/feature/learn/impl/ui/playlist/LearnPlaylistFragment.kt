@@ -14,6 +14,7 @@ import org.koin.core.parameter.parametersOf
 import ru.sirius.grable.feature.learn.api.LearnArgs
 import ru.sirius.grable.feature.learn.impl.R
 import ru.sirius.grable.feature.learn.impl.databinding.FragmentLearnPlaylistBinding
+import ru.sirius.grable.feature.learn.impl.domain.Word
 import ru.sirius.grable.feature.learn.impl.ui.LearnPlaylistViewModel
 
 class LearnPlaylistFragment : Fragment() {
@@ -29,7 +30,11 @@ class LearnPlaylistFragment : Fragment() {
         parametersOf(playlistId)
     }
 
-    private val adapter: LearnPlaylistAdapter by lazy { LearnPlaylistAdapter() }
+    private val adapter: LearnPlaylistAdapter by lazy {
+        LearnPlaylistAdapter(
+            onWordClick = { word -> showWordDetails(word) }
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,13 +48,14 @@ class LearnPlaylistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupToolbar()
+        setupBackButton()
         setupRecyclerView()
+        setupAddWord()
         observeViewModel()
     }
 
-    private fun setupToolbar() {
-        binding.toolbar.setNavigationOnClickListener {
+    private fun setupBackButton() {
+        binding.buttonBack.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
@@ -65,6 +71,38 @@ class LearnPlaylistFragment : Fragment() {
                 adapter.submitList(state.words)
             }
         }
+    }
+
+    private fun setupAddWord() {
+        binding.btnAddWord.setOnClickListener {
+            val playlists = viewModel.playlists.value
+            if (playlists.isNotEmpty()) {
+                AddWordBottomSheet(
+                    playlists = playlists,
+                    currentPlaylistId = playlistId
+                ) { selectedPlaylistId, original, translation, transcription, example, exampleTranslation ->
+                    viewModel.addWord(
+                        playlistId = selectedPlaylistId,
+                        original = original,
+                        translation = translation,
+                        transcription = transcription,
+                        example = example,
+                        exampleTranslation = exampleTranslation
+                    )
+                }.show(childFragmentManager, AddWordBottomSheet.TAG)
+            }
+        }
+    }
+
+    private fun showWordDetails(word: Word) {
+        val bottomSheet = WordDetailsBottomSheet.newInstance(word)
+        bottomSheet.onMarkAsKnown = { markedWord ->
+            viewModel.markAsKnown(markedWord)
+        }
+        bottomSheet.onDelete = { deletedWord ->
+            viewModel.deleteWord(deletedWord.id)
+        }
+        bottomSheet.show(childFragmentManager, "WordDetailsBottomSheet")
     }
 
     override fun onDestroyView() {

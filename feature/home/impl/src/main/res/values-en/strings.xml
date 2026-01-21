@@ -8,6 +8,8 @@
     <string name="action_repeat_title">Repeat words</string>
     <string name="action_repeat_desc">Repeat learned words quickly</string>
     <string name="action_repeat_cta">Start repeating</string>
+    <string name="action_goal_completed_title">Great job!</string>
+    <string name="action_goal_completed_desc">You\'ve already completed your daily learning goal. Come back tomorrow to continue learning.</string>
     <string name="action_collection_title">Learn collection</string>
     <string name="action_collection_desc">Make your words collection and learn</string>
     <string name="action_collection_cta">Choose collection</string>

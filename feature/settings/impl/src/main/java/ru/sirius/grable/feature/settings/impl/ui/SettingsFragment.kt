@@ -18,16 +18,10 @@ import org.koin.android.ext.android.inject
 import ru.sirius.api.ITTS
 import ru.sirius.feature.settings.impl.R
 import ru.sirius.grable.feature.settings.impl.databinding.FragmentSettingsBinding
-import ru.sirius.grable.feature.settings.impl.data.ID_DAILY_REMINDER
-import ru.sirius.grable.feature.settings.impl.data.ID_LANGUAGE
-import ru.sirius.grable.feature.settings.impl.data.ID_NEW_WORDS_PER_DAY
-import ru.sirius.grable.feature.settings.impl.data.ID_NOTIFICATION_PROGRESS
-import ru.sirius.grable.feature.settings.impl.data.ID_THEME
-import ru.sirius.grable.feature.settings.impl.data.ID_TIME_REMINDER
-import ru.sirius.grable.feature.settings.impl.data.ID_VOICE
 import ru.sirius.grable.feature.settings.impl.data.SettingValues
 import ru.sirius.grable.feature.settings.impl.domain.SettingsUIState
 import java.util.Locale
+import ru.sirius.grable.feature.settings.api.SettingsKeys
 
 class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
     private var _binding: FragmentSettingsBinding? = null
@@ -40,7 +34,7 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
     private val tts: ITTS by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentSettingsBinding.Companion.inflate(inflater, container, false)
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -56,7 +50,7 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
             viewModel.uiState.collect { uiState ->
                 updateUI(uiState)
                 // Применяем текущий голос при загрузке настроек
-                val voiceId = uiState.values[ID_VOICE]?.stringValue() ?: "female"
+                val voiceId = uiState.values[SettingsKeys.VOICE]?.stringValue() ?: "female"
                 tts.setVoice(voiceId)
             }
         }
@@ -98,9 +92,9 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
     }
 
     private fun updateUI(uiState: SettingsUIState) {
-        val langId = uiState.values[ID_LANGUAGE]?.stringValue() ?: "ru"
-        val voiceId = uiState.values[ID_VOICE]?.stringValue() ?: "female"
-        val themeId = uiState.values[ID_THEME]?.stringValue()
+        val langId = uiState.values[SettingsKeys.LANGUAGE]?.stringValue() ?: "ru"
+        val voiceId = uiState.values[SettingsKeys.VOICE]?.stringValue() ?: "female"
+        val themeId = uiState.values[SettingsKeys.THEME]?.stringValue()
             ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString()
 
         val settingsItems = settingsItemsFactory.createSettingsItems(
@@ -113,7 +107,7 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
     }
 
     private fun handleProgressNotificatoins(value: Boolean, uiState: SettingsUIState) {
-        val selected = SettingValues.BooleanValue(ID_NOTIFICATION_PROGRESS, value)
+        val selected = SettingValues.BooleanValue(SettingsKeys.NOTIFICATION_PROGRESS, value)
         viewModel.update(selected)
     }
 
@@ -121,14 +115,14 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
         val ids = uiState.availableLanguageIds.toTypedArray()
         val names = ids.map(::languageLabel).toTypedArray()
 
-        val current = uiState.values[ID_LANGUAGE]?.stringValue() ?: "ru"
+        val current = uiState.values[SettingsKeys.LANGUAGE]?.stringValue() ?: "ru"
         val checked = ids.indexOfFirst { it == current }
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.settings_choose_language))
             .setSingleChoiceItems(names, checked) { dialog, which ->
                 val lang = ids[which]
-                viewModel.update(SettingValues.StringValue(ID_LANGUAGE, lang))
+                viewModel.update(SettingValues.StringValue(SettingsKeys.LANGUAGE, lang))
                 AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(lang))
                 dialog.dismiss()
             }
@@ -140,7 +134,7 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
         val ids = uiState.availableThemeIds.toTypedArray()
         val names = ids.map(::themeLabel).toTypedArray()
 
-        val current = uiState.values[ID_THEME]?.stringValue()
+        val current = uiState.values[SettingsKeys.THEME]?.stringValue()
             ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString()
         val checked = ids.indexOfFirst { it == current }
 
@@ -148,7 +142,7 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
             .setTitle(getString(R.string.settings_choose_theme))
             .setSingleChoiceItems(names, checked) { dialog, which ->
                 val mode = ids[which]
-                viewModel.update(SettingValues.StringValue(ID_THEME, mode))
+                viewModel.update(SettingValues.StringValue(SettingsKeys.THEME, mode))
                 AppCompatDelegate.setDefaultNightMode(mode.toInt())
                 dialog.dismiss()
             }
@@ -160,14 +154,14 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
         val ids = uiState.availableVoiceIds.toTypedArray()
         val names = ids.map(::voiceLabel).toTypedArray()
 
-        val current = uiState.values[ID_VOICE]?.stringValue() ?: "female"
+        val current = uiState.values[SettingsKeys.VOICE]?.stringValue() ?: "female"
         val checked = ids.indexOfFirst { it == current }
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.settings_dialog_voice_type))
             .setSingleChoiceItems(names, checked) { dialog, which ->
                 val voice = ids[which]
-                viewModel.update(SettingValues.StringValue(ID_VOICE, voice))
+                viewModel.update(SettingValues.StringValue(SettingsKeys.VOICE, voice))
                 // Обновляем голос TTS
                 tts.setVoice(voice)
                 dialog.dismiss()
@@ -177,13 +171,13 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
     }
 
     private fun handleRemindersToggle(isChecked: Boolean, uiState: SettingsUIState) {
-        if (uiState.values[ID_DAILY_REMINDER]?.booleanValue() == isChecked) {
+        if (uiState.values[SettingsKeys.DAILY_REMINDER]?.booleanValue() == isChecked) {
             return
         }
-        val selected = SettingValues.BooleanValue(ID_DAILY_REMINDER, isChecked)
+        val selected = SettingValues.BooleanValue(SettingsKeys.DAILY_REMINDER, isChecked)
         viewModel.update(selected)
         if (isChecked) {
-            showTimePicker(uiState.values[ID_TIME_REMINDER]?.stringValue() ?: "19:00")
+            showTimePicker(uiState.values[SettingsKeys.TIME_REMINDER]?.stringValue() ?: "19:00")
         }
     }
 
@@ -198,7 +192,7 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
                     selectedHour,
                     selectedMinute
                 )
-                val selected = SettingValues.StringValue(ID_TIME_REMINDER, formattedTime)
+                val selected = SettingValues.StringValue(SettingsKeys.TIME_REMINDER, formattedTime)
                 viewModel.update(selected)
             },
             hour,
@@ -219,14 +213,14 @@ class SettingsFragment : Fragment(), SettingsAdapter.ClickListener {
 
     private fun showNewWordsCountSelection(uiState: SettingsUIState) {
         val counts = arrayOf("5", "10", "15", "20", "25", "30")
-        val current = uiState.values[ID_NEW_WORDS_PER_DAY]?.intValue()?.toString() ?: "10"
+        val current = uiState.values[SettingsKeys.NEW_WORDS_PER_DAY]?.intValue()?.toString() ?: "10"
         val checked = counts.indexOfFirst { it == current }
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.settings_choose_new_words_count))
             .setSingleChoiceItems(counts, checked) { dialog, which ->
                 val count = counts[which].toInt()
-                viewModel.update(SettingValues.IntValue(ID_NEW_WORDS_PER_DAY, count))
+                viewModel.update(SettingValues.IntValue(SettingsKeys.NEW_WORDS_PER_DAY, count))
                 dialog.dismiss()
             }
             .setNegativeButton(R.string.settings_cancel) { d, _ -> d.dismiss() }

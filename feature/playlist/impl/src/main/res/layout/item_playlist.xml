@@ -12,28 +12,49 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/card_padding">
 
+        <CheckBox
+            android:id="@+id/playlist_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
         <TextView
             android:id="@+id/playlist_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:minWidth="0dp"
             android:gravity="center"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:textAppearance="@style/TextAppearanceHeadline3"
+            android:layout_marginStart="@dimen/spacing_base"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/playlist_checkbox"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_goneMarginStart="0dp"
             tools:text="Название категории" />
 
         <TextView
             android:id="@+id/playlist_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:minWidth="0dp"
             android:gravity="center"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:textAppearance="@style/TextAppearanceBody2"
             android:layout_marginTop="@dimen/spacing_xs"
+            android:layout_marginStart="@dimen/spacing_base"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/playlist_checkbox"
             app:layout_constraintTop_toBottomOf="@+id/playlist_name"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_goneMarginStart="0dp"
             tools:text="Описание категории" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

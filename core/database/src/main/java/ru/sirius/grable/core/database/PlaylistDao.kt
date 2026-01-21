@@ -22,4 +22,7 @@ interface PlaylistDao {
 
     @Query("SELECT * FROM playlist WHERE name = :name LIMIT 1")
     suspend fun findByName(name: String): PlaylistEntity?
+
+    @Query("SELECT * FROM playlist WHERE isSystem = 0 ORDER BY id ASC LIMIT 1")
+    suspend fun findMyWordsPlaylist(): PlaylistEntity?
 }

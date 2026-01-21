@@ -18,16 +18,24 @@ class FSRSService {
         val grades = fsrs.calculate(card)
         val selected = grades.first { it.choice == rating }
 
+        val isKnown = rating == Rating.Good || rating == Rating.Easy
+        val isNewWord = card.reviewCount == 0
+        
+        val phase = when {
+            isNewWord && isKnown -> CardPhase.Review.value
+            selected.interval > 0 -> CardPhase.Review.value
+            else -> CardPhase.ReLearning.value
+        }
+
         return FSRSStateEntity(
             wordId = card.id,
             stability = selected.stability,
             difficulty = selected.difficulty,
             interval = selected.interval,
-            // durationMillis из Grade для следующей даты
             dueDateMillis = System.currentTimeMillis() + selected.durationMillis,
             lastReviewMillis = System.currentTimeMillis(),
             reviewCount = card.reviewCount + 1,
-            phase = if (selected.interval > 0) CardPhase.Review.value else CardPhase.ReLearning.value
+            phase = phase
         )
     }
 }

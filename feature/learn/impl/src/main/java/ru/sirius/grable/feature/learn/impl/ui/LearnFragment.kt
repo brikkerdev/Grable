@@ -18,11 +18,13 @@ import com.yuyakaido.android.cardstackview.StackFrom
 import com.yuyakaido.android.cardstackview.SwipeAnimationSetting
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import ru.sirius.fsrs.Rating
 import ru.sirius.grable.feature.learn.api.LearnArgs
 import ru.sirius.grable.feature.learn.impl.databinding.FragmentLearnBinding
 import ru.sirius.grable.feature.learn.impl.ui.card.CardStackAdapter
+import ru.sirius.grable.feature.settings.api.ISettingsService
 
 class LearnFragment : Fragment(), CardStackListener {
 
@@ -30,14 +32,24 @@ class LearnFragment : Fragment(), CardStackListener {
     private val binding get() = _binding!!
 
     private val playlistIds: List<Long> by lazy {
-        val id = arguments?.getLong(LearnArgs.PLAYLIST_ID, 1L) ?: 1L
-        listOf(id)
+        val savedIds = settingsService.getSelectedPlaylistIds()
+        if (savedIds.isNotEmpty()) {
+            savedIds
+        } else {
+            val id = arguments?.getLong(LearnArgs.PLAYLIST_ID, 1L) ?: 1L
+            listOf(id)
+        }
     }
 
     private val viewModel: LearnViewModel by viewModel()
+    private val settingsService: ISettingsService by inject()
 
     private val cardStackAdapter by lazy { CardStackAdapter() }
     private var layoutManager: CardStackLayoutManager? = null
+    
+    private val sharedPreferences by lazy {
+        requireContext().getSharedPreferences("app_preferences", android.content.Context.MODE_PRIVATE)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,8 +65,7 @@ class LearnFragment : Fragment(), CardStackListener {
         setupCardStack()
         observeState()
         
-        val sharedPreferences = requireContext().getSharedPreferences("app_preferences", android.content.Context.MODE_PRIVATE)
-        val newWordsPerDay = sharedPreferences.getInt("newWordsPerDay", 10)
+        val newWordsPerDay = settingsService.getNewWordsPerDay()
         
         val today = getTodayDateKey()
         val savedDate = sharedPreferences.getString("learn_progress_date", "")
@@ -64,7 +75,11 @@ class LearnFragment : Fragment(), CardStackListener {
         val initialLearnedCount = if (savedDate == today) savedLearnedCount else 0
         val initialReviewedCount = if (savedDate == today) savedReviewedCount else 0
         
-        viewModel.startSession(playlistIds, newWordsPerDay, initialLearnedCount, initialReviewedCount)
+        if (initialLearnedCount >= newWordsPerDay) {
+            showCompletionScreen(initialLearnedCount, initialReviewedCount)
+        } else {
+            viewModel.startSession(playlistIds, newWordsPerDay, initialLearnedCount, initialReviewedCount)
+        }
     }
 
     private fun getTodayDateKey(): String {
@@ -73,7 +88,6 @@ class LearnFragment : Fragment(), CardStackListener {
     }
 
     private fun saveTodayProgress(learnedCount: Int, reviewedCount: Int) {
-        val sharedPreferences = requireContext().getSharedPreferences("app_preferences", android.content.Context.MODE_PRIVATE)
         sharedPreferences.edit().apply {
             putString("learn_progress_date", getTodayDateKey())
             putInt("learn_progress_learned", learnedCount)
@@ -89,9 +103,9 @@ class LearnFragment : Fragment(), CardStackListener {
             setTranslationInterval(8.0f)
             setScaleInterval(0.95f)
             setMaxDegree(20.0f)
-            setDirections(Direction.HORIZONTAL)
+            setDirections(Direction.FREEDOM)
             setCanScrollHorizontal(true)
-            setCanScrollVertical(false)
+            setCanScrollVertical(true)
         }
         
         binding.cardStackView.layoutManager = layoutManager

@@ -16,6 +16,7 @@ import ru.sirius.grable.feature.home.impl.R
 import ru.sirius.grable.feature.home.impl.databinding.FragmentMainScreenBinding
 import ru.sirius.grable.core.navigation.api.NavigationRouter
 import ru.sirius.grable.core.navigation.api.Screens
+import ru.sirius.grable.feature.settings.api.ISettingsService
 
 class HomeFragment : Fragment() {
 
@@ -24,12 +25,12 @@ class HomeFragment : Fragment() {
 
     private val navigationRouter: NavigationRouter by inject()
     private val viewModel: HomeViewModel by viewModel()
+    private val settingsService: ISettingsService by inject()
     
     private val actionsAdapter by lazy {
         HomeActionsAdapter { action ->
             val state = viewModel.uiState.value
-            val sharedPreferences = requireContext().getSharedPreferences("app_preferences", android.content.Context.MODE_PRIVATE)
-            val newWordsPerDay = sharedPreferences.getInt("newWordsPerDay", 10)
+            val newWordsPerDay = settingsService.getNewWordsPerDay()
             val isDailyGoalCompleted = state.learnedNewWordsToday >= newWordsPerDay
 
             if (action.screen == Screens.LEARN && isDailyGoalCompleted) {
@@ -72,15 +73,22 @@ class HomeFragment : Fragment() {
     }
 
     private fun updateActions(state: HomeUiState) {
-        val sharedPreferences = requireContext().getSharedPreferences("app_preferences", android.content.Context.MODE_PRIVATE)
-        val newWordsPerDay = sharedPreferences.getInt("newWordsPerDay", 10)
+        val newWordsPerDay = settingsService.getNewWordsPerDay()
         val isDailyGoalCompleted = state.learnedNewWordsToday >= newWordsPerDay
 
         val actions = buildList {
             add(
                 HomeAction(
-                    titleRes = R.string.action_repeat_title,
-                    descriptionRes = R.string.action_repeat_desc,
+                    titleRes = if (isDailyGoalCompleted) {
+                        R.string.action_goal_completed_title
+                    } else {
+                        R.string.action_repeat_title
+                    },
+                    descriptionRes = if (isDailyGoalCompleted) {
+                        R.string.action_goal_completed_desc
+                    } else {
+                        R.string.action_repeat_desc
+                    },
                     buttonTextRes = if (isDailyGoalCompleted) {
                         R.string.learn_daily_goal_completed
                     } else {
@@ -88,7 +96,7 @@ class HomeFragment : Fragment() {
                     },
                     screen = Screens.LEARN,
                     badge = when {
-                        isDailyGoalCompleted -> getString(R.string.learn_daily_goal_completed)
+                        isDailyGoalCompleted -> null
                         state.dueWordsCount > 0 -> "У вас ${state.dueWordsCount} слов для повторения"
                         else -> null
                     }

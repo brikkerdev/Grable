@@ -10,8 +10,9 @@
     <string name="stats_error">Произошла ошибка</string>
     <string name="stats_retry">Повторить</string>
     <string name="stats_generate_mock_data">Сгенерировать тестовые данные</string>
-    <string name="_3">3 мар</string>
-    <string name="_0">0</string>
+    <string name="stats_item_total">Всего: %1$d</string>
+    <string name="stats_item_period">За период: %1$d</string>
+    <string name="stats_all_time">Все время</string>
 </resources>
 
 

@@ -35,9 +35,10 @@
 
 ### 5. Выбор категорий ✅
 
-- ✅ Экран выбора плейлистов уже реализован (SelectPlaylistFragment)
+- ✅ Экран выбора плейлистов (SelectPlaylistFragment)
 - ✅ Фильтрация слов по плейлистам
 - ✅ Навигация к изучению выбранного плейлиста
+- ✅ Режим редактирования с чекбоксами и сохранением выбранных категорий в settings (используются в LearnFragment)
 
 ### 6. Функциональность карточек ✅
 
@@ -886,3 +887,338 @@ val currentPosition = layoutManager?.topPosition ?: return
 - ✅ Можно многократно переходить на LearnFragment и уходить с него
 - ✅ LayoutManager корректно пересоздается при каждом создании view
 - ✅ Правильное управление жизненным циклом Fragment
+
+## ✅ Рефакторинг: Вынос констант настроек в API
+
+### Проблема
+
+Константы настроек были захардкожены в `SettingsRepository` и использовались напрямую в других модулях через магические строки.
+
+### Решение
+
+**1. Созданы API константы - `SettingsKeys.kt`**
+**2. Создан интерфейс - `ISettingsService`**
+**3. `SettingsRepository` реализует интерфейс**
+**4. Зарегистрирован в Koin как singleton**
+**5. Обновлены LearnFragment и HomeFragment для использования API**
+
+### Результат
+
+- ✅ Нет магических строк в коде
+- ✅ Единая точка доступа к настройкам через интерфейс
+- ✅ Правильная слоистая архитектура (UI не знает о SharedPreferences)
+- ✅ Легко тестировать (можно замокать ISettingsService)
+- ✅ Type-safe доступ к настройкам
+
+## ✅ Исправление свайпа вверх
+
+### Проблема
+
+Свайп вверх не работал в LearnFragment.
+
+### Решение
+
+Изменено: `setDirections(Direction.FREEDOM)` и `setCanScrollVertical(true)`
+
+### Результат
+
+- ✅ Работают все свайпы: влево (Again), вправо (Good), вверх (Hard)
+
+## ✅ Режим просмотра карточек
+
+### Реализация
+
+LearnPlaylistFragment отображает список слов без трекинга прогресса.
+
+### Добавлено
+
+- Кнопка "Пометить как изученное" в item_word.xml
+- Обработка в LearnPlaylistAdapter и LearnPlaylistViewModel
+
+### Результат
+
+- ✅ Режим просмотра работает
+- ✅ Можно пометить слово как изученное
+- ✅ Прогресс не отслеживается
+
+## 🔜 БУДУЩИЕ ЗАДАЧИ
+
+### 1. Кастомные слова и категории ⏳ В ПРОЦЕССЕ
+
+**✅ Выполнено:**
+
+- ✅ Добавлено поле `isSystem: Boolean` в `PlaylistEntity`
+- ✅ Создана миграция БД `MIGRATION_2_3` для добавления поля `isSystem`
+- ✅ Категория "Свои слова" создается по умолчанию (`isSystem = false`)
+- ✅ Обновлен `Playlist` API для поддержки `isSystem`
+- ✅ Обновлен `SelectPlaylistRepository` для маппинга `isSystem`
+- ✅ Обновлен `SelectPlaylistInteractor` для сортировки (сначала системные, потом пользовательские)
+
+**⏳ В процессе:**
+
+- ⏳ Separator Bar на SelectPlaylistFragment (визуальное разделение)
+- ⏳ UI для создания новых категорий
+- ⏳ UI для добавления слов в категории
+- ⏳ Функционал добавления кастомных слов
+
+### 2. Выбор категорий для подборки
+
+- Кнопка "Edit" на SelectPlaylistFragment
+- Checkbox на категориях в режиме редактирования
+- Сохранение выбранных категорий
+- Использование выбранных категорий при генерации подборки
+
+### 3. Отделение модуля learn_playlist
+
+- Создать отдельный модуль feature:learn_playlist
+- Перенести LearnPlaylistFragment и связанные классы
+- Настроить зависимости
+
+## ✅ КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: NumberFormatException в FSRS
+
+### Проблема
+
+При многократном нажатии кнопки "Уже знаю это слово" возникал crash:
+
+```
+java.lang.NumberFormatException: For input string: "1,00"
+at ru.sirius.fsrs.FSRS.initDifficulty(FSRS.kt:223)
+```
+
+### Причина
+
+В FSRS использовался `String.format("%.2f", value).toDouble()` который форматирует с локалью системы (в русской локали запятая вместо точки).
+
+### Решение
+
+Заменено на математическое округление: `(round(value * 100) / 100.0)`
+
+### Результат
+
+- ✅ Crash устранен
+- ✅ Независимость от локали
+- ✅ Корректное округление
+
+## ✅ UX улучшение: BottomSheet для деталей слова
+
+### Проблема
+
+Кнопка "Уже знаю это слово" всегда была видна в списке, загромождала UI.
+
+### Решение
+
+- Создан `WordDetailsBottomSheet` с полной информацией о слове
+- Кнопка "Уже знаю" теперь только в BottomSheet
+- При клике на слово в списке открывается BottomSheet
+
+### Результат
+
+- ✅ Чистый UI списка
+- ✅ Детальная информация о слове
+- ✅ Нет случайных нажатий
+
+## ✅ Финальные исправления FSRS и индикация статуса
+
+### Проблема 1: Crash все еще возникал
+
+Были найдены еще 2 места с `String.format`:
+
+- `nextForgetStability()` - строка 291
+- `nextRecallStability()` - строка 306
+
+### Решение 1: Полное исправление FSRS
+
+Заменены все оставшиеся `String.format` на математическое округление.
+
+### Проблема 2: Отсутствие индикации состояния слова
+
+В списке слов не было видно:
+
+- Новое слово (не встречалось)
+- Изучается (повторялось, но еще не выучено)
+- Выучено (reviewCount >= 3 и stability > 10)
+
+### Решение 2: Цветовая индикация
+
+**item_word.xml:**
+
+- Добавлен цветной индикатор слева от слова
+
+**Цвета:**
+
+- Серый → Новое слово (reviewCount == 0)
+- Оранжевый → Изучается (reviewCount > 0, но не выучено)
+- Зеленый → Выучено (reviewCount >= 3 && stability > 10)
+
+**LearnPlaylistAdapter:**
+
+```kotlin
+val statusColor = when {
+    word.fsrsData.reviewCount == 0 -> word_status_new
+    word.fsrsData.reviewCount >= 3 && word.fsrsData.stability > 10.0 -> word_status_learned
+    else -> word_status_learning
+}
+```
+
+### Проблема 3: Кнопка всегда видна
+
+Кнопка "Уже знаю" показывалась даже для выученных слов.
+
+### Решение 3: Условное отображение
+
+**WordDetailsBottomSheet:**
+
+```kotlin
+val isLearned = word.fsrsData.reviewCount > 0
+binding.btnMarkAsKnown.visibility = if (isLearned) View.GONE else View.VISIBLE
+```
+
+### Результат всех исправлений
+
+- ✅ Crash полностью устранен (все String.format заменены)
+- ✅ Визуальная индикация состояния слова в списке
+- ✅ Кнопка "Уже знаю" только для новых слов
+- ✅ Поддержка светлой и темной тем
+- ✅ Лаконичная, но информативная индикация
+
+## ✅ Исправление BottomSheet и улучшение индикаторов
+
+### Проблема 1: Crash при открытии BottomSheet
+
+```
+android.view.InflateException: Error inflating class TextView
+Failed to resolve attribute at index 5
+```
+
+### Причина
+
+Использовался неправильный атрибут для стиля TextView:
+
+```xml
+style="@style/TextAppearanceHeadline1"  <!-- НЕПРАВИЛЬНО -->
+```
+
+### Решение
+
+Для TextView нужно использовать `android:textAppearance`:
+
+```xml
+android:textAppearance="@style/TextAppearanceHeadline1"  <!-- ПРАВИЛЬНО -->
+```
+
+### Проблема 2: Индикаторы непонятны новым пользователям
+
+Только цветовые индикаторы без текста не интуитивны.
+
+### Решение
+
+Добавлены текстовые метки справа от каждого слова:
+
+**item_word.xml:**
+
+- Добавлен `statusLabel` TextView
+- Размер `text_xs` для компактности
+- Цвет `colorOnSurfaceVariant`
+
+**Strings (ru):**
+
+- `learn_status_new` → "Новое"
+- `learn_status_learning` → "Изучается"
+- `learn_status_learned` → "Выучено"
+
+**Strings (en):**
+
+- `learn_status_new` → "New"
+- `learn_status_learning` → "Learning"
+- `learn_status_learned` → "Learned"
+
+**LearnPlaylistAdapter:**
+
+```kotlin
+val (statusColor, statusText) = when {
+    word.fsrsData.reviewCount == 0 -> Pair(word_status_new, learn_status_new)
+    word.fsrsData.reviewCount >= 3 && stability > 10.0 -> Pair(word_status_learned, learn_status_learned)
+    else -> Pair(word_status_learning, learn_status_learning)
+}
+binding.statusIndicator.setBackgroundColor(context.getColor(statusColor))
+binding.statusLabel.setText(statusText)
+```
+
+### Результат финальных исправлений
+
+- ✅ BottomSheet открывается без ошибок
+- ✅ Индикаторы имеют текстовые метки
+- ✅ Понятно новым пользователям (цвет + текст)
+- ✅ Локализовано на русский и английский
+- ✅ Компактный дизайн (text_xs)
+- ✅ Исправлена та же ошибка в item_word.xml (originalWord TextView)
+
+**Правило:** Для TextView всегда использовать `android:textAppearance`, а не `style` для текстовых стилей.
+
+## ✅ МАССОВОЕ ИСПРАВЛЕНИЕ: textAppearance во всех layouts
+
+### Проблема
+
+Ошибка продолжала возникать, потому что множество других TextView использовали неправильный атрибут `style` вместо `android:textAppearance`.
+
+### Исправленные файлы
+
+**item_card_learn.xml** - 8 TextView:
+
+- `frontWord` ✓
+- `frontTranscription` ✓
+- `backTranslation` ✓
+- `backOriginal` ✓
+- `backExample` ✓
+- Overlay left TextView ✓
+- Overlay right TextView ✓
+- Overlay up TextView ✓
+
+**fragment_learn_completion.xml** - 2 TextView:
+
+- `completionTitle` ✓
+- `statsTitle` ✓
+
+**fragment_learn.xml** - 1 TextView:
+
+- `emptyView` ✓
+
+**item_word.xml** - 1 TextView:
+
+- `originalWord` ✓
+
+**bottom_sheet_word_details.xml** - 1 TextView:
+
+- `wordOriginal` ✓
+
+### Итого исправлено
+
+**13 TextView** во всем модуле `feature/learn/impl`
+
+### Результат
+
+- ✅ Все TextView используют правильный атрибут
+- ✅ LearnPlaylistFragment открывается без ошибок
+- ✅ LearnFragment работает корректно
+- ✅ BottomSheet открывается без проблем
+- ✅ Completion screen работает
+
+## ✅ Исправление TODO в WordFragment
+
+### Проблема
+
+В `WordFragment.kt` был незавершенный код для отображения примеров использования слова.
+
+### Решение
+
+Исправлен метод `bindWord()` для корректного отображения первого примера из списка `word.examples`:
+
+```kotlin
+val firstExample = word.examples.firstOrNull()
+binding.backExample.text = firstExample?.text ?: ""
+```
+
+### Результат
+
+- ✅ Примеры использования слова корректно отображаются на обратной стороне карточки
+- ✅ Нет падений при отсутствии примеров

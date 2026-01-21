@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import ru.sirius.di.AbstractInitializer
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -28,6 +29,24 @@ val addWordModule = module {
     
     factory<Class<out Fragment>>(named(Constants.ADD_WORD_SCREEN)) {
         AddWordFragment::class.java
+    }
+
+    factory {
+        ru.sirius.grable.feature.add_word.impl.domain.AddWordRepository(
+            get(),
+            get(),
+            get()
+        )
+    }
+
+    factory {
+        ru.sirius.grable.feature.add_word.impl.domain.AddWordInteractor(
+            get()
+        )
+    }
+
+    viewModel {
+        ru.sirius.grable.feature.add_word.impl.ui.AddWordViewModel(get())
     }
 }
 

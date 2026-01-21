@@ -98,9 +98,22 @@
             android:padding="@dimen/spacing_base"
             android:gravity="center"
             app:layout_constraintBottom_toTopOf="@+id/playlist_items"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button_edit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/button_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_base"
+            android:contentDescription="@string/playlist_edit_categories"
+            android:src="@drawable/ic_edit"
+            style="@style/Widget.Grable.IconButton.Borderless"
+            app:tint="@color/primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/page_name"
+            app:layout_constraintBottom_toBottomOf="@+id/page_name" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/playlist_items"
@@ -113,15 +126,45 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/page_name" />
 
-        <Button
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/button_back"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/back"
-            style="@style/Widget.Grable.Button.Primary"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="@dimen/spacing_base"
+            android:layout_marginBottom="@dimen/spacing_base"
+            android:contentDescription="@string/back"
+            app:srcCompat="@drawable/ic_arrow_back"
+            app:tint="@color/on_primary"
+            app:backgroundTint="@color/primary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/button_add_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_base"
+            android:layout_marginBottom="@dimen/spacing_base"
+            android:contentDescription="@string/playlist_add_category_cd"
+            app:srcCompat="@drawable/ic_add"
+            app:tint="@color/on_primary"
+            app:backgroundTint="@color/primary"
+            app:layout_constraintStart_toEndOf="@+id/button_back"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageButton
+            android:id="@+id/button_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_base"
+            android:contentDescription="@string/playlist_apply_selection"
+            android:src="@drawable/ic_done"
+            android:visibility="gone"
+            style="@style/Widget.Grable.IconButton.Borderless"
+            app:tint="@color/primary"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/page_name"
+            app:layout_constraintBottom_toBottomOf="@+id/page_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

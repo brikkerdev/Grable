@@ -1,15 +1,9 @@
 package ru.sirius.grable.feature.settings.impl.ui
 
-import ru.sirius.grable.feature.settings.impl.data.ID_APP_VERSION
-import ru.sirius.grable.feature.settings.impl.data.ID_DAILY_REMINDER
-import ru.sirius.grable.feature.settings.impl.data.ID_LANGUAGE
-import ru.sirius.grable.feature.settings.impl.data.ID_NEW_WORDS_PER_DAY
-import ru.sirius.grable.feature.settings.impl.data.ID_THEME
-import ru.sirius.grable.feature.settings.impl.data.ID_TIME_REMINDER
-import ru.sirius.grable.feature.settings.impl.data.ID_VOICE
+
 import ru.sirius.grable.feature.settings.impl.domain.SettingsUIState
 import ru.sirius.feature.settings.impl.R
-import kotlin.collections.get
+import ru.sirius.grable.feature.settings.api.SettingsKeys
 
 class SettingsItemsFactory {
 
@@ -55,7 +49,7 @@ class SettingsItemsFactory {
             SettingItem.BaseSetting(
                 id = R.id.new_words_per_day_layout,
                 title = R.string.settings_new_words_per_day,
-                value = values[ID_NEW_WORDS_PER_DAY]?.intValue()?.toString() ?: "10",
+                value = values[SettingsKeys.NEW_WORDS_PER_DAY]?.intValue()?.toString() ?: "10",
             ),
             SettingItem.SectionTitle(
                 id = R.id.section_notifications,
@@ -64,8 +58,8 @@ class SettingsItemsFactory {
             SettingItem.SwitchSetting(
                 id = R.id.switchReminders,
                 title = R.string.settings_daily_notifications,
-                subtitle = values[ID_TIME_REMINDER]?.stringValue().orEmpty(),
-                isChecked = values[ID_DAILY_REMINDER]?.booleanValue() ?: false,
+                subtitle = values[SettingsKeys.TIME_REMINDER]?.stringValue().orEmpty(),
+                isChecked = values[SettingsKeys.DAILY_REMINDER]?.booleanValue() ?: false,
             ),
             // О приложении
             SettingItem.SectionTitle(
@@ -80,7 +74,7 @@ class SettingsItemsFactory {
             // Версия приложения
             SettingItem.AppVersion(
                 id = R.id.app_version,
-                version = values[ID_APP_VERSION]?.stringValue().orEmpty()
+                version = values[SettingsKeys.APP_VERSION]?.stringValue().orEmpty()
             )
         )
     }

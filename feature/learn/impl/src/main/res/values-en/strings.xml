@@ -7,12 +7,26 @@
     <string name="learn_play_sound">Play audio</string>
     <string name="learn_progress">Progress:</string>
     <string name="learn_add_word">Add word</string>
+    <string name="learn_add_word_title">New word</string>
+    <string name="learn_add_word_playlist_hint">Category</string>
+    <string name="learn_add_word_original_hint">Word</string>
+    <string name="learn_add_word_translation_hint">Translation</string>
+    <string name="learn_add_word_transcription_hint">Transcription (optional)</string>
+    <string name="learn_add_word_example_hint">Example (optional)</string>
+    <string name="learn_add_word_example_translation_hint">Example translation (optional)</string>
+    <string name="learn_add_word_save">Save</string>
+    <string name="learn_add_word_cancel">Cancel</string>
+    <string name="learn_add_word_error_required">Enter word and translation</string>
     <string name="learn_playlist_title">Words in playlist</string>
     <string name="learn_all_words_reviewed">All words reviewed!</string>
     <string name="learn_swipe_left">Don\'t know</string>
     <string name="learn_swipe_right">Know</string>
     <string name="learn_swipe_up">Review again</string>
     <string name="learn_mark_as_known">I already know this word</string>
+    <string name="learn_examples_title">Usage examples:</string>
+    <string name="learn_status_new">New</string>
+    <string name="learn_status_learning">Learning</string>
+    <string name="learn_status_learned">Learned</string>
     <string name="learn_completion_icon">Completed</string>
     <string name="learn_completion_title">Great job!</string>
     <string name="learn_completion_subtitle">You\'ve completed your daily learning goal</string>
@@ -21,4 +35,7 @@
     <string name="learn_completion_stats_reviewed">Reviewed words</string>
     <string name="learn_completion_button_back">Back to home</string>
     <string name="learn_daily_goal_completed">You\'ve already completed your daily goal! Come back tomorrow</string>
+    <string name="learn_delete_word">Delete word</string>
+
+    <string name="playlist_my_words">My Words</string>
 </resources>

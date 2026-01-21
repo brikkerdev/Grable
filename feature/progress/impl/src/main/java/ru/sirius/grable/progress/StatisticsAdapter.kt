@@ -18,8 +18,8 @@ class StatisticsAdapter(private val statistics: List<StatisticItem>) :
 
         fun bind(stat: StatisticItem) {
             tvTitle.text = stat.title
-            tvTotal.text = stat.total.toString()
-            tvPeriod.text = stat.period.toString()
+            tvTotal.text = itemView.context.getString(ru.sirius.feature.progress.impl.R.string.stats_item_total, stat.total)
+            tvPeriod.text = itemView.context.getString(ru.sirius.feature.progress.impl.R.string.stats_item_period, stat.period)
         }
     }
 

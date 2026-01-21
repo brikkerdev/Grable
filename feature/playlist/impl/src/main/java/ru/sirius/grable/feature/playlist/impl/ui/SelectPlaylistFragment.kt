@@ -20,15 +20,22 @@ class SelectPlaylistFragment : Fragment() {
     private val viewModel: SelectPlaylistViewModel by viewModels()
 
     private val adapter: SelectPlaylistAdapter by lazy {
-        SelectPlaylistAdapter { playlist ->
-            val args = Bundle().apply {
-                putLong(ru.sirius.grable.feature.learn.api.LearnArgs.PLAYLIST_ID, playlist.id)
+        SelectPlaylistAdapter(
+            onItemClick = { playlist ->
+                if (!viewModel.state.value.isEditMode) {
+                    val args = Bundle().apply {
+                        putLong(ru.sirius.grable.feature.learn.api.LearnArgs.PLAYLIST_ID, playlist.id)
+                    }
+                    navigationRouter.navigateToScreenByQualifier(
+                        ru.sirius.grable.feature.learn.api.Constants.LEARN_PLAYLIST_SCREEN,
+                        args
+                    )
+                }
+            },
+            onCheckboxClick = { playlistId ->
+                viewModel.togglePlaylistSelection(playlistId)
             }
-            navigationRouter.navigateToScreenByQualifier(
-                ru.sirius.grable.feature.learn.api.Constants.LEARN_PLAYLIST_SCREEN,
-                args
-            )
-        }
+        )
     }
 
     private var _binding: FragmentSelectPlaylistBinding? = null
@@ -53,6 +60,20 @@ class SelectPlaylistFragment : Fragment() {
             navigationRouter.navigateToScreen(Screens.HOME)
         }
 
+        binding.buttonAddCategory.setOnClickListener {
+            CreatePlaylistBottomSheet { name, description ->
+                viewModel.createPlaylist(name, description)
+            }.show(childFragmentManager, CreatePlaylistBottomSheet.TAG)
+        }
+
+        binding.buttonEdit.setOnClickListener {
+            viewModel.toggleEditMode()
+        }
+
+        binding.buttonApply.setOnClickListener {
+            viewModel.applySelectedPlaylists()
+        }
+
         applyLoading(viewModel.state.value.isLoading)
         observeViewModel()
     }
@@ -67,10 +88,20 @@ class SelectPlaylistFragment : Fragment() {
             viewModel.state.collect { state ->
                 applyLoading(state.isLoading)
                 if (!state.isLoading) {
+                    adapter.isEditMode = state.isEditMode
+                    adapter.selectedPlaylistIds = state.selectedPlaylistIds
                     adapter.submitList(state.playlists)
                 }
+                updateEditModeUI(state.isEditMode)
             }
         }
+    }
+
+    private fun updateEditModeUI(isEditMode: Boolean) {
+        binding.buttonBack.isVisible = !isEditMode
+        binding.buttonAddCategory.isVisible = !isEditMode
+        binding.buttonEdit.visibility = if (isEditMode) View.GONE else View.VISIBLE
+        binding.buttonApply.visibility = if (isEditMode) View.VISIBLE else View.GONE
     }
 
     private fun applyLoading(isLoading: Boolean) {

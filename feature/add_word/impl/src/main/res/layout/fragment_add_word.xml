@@ -18,8 +18,8 @@
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Нашли новое слово? Добавьте его в свой словарь для заучивания!"
-            style="@style/Widget.Grable.AddWord.Title"
+            android:text="@string/add_word_title"
+            android:textAppearance="@style/TextAppearanceHeadline3"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -37,14 +37,27 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.Grable.AddWord.Card.Content">
+                style="@style/Widget.Grable.AddWord.Card.Content"
+                android:padding="@dimen/spacing_base">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/playlistSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_spinner_border"
+                    android:paddingHorizontal="@dimen/spacing_base"
+                    android:paddingVertical="@dimen/spacing_sm"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutWord"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Слово на иностранном"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="@dimen/spacing_base"
+                    android:hint="@string/add_word_original_hint"
+                    app:layout_constraintTop_toBottomOf="@+id/playlistSpinner"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toTopOf="@id/inputLayoutTranscription">
@@ -53,6 +66,7 @@
                         android:id="@+id/inputWord"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="textCapWords"
                         style="@style/Widget.Grable.TextInput.EditText" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -60,7 +74,8 @@
                     android:id="@+id/inputLayoutTranscription"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Транскрипция (не обязательно)"
+                    android:layout_marginTop="@dimen/spacing_base"
+                    android:hint="@string/add_word_transcription_hint"
                     app:layout_constraintTop_toBottomOf="@id/inputLayoutWord"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -77,61 +92,69 @@
                     android:id="@+id/inputLayoutTranslation"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Перевод"
+                    android:layout_marginTop="@dimen/spacing_base"
+                    android:hint="@string/add_word_translation_hint"
                     app:layout_constraintTop_toBottomOf="@id/inputLayoutTranscription"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
+                    app:layout_constraintBottom_toTopOf="@id/inputLayoutExample">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/inputTranslation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
+                        style="@style/Widget.Grable.TextInput.EditText" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/inputLayoutExample"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_base"
+                    android:hint="@string/add_word_example_hint"
+                    app:layout_constraintTop_toBottomOf="@id/inputLayoutTranslation"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/inputLayoutExampleTranslation">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputExample"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
+                        style="@style/Widget.Grable.TextInput.EditText" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/inputLayoutExampleTranslation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_base"
+                    android:hint="@string/add_word_example_translation_hint"
+                    app:layout_constraintTop_toBottomOf="@id/inputLayoutExample"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputExampleTranslation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
                         style="@style/Widget.Grable.TextInput.EditText" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <ImageView
-            android:id="@+id/imageExample"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/image_example_height"
-            android:scaleType="centerCrop"
-            style="@style/Widget.Grable.AddWord.Image"
-            app:layout_constraintTop_toBottomOf="@id/cardWord"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/spacing_base" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvExample"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            style="@style/Widget.Grable.AddWord.RecyclerView"
-            app:layout_constraintTop_toBottomOf="@id/imageExample"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/spacing_base" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAddExample"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="+ Добавить пример использования"
-            style="@style/Widget.Grable.AddWord.Button.AddExample"
-            app:layout_constraintTop_toBottomOf="@id/rvExample"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/spacing_md" />
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAdd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="ДОБАВИТЬ СЛОВО"
-            style="@style/Widget.Grable.AddWord.Button.Add"
-            app:layout_constraintTop_toBottomOf="@id/btnAddExample"
+            android:text="@string/add_word_button_save"
+            style="@style/Widget.Grable.Button.Primary"
+            app:layout_constraintTop_toBottomOf="@id/cardWord"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

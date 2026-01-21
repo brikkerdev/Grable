@@ -7,12 +7,26 @@
     <string name="learn_play_sound">Воспроизвести произношение</string>
     <string name="learn_progress">Прогресс:</string>
     <string name="learn_add_word">Добавить слово</string>
+    <string name="learn_add_word_title">Новое слово</string>
+    <string name="learn_add_word_playlist_hint">Категория</string>
+    <string name="learn_add_word_original_hint">Слово</string>
+    <string name="learn_add_word_translation_hint">Перевод</string>
+    <string name="learn_add_word_transcription_hint">Транскрипция (необязательно)</string>
+    <string name="learn_add_word_example_hint">Пример (необязательно)</string>
+    <string name="learn_add_word_example_translation_hint">Перевод примера (необязательно)</string>
+    <string name="learn_add_word_save">Сохранить</string>
+    <string name="learn_add_word_cancel">Отмена</string>
+    <string name="learn_add_word_error_required">Заполните слово и перевод</string>
     <string name="learn_playlist_title">Слова в подборке</string>
     <string name="learn_all_words_reviewed">Все слова повторены!</string>
     <string name="learn_swipe_left">Не знаю</string>
     <string name="learn_swipe_right">Знаю</string>
     <string name="learn_swipe_up">Повторить</string>
     <string name="learn_mark_as_known">Уже знаю это слово</string>
+    <string name="learn_examples_title">Примеры использования:</string>
+    <string name="learn_status_new">Новое</string>
+    <string name="learn_status_learning">Изучается</string>
+    <string name="learn_status_learned">Выучено</string>
     <string name="learn_completion_icon">Завершено</string>
     <string name="learn_completion_title">Отлично!</string>
     <string name="learn_completion_subtitle">Вы выполнили норму изучения новых слов на сегодня</string>
@@ -21,5 +35,8 @@
     <string name="learn_completion_stats_reviewed">Повторили слов</string>
     <string name="learn_completion_button_back">Вернуться на главную</string>
     <string name="learn_daily_goal_completed">Вы уже выучили норму слов на сегодня! Возвращайтесь завтра</string>
+    <string name="learn_delete_word">Удалить слово</string>
+
+    <string name="playlist_my_words">Свои слова</string>
 </resources>
 

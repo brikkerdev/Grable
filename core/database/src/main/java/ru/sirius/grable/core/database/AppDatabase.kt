@@ -19,7 +19,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
         StatisticsEntity::class,
         FSRSStateEntity::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -44,6 +44,7 @@ abstract class AppDatabase : RoomDatabase() {
                 AppDatabase::class.java,
                 "app_database"
             )
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                 .addCallback(DatabaseInitCallback)
                 .build()
         }
@@ -52,14 +53,33 @@ abstract class AppDatabase : RoomDatabase() {
         private object DatabaseInitCallback : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
-//                populateInitialData(db)
+                createMyWordsPlaylist(db)
             }
         }
 
         // Для обновления с версии 1 → 2
         private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
-                populateInitialData(db)
+                createMyWordsPlaylist(db)
+            }
+        }
+
+        private fun createMyWordsPlaylist(db: SupportSQLiteDatabase) {
+            db.execSQL(
+                "INSERT OR IGNORE INTO playlist (name, description, isSystem) " +
+                    "VALUES ('Свои слова', 'Ваши собственные слова', 0)"
+            )
+        }
+
+        // Для обновления с версии 2 → 3 (добавление isSystem в playlist)
+        val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE playlist ADD COLUMN isSystem INTEGER NOT NULL DEFAULT 1")
+                db.execSQL(
+                    "INSERT INTO playlist (name, description, isSystem) " +
+                        "SELECT 'Свои слова', 'Ваши собственные слова', 0 " +
+                        "WHERE NOT EXISTS (SELECT 1 FROM playlist WHERE name IN ('Свои слова', 'My Words'))"
+                )
             }
         }
 
@@ -78,17 +98,26 @@ abstract class AppDatabase : RoomDatabase() {
             // === Плейлисты ===
             cv.put("name", "Базовые слова")
             cv.put("description", "Самые важные повседневные слова")
+            cv.put("isSystem", 1)
             val playlistBasic = db.insert("playlist", SQLiteDatabase.CONFLICT_NONE, cv)
 
             cv.clear()
             cv.put("name", "Еда и напитки")
             cv.put("description", "Продукты, блюда, ресторан")
+            cv.put("isSystem", 1)
             val playlistFood = db.insert("playlist", SQLiteDatabase.CONFLICT_NONE, cv)
 
             cv.clear()
             cv.put("name", "Путешествия и город")
             cv.put("description", "Отели, транспорт, ориентирование")
+            cv.put("isSystem", 1)
             val playlistTravel = db.insert("playlist", SQLiteDatabase.CONFLICT_NONE, cv)
+
+            cv.clear()
+            cv.put("name", "Свои слова")
+            cv.put("description", "Ваши собственные слова")
+            cv.put("isSystem", 0)
+            db.insert("playlist", SQLiteDatabase.CONFLICT_NONE, cv)
 
             val wordIds = mutableListOf<Long>()
 
@@ -106,17 +135,14 @@ abstract class AppDatabase : RoomDatabase() {
                 cv.put("original", w.original)
                 cv.put("transcription", w.transcription)
                 cv.put("translation", w.translation)
-                cv.put("text", "")               // поле text в WordEntity не используется
-                cv.put("isNew", 1)
-                val wordId = db.insert("word", SQLiteDatabase.CONFLICT_NONE, cv)
+                val wordId = db.insert("words", SQLiteDatabase.CONFLICT_NONE, cv)
                 wordIds.add(wordId)
 
-                // Пример к слову
                 cv.clear()
                 cv.put("wordId", wordId)
                 cv.put("text", w.exampleEn)
                 cv.put("translatedText", w.exampleRu)
-                db.insert("example", SQLiteDatabase.CONFLICT_NONE, cv)
+                db.insert("word_examples", SQLiteDatabase.CONFLICT_NONE, cv)
             }
 
             // ===================================================================

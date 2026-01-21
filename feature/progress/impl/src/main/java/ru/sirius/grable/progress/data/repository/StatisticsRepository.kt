@@ -33,43 +33,60 @@ class StatisticsRepositoryImpl(
 ) : StatisticsRepository {
 
     override fun getStatistics(period: Int): Flow<StatisticsData> = flow {
-        val calendar = Calendar.getInstance()
-        calendar.add(Calendar.DAY_OF_YEAR, -period)
-        val startDate = Timestamp(calendar.time.time)
+        val startDate = if (period == -1) {
+            Timestamp(0)
+        } else {
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.DAY_OF_YEAR, -period)
+            Timestamp(calendar.time.time)
+        }
 
-        // Получаем данные из БД
-        val dailyStats = statisticsDao.getDailyStats(startDate)
+        val dailyStats = if (period == -1) {
+            val calendar = Calendar.getInstance()
+            calendar.set(Calendar.YEAR, 1970)
+            calendar.set(Calendar.MONTH, Calendar.JANUARY)
+            calendar.set(Calendar.DAY_OF_MONTH, 1)
+            calendar.set(Calendar.HOUR_OF_DAY, 0)
+            calendar.set(Calendar.MINUTE, 0)
+            calendar.set(Calendar.SECOND, 0)
+            calendar.set(Calendar.MILLISECOND, 0)
+            statisticsDao.getDailyStats(Timestamp(calendar.time.time))
+        } else {
+            statisticsDao.getDailyStats(startDate)
+        }
+
         val totalKnown = statisticsDao.getTotalKnownCount()
         val totalRepeated = statisticsDao.getTotalRepeatedCount()
         val totalNewWords = statisticsDao.getTotalNewWordsCount()
 
-        // Получаем статистику за период
-        val periodStats = statisticsDao.getSinceDate(startDate)
+        val periodStats = if (period == -1) {
+            statisticsDao.getAll()
+        } else {
+            statisticsDao.getSinceDate(startDate)
+        }
+        
         val periodKnown = periodStats.count { it.isKnown }
         val periodRepeated = periodStats.count { it.isRepeated }
         val periodNewWords = periodStats.count { it.isNewWord }
 
-        // Получаем изучаемые слова
         val learningCalendar = Calendar.getInstance()
         learningCalendar.add(Calendar.DAY_OF_YEAR, -7)
         val learningStartDate = Timestamp(learningCalendar.time.time)
         val learningWords = statisticsDao.getLearningWordsCount(learningStartDate)
 
-        // Конвертируем DailyStat в DayStat
         val domainDays = dailyStats.map { it.toDomain() }
 
-        // Формируем статистику
         val statistics = listOf(
             StatisticItem("Заучено новых слов", totalNewWords, periodNewWords),
             StatisticItem("Повторено слов", totalRepeated, periodRepeated),
-            StatisticItem("Всего выучено", totalKnown, periodKnown),
-            StatisticItem("Уже известные", totalKnown, 0)
+            StatisticItem("Всего выучено", totalKnown, periodKnown)
         )
 
         val periodTitle = when (period) {
             7 -> "7 дней"
             30 -> "30 дней"
             90 -> "90 дней"
+            -1 -> "Все время"
             else -> "Все время"
         }
 

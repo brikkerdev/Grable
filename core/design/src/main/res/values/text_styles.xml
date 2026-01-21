@@ -65,12 +65,52 @@
         <item name="android:fontFamily">sans-serif</item>
     </style>
     
+    <!-- Status label style -->
+    <style name="TextAppearanceStatusLabel">
+        <item name="android:textSize">@dimen/text_xs</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    
     <!-- Button text -->
     <style name="TextAppearanceButton">
         <item name="android:textSize">@dimen/text_base</item>
         <item name="android:textColor">@color/on_primary</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearanceButtonSmall">
+        <item name="android:textSize">@dimen/text_sm</item>
+        <item name="android:textColor">@color/on_primary</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Completion stats styles -->
+    <style name="TextAppearanceCompletionStatsLabel">
+        <item name="android:textSize">@dimen/text_lg</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    
+    <style name="TextAppearanceCompletionStatsValue">
+        <item name="android:textSize">@dimen/text_2xl</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <!-- Overlay text styles -->
+    <style name="TextAppearanceOverlay">
+        <item name="android:textSize">@dimen/text_2xl</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <!-- Primary text color style -->
+    <style name="TextAppearanceHeadline2Primary" parent="TextAppearanceHeadline2">
+        <item name="android:textColor">@color/primary</item>
     </style>
 </resources>
 

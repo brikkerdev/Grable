@@ -58,7 +58,7 @@ interface StatisticsDao {
         WHERE date >= :todayStart 
         AND date < :todayEnd
         AND isNewWord = 1 
-        AND isKnown = 1
+        AND isKnown = 0
     """)
     suspend fun getLearnedNewWordsToday(todayStart: Long, todayEnd: Long): Int
 }

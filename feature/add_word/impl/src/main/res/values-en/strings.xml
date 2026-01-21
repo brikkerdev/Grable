@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">impl</string>
+    <string name="add_word_title">Found a new word? Add it to your dictionary for learning!</string>
+    <string name="add_word_playlist_hint">Category</string>
+    <string name="add_word_original_hint">Word</string>
+    <string name="add_word_translation_hint">Translation</string>
+    <string name="add_word_transcription_hint">Transcription (optional)</string>
+    <string name="add_word_example_hint">Example (optional)</string>
+    <string name="add_word_example_translation_hint">Example translation (optional)</string>
+    <string name="add_word_button_save">Add word</string>
+    <string name="add_word_error_required">Enter word and translation</string>
+    <string name="add_word_success">Word added successfully!</string>
+</resources>
+

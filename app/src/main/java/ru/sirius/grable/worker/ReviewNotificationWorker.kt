@@ -5,7 +5,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.CoroutineWorker
@@ -14,6 +13,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import ru.sirius.grable.MainActivity
 import ru.sirius.grable.R
+import ru.sirius.grable.core.design.R as DesignR
 import ru.sirius.grable.core.database.PlaylistDao
 import ru.sirius.grable.core.database.WordDao
 
@@ -32,7 +32,7 @@ class ReviewNotificationWorker(
                 sendNotification(dueCount)
             }
             Result.success()
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             Result.failure()
         }
     }
@@ -70,24 +70,28 @@ class ReviewNotificationWorker(
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
+            .setColor(applicationContext.getColor(DesignR.color.primary))
             .build()
 
-        with(NotificationManagerCompat.from(applicationContext)) {
-            notify(NOTIFICATION_ID, notification)
+        val notificationManager = NotificationManagerCompat.from(applicationContext)
+        if (notificationManager.areNotificationsEnabled()) {
+            try {
+                notificationManager.notify(NOTIFICATION_ID, notification)
+            } catch (e: SecurityException) {
+                android.util.Log.e("ReviewNotificationWorker", "Failed to send notification", e)
+            }
         }
     }
 
     private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = applicationContext.getString(R.string.notification_channel_name)
-            val descriptionText = applicationContext.getString(R.string.notification_channel_description)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-                description = descriptionText
-            }
-            val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
+        val name = applicationContext.getString(R.string.notification_channel_name)
+        val descriptionText = applicationContext.getString(R.string.notification_channel_description)
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+            description = descriptionText
         }
+        val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 
     companion object {

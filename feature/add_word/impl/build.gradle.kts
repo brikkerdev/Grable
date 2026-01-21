@@ -50,7 +50,8 @@ dependencies {
     implementation(project(":libs:imageloader:coil"))
     implementation(project(":core:design"))
     implementation(project(":core:navigation:api"))
-    
+
+    implementation(project(":core:database"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

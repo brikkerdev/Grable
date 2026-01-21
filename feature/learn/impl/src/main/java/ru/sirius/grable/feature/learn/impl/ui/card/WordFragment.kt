@@ -58,10 +58,11 @@ class WordFragment : Fragment() {
         showFrontSide()
 
         binding.frontWord.text = word.original
-        binding.frontTranscription.text = word.transcription
+        binding.frontTranscription.text = word.transcription ?: ""
         binding.backTranslation.text = word.translation
-        TODO()
-//        binding.backExample.text = word.example
+        
+        val firstExample = word.examples.firstOrNull()
+        binding.backExample.text = firstExample?.text ?: ""
     }
 
     private fun playAudio() {

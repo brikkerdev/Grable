@@ -8,4 +8,6 @@
     <string name="learn_progress">Прогресс:</string>
     <string name="learn_add_word">Добавить слово</string>
     <string name="learn_playlist_title">Слова в подборке</string>
+
+    <string name="playlist_my_words">My Words</string>
 </resources>

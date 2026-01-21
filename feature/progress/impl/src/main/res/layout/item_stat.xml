@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="@dimen/spacing_base"
     android:paddingVertical="@dimen/spacing_sm">
 
     <TextView
@@ -11,30 +12,29 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearanceBody1"
-        app:layout_constraintEnd_toStartOf="@+id/tvTotal"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearanceBody1"
-        android:textStyle="bold"
-        android:layout_marginEnd="@dimen/spacing_sm"
-        app:layout_constraintEnd_toStartOf="@+id/tvPeriod"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:layout_marginTop="@dimen/spacing_xs"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
     <TextView
         android:id="@+id/tvPeriod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/Widget.Grable.TextView.PeriodBadge"
-        android:textAppearance="@style/TextAppearanceCaption"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textAppearance="@style/TextAppearanceBody2"
+        android:layout_marginStart="@dimen/spacing_base"
+        android:layout_marginTop="@dimen/spacing_xs"
+        app:layout_constraintStart_toEndOf="@+id/tvTotal"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

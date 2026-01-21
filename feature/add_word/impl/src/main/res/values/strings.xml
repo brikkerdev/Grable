@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">impl</string>
+    <string name="add_word_title">Нашли новое слово? Добавьте его в свой словарь для заучивания!</string>
+    <string name="add_word_playlist_hint">Категория</string>
+    <string name="add_word_original_hint">Слово</string>
+    <string name="add_word_translation_hint">Перевод</string>
+    <string name="add_word_transcription_hint">Транскрипция (необязательно)</string>
+    <string name="add_word_example_hint">Пример (необязательно)</string>
+    <string name="add_word_example_translation_hint">Перевод примера (необязательно)</string>
+    <string name="add_word_button_save">Добавить слово</string>
+    <string name="add_word_error_required">Заполните слово и перевод</string>
+    <string name="add_word_success">Слово успешно добавлено!</string>
 </resources>

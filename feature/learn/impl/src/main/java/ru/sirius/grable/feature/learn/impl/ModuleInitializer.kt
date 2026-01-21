@@ -52,7 +52,7 @@ val learnModule = module {
     
     // Data layer
     factory {
-        WordsRepository(get(), get())
+        WordsRepository(get(), get(), get(), get())
     }
     
     // Domain layer

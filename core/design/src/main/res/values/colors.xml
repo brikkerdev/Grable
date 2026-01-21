@@ -66,4 +66,9 @@
     <color name="overlay_again">#80FF5252</color>
     <color name="overlay_good">#804CAF50</color>
     <color name="overlay_hard">#80FFC107</color>
+    
+    <!-- Word status colors -->
+    <color name="word_status_new">#BDBDBD</color>
+    <color name="word_status_learning">#FF9800</color>
+    <color name="word_status_learned">#4CAF50</color>
 </resources>

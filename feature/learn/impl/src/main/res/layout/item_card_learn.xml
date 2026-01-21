@@ -35,7 +35,7 @@
                     android:id="@+id/frontWord"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TextAppearanceHeadline1"
+                    android:textAppearance="@style/TextAppearanceHeadline1"
                     android:layout_marginBottom="@dimen/spacing_sm"
                     android:gravity="center"
                     tools:text="Hello" />
@@ -44,19 +44,19 @@
                     android:id="@+id/frontTranscription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TextAppearanceBody1Secondary"
+                    android:textAppearance="@style/TextAppearanceBody1Secondary"
                     android:layout_marginBottom="@dimen/spacing_2xl"
                     android:gravity="center"
                     tools:text="[həˈloʊ]" />
 
                 <ImageButton
                     android:id="@+id/btnAudio"
+                    style="@style/Widget.Grable.IconButton.Borderless"
                     android:layout_width="@dimen/icon_xl"
                     android:layout_height="@dimen/icon_xl"
                     android:contentDescription="@string/learn_play_sound"
-                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@android:drawable/ic_lock_silent_mode_off"
-                    app:tint="?attr/colorPrimary" />
+                    app:tint="@color/primary" />
 
             </LinearLayout>
 
@@ -76,8 +76,7 @@
                     android:id="@+id/backTranslation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TextAppearanceHeadline2"
-                    android:textColor="?attr/colorPrimary"
+                    android:textAppearance="@style/TextAppearanceHeadline2Primary"
                     android:layout_marginBottom="@dimen/spacing_base"
                     android:gravity="center"
                     tools:text="Привет" />
@@ -86,7 +85,7 @@
                     android:id="@+id/backOriginal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TextAppearanceBody1Secondary"
+                    android:textAppearance="@style/TextAppearanceBody1Secondary"
                     android:layout_marginBottom="@dimen/spacing_2xl"
                     android:gravity="center"
                     tools:text="Hello" />
@@ -95,7 +94,7 @@
                     android:id="@+id/backExample"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/TextAppearanceBody1"
+                    android:textAppearance="@style/TextAppearanceBody1"
                     android:gravity="center"
                     android:maxLines="3"
                     android:ellipsize="end"
@@ -107,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/learn_mark_as_known"
-                    style="@style/Widget.Material3.Button.OutlinedButton" />
+                    style="@style/Widget.Grable.Button.Outlined.Small" />
 
             </LinearLayout>
 
@@ -138,8 +137,7 @@
                 android:layout_marginStart="@dimen/spacing_3xl"
                 android:layout_marginTop="@dimen/spacing_3xl"
                 android:text="@string/learn_swipe_left"
-                style="@style/TextAppearanceHeadline2"
-                android:textColor="@android:color/white" />
+                android:textAppearance="@style/TextAppearanceOverlay" />
 
         </FrameLayout>
 
@@ -168,8 +166,7 @@
                 android:layout_marginEnd="@dimen/spacing_3xl"
                 android:layout_marginTop="@dimen/spacing_3xl"
                 android:text="@string/learn_swipe_right"
-                style="@style/TextAppearanceHeadline2"
-                android:textColor="@android:color/white" />
+                android:textAppearance="@style/TextAppearanceOverlay" />
 
         </FrameLayout>
 
@@ -196,8 +193,7 @@
                 android:layout_gravity="center_horizontal|top"
                 android:layout_marginTop="120dp"
                 android:text="@string/learn_swipe_up"
-                style="@style/TextAppearanceHeadline2"
-                android:textColor="@android:color/white" />
+                android:textAppearance="@style/TextAppearanceOverlay" />
 
         </FrameLayout>
 

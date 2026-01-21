@@ -10,5 +10,11 @@
     
     <string name="notification_channel_name">Review Reminders</string>
     <string name="notification_channel_description">Notifications about words that are due for review</string>
+    
+    <string name="nav_home">Home</string>
+    <string name="nav_add_word">Add</string>
+    <string name="nav_stats">Statistics</string>
+    <string name="nav_settings">Settings</string>
+    
 </resources>
 

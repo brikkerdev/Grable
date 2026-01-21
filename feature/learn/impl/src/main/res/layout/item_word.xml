@@ -14,13 +14,23 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/card_padding_compact">
 
+        <View
+            android:id="@+id/statusIndicator"
+            android:layout_width="@dimen/spacing_xs"
+            android:layout_height="0dp"
+            android:background="@color/surface"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <TextView
             android:id="@+id/originalWord"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/TextAppearanceWordOriginal"
+            android:layout_marginStart="@dimen/spacing_base"
+            android:textAppearance="@style/TextAppearanceWordOriginal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/statusIndicator"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Text" />
 
@@ -29,12 +39,22 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_xs"
+            android:layout_marginStart="@dimen/spacing_base"
             android:textAppearance="@style/TextAppearanceBody1Secondary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/statusLabel"
+            app:layout_constraintStart_toEndOf="@+id/statusIndicator"
             app:layout_constraintTop_toBottomOf="@+id/originalWord"
-            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Текст" />
+
+        <TextView
+            android:id="@+id/statusLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_sm"
+            android:textAppearance="@style/TextAppearanceCaption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/translation"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

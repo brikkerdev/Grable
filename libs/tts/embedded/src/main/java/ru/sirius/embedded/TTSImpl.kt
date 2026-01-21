@@ -256,7 +256,7 @@ class TTSImpl(
 
     override fun setVoice(voiceType: String) {
         val pitch = when (voiceType.lowercase()) {
-            "male" -> 0.8f  // Более низкий голос
+            "male" -> 0.5f  // Более низкий голос
             "female" -> 1.2f  // Более высокий голос
             else -> 1.0f  // По умолчанию
         }

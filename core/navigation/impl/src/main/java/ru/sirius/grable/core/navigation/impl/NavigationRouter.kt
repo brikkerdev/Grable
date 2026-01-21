@@ -15,6 +15,16 @@ class NavigationRouter(
 ) : NavigationRouterApi {
     
     private var navigationListener: ((Screens) -> Unit)? = null
+    private var currentScreenQualifier: String? = null
+    
+    init {
+        fragmentManager.addOnBackStackChangedListener {
+            val backStackEntryCount = fragmentManager.backStackEntryCount
+            if (backStackEntryCount == 0) {
+                currentScreenQualifier = null
+            }
+        }
+    }
     
     override fun setNavigationListener(listener: ((Screens) -> Unit)?) {
         navigationListener = listener
@@ -30,6 +40,9 @@ class NavigationRouter(
     }
     
     override fun navigateToScreenByQualifier(qualifier: String, arguments: Bundle?) {
+        val isSameScreen = currentScreenQualifier == qualifier
+        currentScreenQualifier = qualifier
+        
         val fragmentProvider: FragmentProvider? = try {
             get(FragmentProvider::class.java, named(qualifier)) as FragmentProvider
         } catch (e: Exception) {
@@ -48,13 +61,18 @@ class NavigationRouter(
             fragmentType?.let { createFragmentFromClass(it, arguments) } ?: return
         }
 
-        fragmentManager.beginTransaction()
-            .setCustomAnimations(
-                android.R.anim.slide_in_left,
-                android.R.anim.fade_out,
-                android.R.anim.fade_in,
-                android.R.anim.slide_out_right
+        val transaction = fragmentManager.beginTransaction()
+        
+        if (!isSameScreen) {
+            transaction.setCustomAnimations(
+                ru.sirius.grable.core.navigation.impl.R.anim.slide_in_right,
+                ru.sirius.grable.core.navigation.impl.R.anim.slide_out_left,
+                ru.sirius.grable.core.navigation.impl.R.anim.slide_in_left,
+                ru.sirius.grable.core.navigation.impl.R.anim.slide_out_right
             )
+        }
+        
+        transaction
             .replace(containerId, fragment, null)
             .addToBackStack(null)
             .commitAllowingStateLoss()
@@ -85,10 +103,10 @@ class NavigationRouter(
     override fun navigateToFragment(fragment: Fragment) {
         fragmentManager.beginTransaction()
             .setCustomAnimations(
-                android.R.anim.slide_in_left,
-                android.R.anim.fade_out,
-                android.R.anim.fade_in,
-                android.R.anim.slide_out_right
+                ru.sirius.grable.core.navigation.impl.R.anim.slide_in_right,
+                ru.sirius.grable.core.navigation.impl.R.anim.slide_out_left,
+                ru.sirius.grable.core.navigation.impl.R.anim.slide_in_left,
+                ru.sirius.grable.core.navigation.impl.R.anim.slide_out_right
             )
             .replace(containerId, fragment, null)
             .addToBackStack(null)
